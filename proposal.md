@@ -19,11 +19,12 @@
 * TensorFlow
 
 ## Timeline:
-* Everyone will get familiar with python and unity to a certain extend
+* Everyone will get familiar with python and unity to a certain extent
 * Familiarizing ourselves with the Unity library
 * Watching videos about neural networks and genetic algorithms
 
 ## Back up ideas:
 * BlockChain, making a crypto
+* Machine Learning to recognize handwriting
 * Sports analyzer (who will win?)
 * Something related to food, input preferences when you sign up to determine where you are to figure where you should eat with machine learning and recommendations
