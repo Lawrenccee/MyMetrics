@@ -28,3 +28,4 @@
 * Machine Learning to recognize handwriting
 * Sports analyzer (who will win?)
 * Something related to food, input preferences when you sign up to determine where you are to figure where you should eat with machine learning and recommendations
+* Mobile app where you can battle each other and it also has microtransactions
