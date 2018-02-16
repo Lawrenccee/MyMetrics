@@ -19,7 +19,7 @@
 * TensorFlow
 
 ## Timeline:
-* Everyone will get familiar with python and unity to a certain extent
+* Everyone will get familiar with python and unity to a certain extent (https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Getting-Started-with-Balance-Ball.md)
 * Familiarizing ourselves with the Unity library
 * Watching videos about neural networks and genetic algorithms
 
