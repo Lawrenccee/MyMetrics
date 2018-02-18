@@ -67,7 +67,7 @@ The main focus of a hospital is to prevent people from dying. One of the most pr
 **Albert Shin**,
 **Eddy Shin**,
 **Lawrence Guintu**,
-**Sam Chia**,
+**Sam Chia**
 
 ### Day 1
   - Backend
