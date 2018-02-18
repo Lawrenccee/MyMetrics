@@ -75,7 +75,7 @@ The main focus of a hospital is to prevent people from dying. One of the most pr
     - Simple user auth/doctor verification **EDDY**
   - Frontend
     - Simple Login and wireframes **ALBERT**
-    - Find state manager, tutorials, and design state **Lawrence**
+    - Find state manager, tutorials, and design state **LAWRENCE**
   - Framework should be set up **GROUP**
 
 ### Day 2
