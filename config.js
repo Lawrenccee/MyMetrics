@@ -1,0 +1,1 @@
+export const mongoDBKey = 'mongodb://mongo_tester:mongotest123@ds123658.mlab.com:23658/mongo_test';

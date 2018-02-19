@@ -1,0 +1,26 @@
+{
+  "name": "MyMetrics",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel lib -d dist --presets env,stage-2",
+    "serve": "node dist/app.js",
+    "start": "nodemon lib/app.js --exec babel-node --presets env,stage-2"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongoose": "^5.0.6"
+  },
+  "devDependencies": {
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "nodemon": "^1.4.1"
+  }
+}
