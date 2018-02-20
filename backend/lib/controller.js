@@ -1,7 +1,7 @@
 //This controller file is not actually used in passport logic, but will be
 //present in any practical application and is helpful for testing
 
-import pg from 'pg';
+// import pg from 'pg';
 import { connectionString } from './util.js';
 
 export const getAllUsers = (req, res) => {

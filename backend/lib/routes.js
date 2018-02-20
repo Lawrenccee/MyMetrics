@@ -15,7 +15,7 @@ export const routerConfig = (app, passport) => {
 
   //login route
   app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/login.html'));
+    res.sendFile(path.join(__dirname, '../../frontend/index.html'));
   });
 
   //protected profile route. Try it in your browser when logged out.

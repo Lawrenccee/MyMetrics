@@ -1,4 +1,4 @@
-import pg from 'pg';
+// import pg from 'pg';
 import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
 import { connectionString, googleConfig } from './util.js';
 

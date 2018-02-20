@@ -31,5 +31,5 @@ routerConfig(app, passport);
 
 //serves API endpoints at http://localhost:3000
 app.listen(3000, () => {
-  console.log('Example app listening on port 3000!');
+  console.log('Listening on port 3000!');
 });
