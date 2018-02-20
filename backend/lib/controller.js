@@ -2,27 +2,36 @@
 //present in any practical application and is helpful for testing
 
 // import pg from 'pg';
-import { connectionString } from './util.js';
+// import { connectionString } from './util.js';
+import mongoose from 'mongoose';
+import { userSchema } from './schema.js';
+
 
 export const getAllUsers = (req, res) => {
-  const client = new pg.Client(connectionString);
-  client.connect(err => {
-    client.query("SELECT * FROM users")
-      .then(data => {
-        res.status(200).json({ users: data.rows });
-        client.end();
-      })
-  });
+  mongoose.connect(process.env.MONGODB_URI).then(
+    () => {
+      let User = mongoose.model("User", userSchema);
+      User.find((err, users) => {
+        res.send(users);
+      });
+    },
+    err => {
+      console.log(err);
+    }
+  );
 };
 
 export const fetchUser = (req, res) => {
-  const client = new pg.Client(connectionString);
-  const { userId } = req.params;
-  client.connect(err => {
-    client.query(`SELECT * FROM users WHERE id=\'${userId}\'`) //very important to use single quotes for userId
-      .then(data => {
-        res.status(200).json({ user: data.rows[0] });
-        client.end();
+  mongoose.connect(process.env.MONGODB_URI).then(
+    () => {
+      let User = mongoose.model("User", userSchema);
+      const { email } = req.params;
+      User.findOne({ email }, (err, users) => {
+        res.send(users)
       });
-  });
+    },
+    err => {
+      console.log(err);
+    }
+  );
 };

@@ -5,6 +5,8 @@ import session from 'express-session';
 import { passportConfig } from './passport.js';
 import { routerConfig } from './routes.js';
 
+require('dotenv').config();
+
 //start the train
 const app = express();
 

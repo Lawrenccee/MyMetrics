@@ -11,7 +11,7 @@ const isLoggedIn = (req, res, next) => {
 export const routerConfig = (app, passport) => {
   //use these to test that it's working
   app.get('/api/users', controller.getAllUsers);
-  app.get('/api/users/:userId', controller.fetchUser);
+  app.get('/api/users/:email', controller.fetchUser);
 
   //login route
   app.get('/', (req, res) => {
