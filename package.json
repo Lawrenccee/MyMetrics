@@ -2,11 +2,11 @@
   "name": "MyMetrics",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel lib -d dist --presets env,stage-2",
-    "serve": "node dist/app.js",
+    "serve": "node dist/server.js",
     "start": "nodemon backend/lib/server.js --exec babel-node --presets env,stage-2"
   },
   "keywords": [],
