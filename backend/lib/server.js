@@ -22,6 +22,8 @@ app.use(session({
   resave: false,
 }));
 
+app.use(express.static('frontend'));
+
 //connects passport to key functions needed to communicate with the session and with Google,
 //then connects passport to app
 passportConfig(passport);
