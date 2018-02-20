@@ -1,10 +1,30 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    Hello
-  </body>
+<html lang="en" ng-app='myMetricsApp'>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="google-signin-client_id" content="50422910844-k6mahl2eal1ntpnoeunbevg753o5f5i0.apps.googleusercontent.com">  
+  <base href="/">
+
+  <title>MyMetrics</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
+  <!-- <link rel="stylesheet" href="css/style.css"> -->
+  <!-- custom styles -->
+
+  <!-- JS -->
+  <script src="libs/angular/angular.min.js"></script>
+  <script src="libs/angular-route/angular-route.min.js"></script>
+
+  <!-- ANGULAR CUSTOM -->
+  <script src="app.module.js"></script>
+  <script src="session/log-in.module.js"></script>
+  <script src="session/log-in.component.js"></script>
+</head>
+
+<body>
+  <log-in></log-in>
+</body>
+
 </html>

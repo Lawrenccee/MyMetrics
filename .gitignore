@@ -6,3 +6,4 @@ bundle.js.map
 npm-debug.log
 dist
 util.js
+frontend/libs/
