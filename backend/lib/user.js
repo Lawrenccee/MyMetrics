@@ -76,7 +76,4 @@ UserSchema.methods.comparePassword = function(candidatePassword, cb) {
 };
 
 export const User = mongoose.model('User', UserSchema);
-<<<<<<< HEAD
-=======
 export const Log = mongoose.model('Log', LogSchema);
->>>>>>> patient_view_data_test
