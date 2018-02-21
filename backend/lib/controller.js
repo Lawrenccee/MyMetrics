@@ -1,16 +1,10 @@
-//This controller file is not actually used in passport logic, but will be
-//present in any practical application and is helpful for testing
-
-// import pg from 'pg';
-// import { connectionString } from './util.js';
 import mongoose from 'mongoose';
-import { userSchema } from './schema.js';
+import { User } from './user.js';
 
 
 export const getAllUsers = (req, res) => {
   mongoose.connect(process.env.MONGODB_URI).then(
     () => {
-      let User = mongoose.model("User", userSchema);
       User.find((err, users) => {
         res.send(users);
       });
@@ -24,10 +18,9 @@ export const getAllUsers = (req, res) => {
 export const fetchUser = (req, res) => {
   mongoose.connect(process.env.MONGODB_URI).then(
     () => {
-      let User = mongoose.model("User", userSchema);
       const { email } = req.params;
       User.findOne({ email }, (err, users) => {
-        res.send(users)
+        res.send(users);
       });
     },
     err => {
@@ -39,13 +32,18 @@ export const fetchUser = (req, res) => {
 export const createUser = (req, res) => {
   mongoose.connect(process.env.MONGODB_URI).then(
     () => {
-      let User = mongoose.model("User", userSchema);
-      User.create(req.body.user, (err) => {
-        res.send(err);
+      let user = new User(req.body.user);
+      User.findOne({ email: 'test0@test.com' }, (err, u) => {
+        user.patients.push(u);
+        user.save().then(r => res.send(r), err => res.send(err));
       });
+      // User.create(user, (err, u) => {
+      //   if (err) res.send(err);
+      //   if (u) res.send(u);
+      // })
     },
     err => {
       res.send(err);
     }
-  )
+  );
 };
