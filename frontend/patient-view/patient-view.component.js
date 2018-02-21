@@ -8,7 +8,11 @@ angular.
       // set user to that user so we can show it in the html
       // for now it will be a fake user
       this.patient = {
-        name: "Sam Uchiha"
+        name: "Sam Uchiha",
+        weight: 130,
+        sodium: 5,
+        fluid: 2,
+        stage: "5"
       };
 
       this.date = new Date();
