@@ -2,10 +2,10 @@ angular.
   module('logIn').
   component('logIn', {
     templateUrl: 'session/log-in.template.html',
-    controller: function($scope) {
+    controller: function() {
 
-      $scope.sendUser = () => {
-        console.log($scope.user);
+      this.sendUser = () => {
+        console.log(this.user);
       };
     }
   });
