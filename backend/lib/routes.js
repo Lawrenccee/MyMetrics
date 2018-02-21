@@ -12,11 +12,11 @@ export const routerConfig = (app, passport) => {
 
   app.route('/api/users')
     .get(controller.getAllUsers)
-    .post(controller.createUser)
+    .post(controller.createUser);
 
   app.route('/api/users/:id')
     .get(controller.fetchUser)
-    .put(controller.updateUser)
+    .put(controller.updateUser);
 
 
   // app.get('/api/users', controller.getAllUsers);
