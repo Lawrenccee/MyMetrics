@@ -4,8 +4,10 @@ import bcrypt from 'bcrypt-nodejs';
 const Schema = mongoose.Schema;
 
 export const logSchema = new Schema ({
-  time: Number,
-  value: String
+  value: {
+    type: String,
+    timestamps: true
+  }
 });
 
 export const UserSchema = new Schema({
