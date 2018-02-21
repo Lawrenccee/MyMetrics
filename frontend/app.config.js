@@ -4,24 +4,25 @@
 // path. (e.g index.html#!/some/path)
 // This is not necessary but considered good practice. and 
 // '!' is the most commonly used prefix.
+angular.
+    module('myMetricsApp').
+    config(['$locationProvider', '$routeProvider',
+        function config($locationProvider, $routeProvider) {
+            $locationProvider.hashPrefix('!');
 
-
-// angular.
-//     module('myMetricsApp').
-//     config(['$locationProvider', '$routeProvider',
-//         function config($locationProvider, $routeProvider) {
-//             $locationProvider.hashPrefix('!');
-
-//             $routeProvider.
-//                 when('/route', {
-//                     template: '<ourtemplate></ourtemplate>'
-//                 }).
-//                 when('/anotherRoute', {
-//                     template: '<anotherTemplate></anotherTemplate'
-//                 }).
-//                 otherwise('/defaultview');
-//         }
-//     ]);
+            $routeProvider.
+                when('/doctorsignup', {
+                    template: '<ourtemplate></ourtemplate>'
+                }).
+                when('/patientsignup', {
+                    template: '<anotherTemplate></anotherTemplate'
+                }).
+                when('/login', {
+                    template: '<log-in></log-in>'
+                }).
+                otherwise('/#!');
+        }
+    ]);
 
 
 
