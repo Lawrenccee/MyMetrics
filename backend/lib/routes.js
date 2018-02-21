@@ -10,9 +10,18 @@ import path from 'path';
 
 export const routerConfig = (app, passport) => {
 
-  app.get('/api/users', controller.getAllUsers);
+  app.route('/api/users')
+    .get(controller.getAllUsers)
+    .post(controller.createUser)
+
+  app.route('/api/users/:id')
+    .get(controller.fetchUser)
+    .put(controller.updateUser)
+
+
+  // app.get('/api/users', controller.getAllUsers);
+  // app.post('/api/users', controller.createUser);
   app.get('/api/users/:email', controller.fetchUser);
-  app.post('/api/users', controller.createUser);
 
   //login route
   // app.get('/', (req, res) => {
@@ -53,5 +62,3 @@ export const routerConfig = (app, passport) => {
   // );
 
 };
-
-
