@@ -1,6 +1,11 @@
 import mongoose from 'mongoose';
 let Schema = mongoose.Schema;
 
+export const logSchema = new Schema ({
+  time: Number,
+  value: String
+});
+
 export const userSchema = new Schema({
   email: {
     type: String,
@@ -28,14 +33,12 @@ export const userSchema = new Schema({
   sodiumLog: [logSchema],
   fluidLog: [logSchema],
   symptoms: [logSchema],
-  medications: [Strings],
+  medications: [String],
   doc_email: String,
   license: String,
   hospital: String,
-  patients: [this]
-});
-
-export const logSchema = new Schema ({
-  time: Number,
-  value: String
+  patients: [{
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }]
 });

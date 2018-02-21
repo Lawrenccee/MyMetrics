@@ -13,6 +13,7 @@ export const routerConfig = (app, passport) => {
   app.get('/api/users', controller.getAllUsers);
   app.get('/api/users/:email', controller.fetchUser);
 
+  app.post('/api/users', controller.createUser);
   //login route
   app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../../frontend/index.html'));
