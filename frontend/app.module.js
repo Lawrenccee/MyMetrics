@@ -1,2 +1,2 @@
-angular.module('myMetricsApp', ['ngRoute', 'logIn']);
+angular.module('myMetricsApp', ['ngRoute', 'logIn', 'patientSignUp', 'doctorSignUp']);
 

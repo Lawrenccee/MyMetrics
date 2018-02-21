@@ -1,0 +1,53 @@
+<div>
+  Doctor Sign Up
+  <a href="#!/patientsignup">Are you a Patient? Sign up here</a>
+
+  <form ng-submit='$ctrl.sendUser()'>
+    <div>
+
+      <div>
+
+        <div>
+
+          <label>Email:
+            <input type="text" ng-model="$ctrl.user.email">
+          </label>
+
+          <label>Password:
+            <input type="password" ng-model="$ctrl.user.password">
+          </label>
+
+          <label>Confirm Password:
+            <input type="password" ng-model="$ctrl.user.confirm_password">
+          </label>
+
+        </div>
+
+        <div>
+
+          <label>Name:
+            <input type="text" ng-model="$ctrl.user.name">
+          </label>
+
+          <label>License #:
+            <input type="text" ng-model="$ctrl.user.license">
+          </label>
+
+          <label>Hospital:
+            <input type="text" ng-model="$ctrl.user.hospital">
+          </label>
+
+        </div>
+
+      </div>
+
+      <div>
+        <a href="#!/login">Already Signed Up? Log In</a>
+        <input type="submit" value="Sign Up">
+      </div>
+
+    </div>
+
+
+  </form>
+</div>

@@ -2,25 +2,76 @@ const mongoose = require('mongoose'),
       Schema = mongoose.Schema,
       bcrypt = require('bcrypt-nodejs');
 
-const UserSchema = new Schema(
-  {
-    email: {
-      type: String,
-      lowercase: true,
-      unique: true,
-      required: true
+// const UserSchema = new Schema(
+//   {
+//     email: {
+//       type: String,
+//       lowercase: true,
+//       unique: true,
+//       required: true
+//     },
+//     password: {
+//       type: String,
+//       required: true
+//     },
+//     name: { type: String }
+//     // resetPasswordToken: { type: String },
+//     // resetPasswordExpires: { type: Date }
+//   },
+//   {
+//     timestamps: true
+//   }
+// );
+
+export const logSchema = new Schema ({
+  time: Number,
+  value: String
+});
+
+export const UserSchema = new Schema({
+  email: {
+    type: String,
+    validate: {
+      validator: (v) => {
+        const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return emailRegex.test(v);
+      },
+      message: 'Valid email address is required'
     },
-    password: {
-      type: String,
-      required: true
-    },
-    name: { type: String }
-    // resetPasswordToken: { type: String },
-    // resetPasswordExpires: { type: Date }
+    unique: true,
+    index: true,
+    lowercase: true,
+    required: [true, "Valid email address is required"]
   },
-  {
-    timestamps: true
-  }
+  name: {
+    type: String,
+    required: [true, "Name is required"]
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  dob: {
+    type: String,
+    required: [true, "Date of birth is required"]
+  },
+  stage: Number,
+  weightLog: [logSchema],
+  sodiumLog: [logSchema],
+  fluidLog: [logSchema],
+  symptoms: [logSchema],
+  medications: [String],
+  doc_email: String,
+  license: String,
+  hospital: String,
+  patients: [{
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }]
+},
+{
+  timestamps: true
+}
 );
 
 UserSchema.pre('save', function(next) {

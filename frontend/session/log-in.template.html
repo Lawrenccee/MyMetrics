@@ -1,12 +1,17 @@
 <div>
   Log In
-  <form ng-submit='sendUser()'>
+  <form ng-submit='$ctrl.sendUser()'>
+
     <label>Email:
-      <input type="text" ng-model="user.email">
+      <input type="text" ng-model="$ctrl.user.email">
     </label>
+
     <label>Password:
-      <input type="password" ng-model="user.password">
+      <input type="password" ng-model="$ctrl.user.password">
     </label>
-    <input type="submit" ng-model="user">
+
+    <input type="submit" ng-model="$ctrl.user">
+
+    <a href='#!/patientsignup'>Don't have an account? Sign Up</a>
   </form>
 </div>
