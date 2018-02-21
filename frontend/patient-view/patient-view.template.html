@@ -7,7 +7,7 @@
     <div class="name-stage">
       <div class="name-date">
         <div class="name">
-          {{$ctrl.user.name}}
+          {{$ctrl.patient.name}}
         </div>
 
         <div class="date">
@@ -17,7 +17,7 @@
 
       <div class="stage">
         <label>Stage:
-          <select name="stage" id="">
+          <select name="stage" ng-model="$ctrl.patient.stage">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -34,15 +34,15 @@
 
       <form>
         <label>Weight:
-          <input type="text">
+          <input type="number" ng-model="$ctrl.patient.weight">
         </label>
 
         <label>Sodium Intake:
-          <input type="text">
+          <input type="number" ng-model="$ctrl.patient.sodium">
         </label>
 
         <label>Fluid Intake:
-          <input type="text">
+          <input type="number" ng-model="$ctrl.patient.fluid">
         </label>
       </form>
     </div>
@@ -75,6 +75,8 @@
         </textarea>      
       </div>
     </div>
+
+    <button ng-click="$ctrl.updatePatient()">SUBMIT</button>
   </div>
 
   <div class="right">

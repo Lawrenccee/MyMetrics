@@ -7,10 +7,14 @@ angular.
 
       // set user to that user so we can show it in the html
       // for now it will be a fake user
-      this.user = {
+      this.patient = {
         name: "Sam Uchiha"
       };
 
       this.date = new Date();
+
+      this.updatePatient = () => {
+        console.log(this.patient);
+      };
     }
   });
