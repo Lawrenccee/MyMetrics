@@ -5,7 +5,7 @@ angular.
     controller: function(UserService) {
 
       this.sendUser = () => {
-        UserService.store(this.user);
+        UserService.setStore(this.user);
         console.log(this.user);
       };
     }
