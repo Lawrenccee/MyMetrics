@@ -3,6 +3,7 @@ angular.
   component('patientSignUp', {
     templateUrl: 'session/patient-sign-up.template.html',
     controller: function ($http) {
+
       this.sendUser = () =>
         (
           $http({
@@ -10,6 +11,6 @@ angular.
             url: '/api/users',
             data: { user: this.user }
           }).then(r => console.log(r))
-        )
+        );
       }
     });

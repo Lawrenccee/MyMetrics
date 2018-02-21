@@ -1,0 +1,105 @@
+<div class="patient-view">
+  <div class="left">
+    <div class="HEADER">
+      <h1>MyMetrics</h1>
+    </div>
+
+    <div class="name-stage">
+      <div class="name-date">
+        <div class="name">
+          {{$ctrl.patient.name}}
+        </div>
+
+        <div class="date">
+          <input type="date" ng-model="$ctrl.date">
+        </div>
+      </div>
+
+      <div class="stage">
+        <label>Stage:
+          <select name="stage" ng-model="$ctrl.patient.stage">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </label>
+      </div>
+      
+    </div>
+
+    <div class="metrics">
+      <h2>Metrics</h2>
+
+      <form>
+        <label>Weight:
+          <input type="number" ng-model="$ctrl.patient.weight">
+        </label>
+
+        <label>Sodium Intake:
+          <input type="number" ng-model="$ctrl.patient.sodium">
+        </label>
+
+        <label>Fluid Intake:
+          <input type="number" ng-model="$ctrl.patient.fluid">
+        </label>
+      </form>
+    </div>
+
+    <div class="symptoms-medications">
+      <div class="symptoms">
+        <h2>Symptoms</h2>
+
+        <label>
+          <input type="checkbox" value="symptom1"> Symptom 1
+        </label>
+
+        <label>
+          <input type="checkbox" value="symptom2"> Symptom 2
+        </label>
+
+        <label>
+          <input type="checkbox" value="symptom3"> Symptom 3
+        </label>
+
+        <label>
+          <input type="checkbox" value="symptom4"> Symptom 4
+        </label>
+      </div>
+
+      <div class="medications">
+        <h2>Medications</h2>
+        <textarea name="" id="" cols="30" rows="10">
+
+        </textarea>      
+      </div>
+    </div>
+
+    <button ng-click="$ctrl.updatePatient()">SUBMIT</button>
+  </div>
+
+  <div class="right">
+    <div class="warnings-appointment-logout-graph">
+      <div class="warnings-appointment-logout">
+        <div class="warnings" ng-if="$ctrl.warnings">
+          SOMETHING ABOUT WARNINGS
+        </div>
+        
+        <div class="appointment">
+          <label>Next Appointment:
+            <input type="date" ng-model="$ctrl.date">
+          </label>
+        </div>
+
+        <div class="logout">
+          <button>Logout</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="graph">
+      PUT HIGHCHARTS STUFF IN HERE
+    </div>
+  </div>
+</div>
