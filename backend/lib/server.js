@@ -12,7 +12,7 @@ const app = express();
 
 // //when we make requests with forms, we want to have the data sent in a body attribute
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(bodyParser.json());
 //session middleware necessary to save and persists a users login session
 //the session key can be whatever you want, and the other two values are required defaults
 //docs: https://github.com/expressjs/session
