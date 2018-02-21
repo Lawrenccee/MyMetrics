@@ -12,10 +12,10 @@ angular.
 
             $routeProvider.
                 when('/doctorsignup', {
-                    template: '<ourtemplate></ourtemplate>'
+                    template: '<doctor-sign-up></doctor-sign-up>'
                 }).
                 when('/patientsignup', {
-                    template: '<anotherTemplate></anotherTemplate'
+                    template: '<patient-sign-up></patient-sign-up'
                 }).
                 when('/login', {
                     template: '<log-in></log-in>'
