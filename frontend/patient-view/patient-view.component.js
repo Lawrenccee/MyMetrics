@@ -47,7 +47,7 @@ angular.
         UserService.clear();
       };
 
-      // do something for check boxes to add to an array when they are checked, 
+      // do something for check boxes to add to an array when they are checked
       // otherwise remove from patient array
     }
   });
