@@ -32,10 +32,15 @@ export const fetchUser = (req, res) => {
 export const createUser = (req, res) => {
   mongoose.connect(process.env.MONGODB_URI).then(
     () => {
-      User.create(req.body.user, (err, user) => {
-        if (err) res.send(err);
-        if (user) res.send(user);
-      })
+      let user = new User(req.body.user);
+      User.findOne({ email: 'test0@test.com' }, (err, u) => {
+        user.patients.push(u);
+        user.save().then(r => res.send(r), err => res.send(err));
+      });
+      // User.create(user, (err, u) => {
+      //   if (err) res.send(err);
+      //   if (u) res.send(u);
+      // })
     },
     err => {
       res.send(err);
