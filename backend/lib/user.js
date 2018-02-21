@@ -1,12 +1,14 @@
 import mongoose from 'mongoose';
-let Schema = mongoose.Schema;
+import bcrypt from 'bcrypt-nodejs';
+
+const Schema = mongoose.Schema;
 
 export const logSchema = new Schema ({
   time: Number,
   value: String
 });
 
-export const userSchema = new Schema({
+export const UserSchema = new Schema({
   email: {
     type: String,
     validate: {
@@ -18,11 +20,16 @@ export const userSchema = new Schema({
     },
     unique: true,
     index: true,
+    lowercase: true,
     required: [true, "Valid email address is required"]
   },
   name: {
     type: String,
     required: [true, "Name is required"]
+  },
+  password: {
+    type: String,
+    required: true
   },
   dob: {
     type: String,
@@ -41,4 +48,34 @@ export const userSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   }]
+},
+{
+  timestamps: true
+}
+);
+
+UserSchema.pre('save', function(next) {
+
+  const user = this,
+        SALT_FACTOR = 15;
+
+  bcrypt.genSalt(SALT_FACTOR, function(err, salt) {
+    if (err) return next(err);
+
+    bcrypt.hash(user.password, salt, null, function(err, hash) {
+      if (err) return next(err);
+      user.password = hash;
+      next();
+    });
+  });
 });
+
+UserSchema.methods.comparePassword = function(candidatePassword, cb) {
+  bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+    if (err) { return cb(err); }
+
+    cb(null, isMatch);
+  });
+};
+
+export const User = mongoose.model('User', UserSchema);

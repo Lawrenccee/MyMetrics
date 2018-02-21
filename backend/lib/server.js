@@ -26,7 +26,7 @@ app.use(express.static('frontend'));
 
 //connects passport to key functions needed to communicate with the session and with Google,
 //then connects passport to app
-passportConfig(passport);
+// passportConfig(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
