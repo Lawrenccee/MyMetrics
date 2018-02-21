@@ -5,6 +5,5 @@ bundle.js.map
 .DS_Store
 npm-debug.log
 dist
-util.js
 frontend/libs/
 .env
