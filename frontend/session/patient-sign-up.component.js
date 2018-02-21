@@ -9,7 +9,7 @@ angular.
           method: "POST",
           url: '/api/users',
           data: { user: this.user }
-        })
+        }).then(r => console.log(r))
       )
     }
   });

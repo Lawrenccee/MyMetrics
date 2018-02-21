@@ -39,11 +39,11 @@ export const fetchUser = (req, res) => {
 export const createUser = (req, res) => {
   mongoose.connect(process.env.MONGODB_URI).then(
     () => {
-      console.log(req.body);
       let User = mongoose.model("User", userSchema);
-      User.create(req.body.user, (err) => {
-        res.send(err);
-      });
+      User.create(req.body.user, (err, user) => {
+        if (err) res.send(err);
+        if (user) res.send(user);
+      })
     },
     err => {
       res.send(err);
