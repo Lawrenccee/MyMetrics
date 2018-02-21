@@ -1,0 +1,55 @@
+.patient-view {
+  display: flex;
+  flex-direction: row;
+}
+
+.patient-view .left,  .patient-view .right {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.patient-view .name-stage {
+  display: flex;
+  flex-direction: column;
+}
+
+.patient-view .name-date {
+  display: flex;
+  flex-direction: row;
+}
+
+.patient-view .metrics {
+  display: flex;
+  flex-direction: column;
+}
+
+.patient-view .metrics form {
+  display: flex;
+  flex-direction: column;
+}
+
+.patient-view .symptoms-medications {
+  display: flex;
+  flex-direction: row;
+}
+
+.patient-view .symptoms {
+  display: flex;
+  flex-direction: column;
+}
+
+.patient-view .medications {
+  display: flex;
+  flex-direction: column;
+}
+
+.patient-view .warnings-appointment-logout-graph {
+  display: flex;
+  flex-direction: column;
+}
+
+.patient-view .warnings-appointment-logout {
+  display: flex;
+  flex-direction: row;
+}
