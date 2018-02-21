@@ -1,0 +1,86 @@
+<div>
+  <div>
+    <div class="HEADER">
+      <h1>MyMetrics</h1>
+    </div>
+
+    <div class="NAME AND STAGE">
+      <div class="NAMEANDDATE">
+        <div>
+          {{$ctrl.user.name}}
+        </div>
+
+        <div>
+          <input type="date" ng-model="$ctrl.date">
+        </div>
+      </div>
+
+      <div class="STAGE">
+        <label>Stage:
+          <select name="stage" id="">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </label>
+      </div>
+      
+    </div>
+
+    <div class="METRICS">
+      <h2>Metrics</h2>
+
+      <form>
+        <label>Weight:
+          <input type="text">
+        </label>
+
+        <label>Sodium Intake:
+          <input type="text">
+        </label>
+
+        <label>Fluid Intake:
+          <input type="text">
+        </label>
+      </form>
+    </div>
+
+    <div class="SYMPTOMSANDMEDICATIONS">
+      <div class="SYMPTOMS">
+        <h2>Symptoms</h2>
+        <input type="checkbox" value="symptom1">Symptom 1</input>
+        <input type="checkbox" value="symptom2">Symptom 2</input>
+        <input type="checkbox" value="symptom3">Symptom 3</input>
+        <input type="checkbox" value="symptom4">Symptom 4</input>
+      </div>
+
+      <div class="MEDICATIONS">
+        <h2>Medications</h2>
+        <textarea name="" id="" cols="30" rows="10">
+
+        </textarea>      
+      </div>
+    </div>
+  </div>
+
+  <div class="GRAPHCONTAINER">
+    <div>
+      <div class="WARNINGS AND NEXT APPT AND LOGOUT">
+        <div ng-if="$ctrl.warnings">
+          SOMETHING ABOUT WARNINGS
+        </div>
+        
+        <div>
+          <label>Next Appointment:
+            <input type="date" ng-model="$ctrl.date">
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="GRAPHHERE">
+
+    </div>
+  </div>
+</div>

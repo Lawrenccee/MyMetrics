@@ -2,10 +2,18 @@ angular.
   module('patientSignUp').
   component('patientSignUp', {
     templateUrl: 'session/patient-sign-up.template.html',
-    controller: function () {
+    controller: function ($http) {
 
       this.sendUser = () => {
-        console.log(this.user);
+        // $http({
+        //   method: 'POST',
+        //   url: '/api/users',
+        //   headers: {
+        //     "Content-Type": "application/json"
+        //   },
+        //   dataType: 'json',
+        //   data: { user: this.user }
+        // });
       };
     }
   });
