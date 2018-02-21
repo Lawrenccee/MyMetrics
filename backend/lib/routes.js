@@ -1,5 +1,7 @@
 import * as controller from './controller.js';
 import path from 'path';
+import {login} from './session.js';
+// import passport from 'passport';
 
 // const isLoggedIn = (req, res, next) => {
 //   if (req.isAuthenticated()) {
@@ -10,9 +12,28 @@ import path from 'path';
 
 export const routerConfig = (app, passport) => {
 
-  app.get('/api/users', controller.getAllUsers);
-  app.get('/api/users/:email', controller.fetchUser);
-  app.post('/api/users', controller.createUser);
+  app.route('api/users')
+    .get(controller.getAllUsers)
+    .post(controller.createUser);
+
+  app.route('/api/users/:id')
+    .get(controller.fetchUser)
+    // .put(controller.updateUser);
+
+    // If this function gets called, authentication was successful.
+    // `req.user` contains the authenticated user.
+    // res.redirect('/users/' + req.user.username);
+  // });
+
+  app.post('/api/sessions', function(req, res, next ){
+    passport.authenticate('local', function(err, user, info) {
+      if (err) { return next(err); }
+      if (!user) { return res.json( { message: info.message }); }
+      res.json(user);
+    })(req, res, next);
+  });
+
+
 
   //login route
   // app.get('/', (req, res) => {
