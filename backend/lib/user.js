@@ -1,27 +1,7 @@
-const mongoose = require('mongoose'),
-      Schema = mongoose.Schema,
-      bcrypt = require('bcrypt-nodejs');
+import mongoose from 'mongoose';
+import bcrypt from 'bcrypt-nodejs';
 
-// const UserSchema = new Schema(
-//   {
-//     email: {
-//       type: String,
-//       lowercase: true,
-//       unique: true,
-//       required: true
-//     },
-//     password: {
-//       type: String,
-//       required: true
-//     },
-//     name: { type: String }
-//     // resetPasswordToken: { type: String },
-//     // resetPasswordExpires: { type: Date }
-//   },
-//   {
-//     timestamps: true
-//   }
-// );
+const Schema = mongoose.Schema;
 
 export const logSchema = new Schema ({
   time: Number,
@@ -77,7 +57,7 @@ export const UserSchema = new Schema({
 UserSchema.pre('save', function(next) {
 
   const user = this,
-        SALT_FACTOR = 10;
+        SALT_FACTOR = 15;
 
   bcrypt.genSalt(SALT_FACTOR, function(err, salt) {
     if (err) return next(err);

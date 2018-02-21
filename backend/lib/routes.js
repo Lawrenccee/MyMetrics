@@ -1,12 +1,12 @@
 import * as controller from './controller.js';
 import path from 'path';
 
-const isLoggedIn = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/');
-};
+// const isLoggedIn = (req, res, next) => {
+//   if (req.isAuthenticated()) {
+//     return next();
+//   }
+//   res.redirect('/');
+// };
 
 export const routerConfig = (app, passport) => {
 
@@ -14,7 +14,6 @@ export const routerConfig = (app, passport) => {
   app.get('/api/users/:email', controller.fetchUser);
   app.post('/api/users', controller.createUser);
 
-  app.post('/api/users', controller.createUser);
   //login route
   // app.get('/', (req, res) => {
   //   res.sendFile(path.join(__dirname, '../../frontend/index.html'));

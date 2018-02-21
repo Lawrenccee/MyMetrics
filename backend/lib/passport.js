@@ -1,6 +1,5 @@
 import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
 import mongoose from 'mongoose';
-// import { userSchema } from './schema.js';
 import { User } from './user.js';
 import passport from 'passport';
 import LocalStrategy from 'passport-local';

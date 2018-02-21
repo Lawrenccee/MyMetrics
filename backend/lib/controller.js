@@ -2,10 +2,7 @@ import mongoose from 'mongoose';
 import { User } from './user.js';
 
 
-
-
 export const getAllUsers = (req, res) => {
-  // let User = mongoose.model("User", userSchema);
   mongoose.connect(process.env.MONGODB_URI).then(
     () => {
       User.find((err, users) => {
@@ -19,7 +16,6 @@ export const getAllUsers = (req, res) => {
 };
 
 export const fetchUser = (req, res) => {
-  // let User = mongoose.model("User", userSchema);
   mongoose.connect(process.env.MONGODB_URI).then(
     () => {
       const { email } = req.params;
@@ -36,8 +32,6 @@ export const fetchUser = (req, res) => {
 export const createUser = (req, res) => {
   mongoose.connect(process.env.MONGODB_URI).then(
     () => {
-      console.log(req.body.user);
-      console.log(User.password);
       User.create(req.body.user, (err) => {
         res.send(err);
       });
