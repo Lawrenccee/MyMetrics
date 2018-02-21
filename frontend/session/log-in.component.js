@@ -5,6 +5,11 @@ angular.
     controller: function($scope) {
       $scope.sendUser = () => {
         console.log($scope.user);
+        $.ajax({
+          method: 'POST',
+          url: 'api/users',
+          data: {user: $scope.user}
+        });
       };
     }
   });

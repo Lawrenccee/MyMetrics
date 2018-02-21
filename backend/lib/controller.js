@@ -7,10 +7,13 @@ import mongoose from 'mongoose';
 import { userSchema } from './schema.js';
 
 
+
+
+
 export const getAllUsers = (req, res) => {
+  let User = mongoose.model("User", userSchema);
   mongoose.connect(process.env.MONGODB_URI).then(
     () => {
-      let User = mongoose.model("User", userSchema);
       User.find((err, users) => {
         res.send(users);
       });
@@ -22,12 +25,29 @@ export const getAllUsers = (req, res) => {
 };
 
 export const fetchUser = (req, res) => {
+  let User = mongoose.model("User", userSchema);
   mongoose.connect(process.env.MONGODB_URI).then(
     () => {
-      let User = mongoose.model("User", userSchema);
       const { email } = req.params;
       User.findOne({ email }, (err, users) => {
-        res.send(users)
+        res.send(users);
+      });
+    },
+    err => {
+      console.log(err);
+    }
+  );
+};
+
+export const createUser = (req, res) => {
+  let User = mongoose.model("User", userSchema);
+  mongoose.connect(process.env.MONGODB_URI).then(
+    () => {
+      console.log(req.body);
+      let newUser = new User(req.body.user);
+      newUser.save((err) => {
+        if (err) console.log(err);
+        res.json(newUser);
       });
     },
     err => {
