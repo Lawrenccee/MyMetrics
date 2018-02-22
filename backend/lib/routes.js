@@ -1,23 +1,25 @@
 import * as controller from './controller.js';
 import path from 'path';
-import {login} from './session.js';
+
 // import passport from 'passport';
 
-// const isLoggedIn = (req, res, next) => {
-//   if (req.isAuthenticated()) {
-//     return next();
-//   }
-//   res.redirect('/');
-// };
+const isLoggedIn = (req, res, next) => {
+  console.log(req);
+  if (req.user) {
+    return next();
+  } else {
+    return res.status(401).json( { error: 'User not logged in' } );
+  }
+};
 
 export const routerConfig = (app, passport) => {
 
-  app.route('api/users')
+  app.route('/api/users')
     .get(controller.getAllUsers)
     .post(controller.createUser);
 
   app.route('/api/users/:id')
-    .get(controller.fetchUser)
+    .get(controller.fetchUser);
     // .put(controller.updateUser);
 
     // If this function gets called, authentication was successful.
@@ -29,8 +31,19 @@ export const routerConfig = (app, passport) => {
     passport.authenticate('local', function(err, user, info) {
       if (err) { return next(err); }
       if (!user) { return res.json( { message: info.message }); }
-      res.json(user);
+      req.logIn(user, function(error) {
+        console.log(req.session);
+        if (error) { return next(error); }
+        res.send( { email: user.email, id: user._id } );
+      });
     })(req, res, next);
+  });
+
+  app.delete('/api/sessions', function(req, res, next){
+    console.log(req.session);
+    req.logout();
+
+    res.json({message: 'logged out'});
   });
 
 
