@@ -77,10 +77,8 @@ export const createUser = (req, res) => {
       const SALT_FAC = process.env.SALT_FACTOR;
 
       bcrypt.genSalt(SALT_FAC, function(err, salt) {
-        if (err) return next(err);
 
         bcrypt.hash(user.password, salt, null, function(err, hash) {
-          if (err) return next(err);
           user.password = hash;
         });
       });
@@ -94,7 +92,7 @@ export const createUser = (req, res) => {
                 res.send(formatUser(u.toObject()))
               },
               e => {
-                res.status(400);
+                res.status(422);
                 res.send(e);
               }
             );
@@ -110,7 +108,7 @@ export const createUser = (req, res) => {
             res.send(formatUser(u.toObject()))
           },
           e => {
-            res.status(400);
+            res.status(422);
             res.send(e);
           }
         );
@@ -131,7 +129,7 @@ export const updateUser = (req, res) => {
   mongoose.connect(MONGO_CONNECTION).then(
     () => {
       const { id } = req.params,
-            { updateUser } = req.body,
+            { userInfo } = req.body,
             options = {
               new: true,
               upsert: false,
@@ -140,27 +138,27 @@ export const updateUser = (req, res) => {
       User.findById(id).then(
         user => {
           let updated = false;
-          if (updateUser.stage && updateUser.stage !== user.stage) {
-            user.stage = updateUser.stage;
+          if (userInfo.stage && userInfo.stage !== user.stage) {
+            user.stage = userInfo.stage;
             updated = true;
           }
-          if (updateUser.weight) {
-            let weightLogEntry = new Log({ value: updateUser.weight });
+          if (userInfo.weight) {
+            let weightLogEntry = new Log({ value: userInfo.weight });
             user.weightLog.push(weightLogEntry);
             updated = true;
           }
-          if (updateUser.sodium) {
-            let sodiumLogEntry = new Log({   value: updateUser.sodium });
+          if (userInfo.sodium) {
+            let sodiumLogEntry = new Log({   value: userInfo.sodium });
             user.sodiumLog.push(sodiumLogEntry);
             updated = true;
           }
-          if (updateUser.fluid) {
-            let fluidLogEntry = new Log({ value: updateUser.fluid });
+          if (userInfo.fluid) {
+            let fluidLogEntry = new Log({ value: userInfo.fluid });
             user.fluidLog.push(fluidLogEntry);
             updated = true;
           }
-          if (updateUser.symptoms) {
-            let sympLogEntry = new SympLog({ symptoms: updateUser.symptoms });
+          if (userInfo.symptoms) {
+            let sympLogEntry = new SympLog({ symptoms: userInfo.symptoms });
             user.symptomsLog.push(sympLogEntry);
             updated = true;
           }
@@ -168,7 +166,7 @@ export const updateUser = (req, res) => {
             user.save().then(
               u => res.send(formatUser(u.toObject())),
               e => {
-                res.status(400);
+                res.status(422);
                 res.send(e);
               }
             );
