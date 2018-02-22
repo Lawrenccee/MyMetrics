@@ -17,9 +17,10 @@ angular.
             method: 'GET',
             url: '/api/users'
           }).then((users) => {
-            this.patient = users.data[0];
+            this.doctor = users.data[0];
           });
         }
+
       };
 
       this.date = new Date();
