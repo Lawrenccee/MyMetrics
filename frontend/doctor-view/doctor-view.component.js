@@ -30,11 +30,11 @@ angular.
       };
 
       this.logout = () => {
-        UserService.clear();
         $http({
           method: 'DELETE',
           url: '/api/sessions'
         }).then((res) => {
+          UserService.clear();
           $window.location.href = '#!/login';
         });
         

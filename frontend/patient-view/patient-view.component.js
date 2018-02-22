@@ -33,19 +33,19 @@ angular.
       };
 
       this.logout = () => {
-        UserService.clear();
         $http({
           method: 'DELETE',
           url: '/api/sessions'
         }).then((res) => {
+          UserService.clear();
           $window.location.href = '#!/login';
         });        
       };
 
       this.symptoms = [
-        "Trouble breathing?",
-        "Chest pain?",
-        "Swelling in legs?"
+        "Trouble breathing",
+        "Chest pain",
+        "Swelling in legs"
       ];
 
       this.updateSymptoms = (event) => {
