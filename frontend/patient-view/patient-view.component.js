@@ -23,8 +23,7 @@ angular.
         }
       };
 
-      this.patient = {
-      };
+      this.patient = {};
       this.patient.symptoms = [];
       this.patient.medications = [];
 
@@ -47,9 +46,9 @@ angular.
       };
 
       this.symptoms = [
-        "Trouble breathing?",
-        "Chest pain?",
-        "Swelling in legs?"
+        "Trouble breathing",
+        "Chest pain",
+        "Swelling in legs"
       ];
 
       this.updateSymptoms = (event) => {
