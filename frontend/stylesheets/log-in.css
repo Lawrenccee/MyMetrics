@@ -47,7 +47,7 @@
     font-size: 16px;
 }
 
-#session-button {
+.session-button {
     width: 100px;
     cursor: pointer;
     border-radius: 2px;
@@ -61,11 +61,11 @@
     transition-duration: 0.3s;
 }
 
-#session-button:hover {
+.session-button:hover {
     -webkit-transform: translateY(-3px);
     transform: translateY(-3px);
 }
 
-#session-link {
+.session-link {
     margin-top: auto;
 }
