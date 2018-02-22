@@ -3,6 +3,26 @@ import { User, Log } from './user.js';
 
 const MONGO_CONNECTION = process.env.MONGODB_URI;
 
+const formatLog = (log) => {
+  let arr = [];
+  arr = log.map(entry => {
+    let entryArr = [];
+    let d = new Date(entry.createdAt);
+    entryArr.push(d.getTime());
+    entryArr.push(entry.value);
+    return entryArr;
+  });
+  return arr;
+}
+
+const formatUser = (user) => {
+  user.weightLog = formatLog(user.weightLog);
+  user.sodiumLog = formatLog(user.sodiumLog);
+  user.fluidLog = formatLog(user.fluidLog);
+  delete user.password;
+  return user;
+}
+
 export const getAllUsers = (req, res) => {
   mongoose.connect(MONGO_CONNECTION).then(
     () => {
@@ -20,8 +40,10 @@ export const fetchUser = (req, res) => {
   mongoose.connect(MONGO_CONNECTION).then(
     () => {
       const { id } = req.params;
-      User.findById(id).then(
-        u => res.send(u),
+      User.findById(id).lean().then(
+        u => {
+          res.send(formatUser(u));
+        },
         err => res.send(err)
       );
     },
@@ -39,8 +61,8 @@ export const createUser = (req, res) => {
       //   user.patients.push(u);
       //   user.save().then(r => res.send(r), err => res.send(err));
       // });
-      user.save().then(
-        u => res.send(u),
+      user.save().lean().then(
+        u => res.send(formatUser(u)),
         e => res.send(e)
       );
       // User.create(user, (err, u) => {
@@ -73,7 +95,7 @@ export const updateUser = (req, res) => {
             updated = true;
           }
           if (updateUser.sodium) {
-            let sodiumLogEntry = new Log({ value: updateUser.sodium });
+            let sodiumLogEntry = new Log({   value: updateUser.sodium });
             user.sodiumLog.push(sodiumLogEntry);
             updated = true;
           }
@@ -87,8 +109,8 @@ export const updateUser = (req, res) => {
             updated = true;
           }
           if (updated) {
-            user.save().then(
-              u => res.send(u),
+            user.save().lean().then(
+              u => res.send(formatUser(u)),
               e => res.send(e)
             );
           }

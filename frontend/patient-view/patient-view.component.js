@@ -17,9 +17,9 @@ angular.
       this.updatePatient = () => {
         console.log(this.patient);
         return ($http({
-          method: "PUT",
+          method: "GET",
           url: `/api/users/${this.patient.id}`,
-          data: { updateUser: this.patient }
+          // data: { updateUser: this.patient }
         }).then(
           r => console.log(r),
           e => console.log(e)
