@@ -12,23 +12,41 @@ angular.
 
         $routeProvider.
           when('/doctorsignup', {
-              template: '<doctor-sign-up></doctor-sign-up>'
+              template: '<doctor-sign-up></doctor-sign-up>',
+              auth: false
           }).
           when('/patientsignup', {
-              template: '<patient-sign-up></patient-sign-up'
+              template: '<patient-sign-up></patient-sign-up',
+              auth: false
           }).
         when('/patientview', {
-            template: '<patient-view></patient-view>'
+            template: '<patient-view></patient-view>',
+            auth: true
         }).
         when('/doctorview', {
-            template: '<doctor-view></doctor-view>'
+            template: '<doctor-view></doctor-view>',
+            auth: true
         }).
         when('/login', {
-            template: '<log-in></log-in>'
+            template: '<log-in></log-in>',
+            auth: false
         }).
         otherwise('/login');
       }
-  ]);
+  ]).run(['$rootScope', '$route', '$location', 'UserService', function($rootScope, $route, $location, UserService) {
+    $rootScope.$on("$locationChangeStart", function (event, next, current) {
+      let user = JSON.parse(UserService.getStore());
+
+      if ($route.routes[$location.path()].auth === true && (!user || !user.email)) {
+        alert("You need to be authenticated to see this page!");
+        event.preventDefault();
+      } else if ($route.routes[$location.path()].auth === false && user && user.email) {
+        alert("You need to be logged out to see this page!");
+        event.preventDefault();
+      }
+    });
+  }]
+);
 
 
 
