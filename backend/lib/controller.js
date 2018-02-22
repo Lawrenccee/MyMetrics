@@ -20,7 +20,7 @@ const formatUser = (user) => {
   user.sodiumLog = formatLog(user.sodiumLog);
   user.fluidLog = formatLog(user.fluidLog);
   user.id = user._id;
-  delete user._id; 
+  delete user._id;
   delete user.password;
   return user;
 }
@@ -91,6 +91,10 @@ export const updateUser = (req, res) => {
       User.findById(id).then(
         user => {
           let updated = false;
+          if (updateUser.stage && updateUser.stage !== user.stage) {
+            user.stage = updateUser.stage;
+            updated = true;
+          }
           if (updateUser.weight) {
             let weightLogEntry = new Log({ value: updateUser.weight });
             user.weightLog.push(weightLogEntry);
@@ -106,8 +110,9 @@ export const updateUser = (req, res) => {
             user.fluidLog.push(fluidLogEntry);
             updated = true;
           }
-          if (updateUser.stage && updateUser.stage !== user.stage) {
-            user.stage = updateUser.stage;
+          if (updateUser.symptoms) {
+            let sympLogEntry = new SympLog({ symptoms: updateUser.symptoms });
+            user.symptomsLog.push(sympLogEntry);
             updated = true;
           }
           if (updated) {
