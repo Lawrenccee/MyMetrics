@@ -1,17 +1,18 @@
-<div>
-  Log In
-  <form ng-submit='$ctrl.sendUser()'>
+<div class="main-session">
+  <h1>MyMetrics</h1>
+  <h2>Log In</h2>
+  <form ng-submit='$ctrl.sendUser()' class="session-form">
 
     <label>Email:
-      <input type="email" ng-model="$ctrl.user.email">
+      <input id="email-input" type="email" ng-model="$ctrl.user.email">
     </label>
 
     <label>Password:
-      <input type="password" ng-model="$ctrl.user.password">
+      <input id="password-input" type="password" ng-model="$ctrl.user.password">
     </label>
 
-    <input type="submit" ng-model="$ctrl.user">
+    <input id="session-button" type="submit" ng-model="$ctrl.user">
 
-    <a href='#!/patientsignup'>Don't have an account? Sign Up</a>
+    <a id="session-link" href='#!/patientsignup'>Don't have an account? Sign Up</a>
   </form>
 </div>

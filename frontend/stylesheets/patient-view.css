@@ -3,7 +3,7 @@
   flex-direction: row;
 }
 
-.patient-view .left,  .patient-view .right {
+.patient-view .left, .patient-view .right {
   display: flex;
   flex-direction: column;
   width: 50%;
