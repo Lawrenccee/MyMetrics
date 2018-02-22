@@ -93,7 +93,7 @@ angular.
         return ($http({
           method: "PUT",
           url: `/api/users/${this.patient.id}`,
-          data: { updateUser: this.patient }
+          data: { userInfo: this.patient }
         }).then(
           r => console.log(r),
           e => console.log(e)
