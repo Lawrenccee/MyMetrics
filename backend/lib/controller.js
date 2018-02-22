@@ -36,6 +36,10 @@ export const createUser = (req, res) => {
         if (err) res.send(err);
         res.send(user);
       });
+      // User.create(user, (err, u) => {
+      //   if (err) res.send(err);
+      //   if (u) res.send(u);
+      // })
     },
     err => {
       res.send(err);

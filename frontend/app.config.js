@@ -17,6 +17,9 @@ angular.
           when('/patientsignup', {
               template: '<patient-sign-up></patient-sign-up'
           }).
+        when('/patientview', {
+            template: '<patient-view></patient-view>'
+        }).
           when('/login', {
               template: '<log-in></log-in>'
           }).
