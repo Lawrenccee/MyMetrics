@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt-nodejs';
 const Schema = mongoose.Schema;
 
 export const LogSchema = new Schema ({ value: String }, { timestamps:true });
+export const SymptomsSchema = new Schema ({ symptoms: Array }, { timestamps: true});
 
 export const UserSchema = new Schema({
   email: {
@@ -36,7 +37,7 @@ export const UserSchema = new Schema({
   weightLog: [LogSchema],
   sodiumLog: [LogSchema],
   fluidLog: [LogSchema],
-  symptoms: [LogSchema],
+  symptomsLog: [SymptomsSchema],
   medications: [String],
   doc_email: String,
   license: String,
@@ -77,3 +78,4 @@ UserSchema.methods.comparePassword = function(candidatePassword, cb) {
 
 export const User = mongoose.model('User', UserSchema);
 export const Log = mongoose.model('Log', LogSchema);
+export const SympLog = mongoose.model('SympLog', SymptomsSchema);

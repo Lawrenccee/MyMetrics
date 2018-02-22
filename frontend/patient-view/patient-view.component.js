@@ -23,7 +23,8 @@ angular.
         }
       };
 
-      this.patient = {};
+      this.patient = {
+      };
       this.patient.symptoms = [];
       this.patient.medications = [];
 
@@ -33,7 +34,7 @@ angular.
         console.log(this.patient);
         return ($http({
           method: "PUT",
-          url: `/api/users/${this.patient.id}`,
+          url: `/api/users/${this.patient._id}`,
           data: { updateUser: this.patient }
         }).then(
           r => console.log(r),
