@@ -9,6 +9,7 @@ require('dotenv').config();
 
 //start the train
 const app = express();
+app.use(express.static('frontend'));
 
 // //when we make requests with forms, we want to have the data sent in a body attribute
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -16,13 +17,13 @@ app.use(bodyParser.json());
 //session middleware necessary to save and persists a users login session
 //the session key can be whatever you want, and the other two values are required defaults
 //docs: https://github.com/expressjs/session
+
 app.use(session({
-  secret: 'PutAnythingYouWantHere',
+  secret: process.env.SESSION_SECRET,
   saveUninitialized: false,
   resave: false,
 }));
 
-app.use(express.static('frontend'));
 
 //connects passport to key functions needed to communicate with the session and with Google,
 //then connects passport to app

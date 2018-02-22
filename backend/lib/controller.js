@@ -40,12 +40,20 @@ export const fetchUser = (req, res) => {
   mongoose.connect(MONGO_CONNECTION).then(
     () => {
       const { id } = req.params;
+<<<<<<< HEAD
       User.findById(id).lean().then(
         u => {
           res.send(formatUser(u));
         },
         err => res.send(err)
       );
+=======
+      console.log(req.params);
+      console.log(id);
+      User.findById(id, (err, user) => {
+        res.send(user);
+      });
+>>>>>>> 444c60ffa2cd6482da4c91baefb0722f3ec380d9
     },
     err => {
       console.log(err);
@@ -56,6 +64,7 @@ export const fetchUser = (req, res) => {
 export const createUser = (req, res) => {
   mongoose.connect(MONGO_CONNECTION).then(
     () => {
+<<<<<<< HEAD
       let user = new User(req.body.user);
       // User.findOne({ email: 'test0@test.com' }, (err, u) => {
       //   user.patients.push(u);
@@ -65,6 +74,12 @@ export const createUser = (req, res) => {
         u => res.send(formatUser(u)),
         e => res.send(e)
       );
+=======
+      User.create(req.body.user, (err, user) => {
+        if (err) res.send(err);
+        res.send(user);
+      });
+>>>>>>> 444c60ffa2cd6482da4c91baefb0722f3ec380d9
       // User.create(user, (err, u) => {
       //   if (err) res.send(err);
       //   if (u) res.send(u);
@@ -76,6 +91,7 @@ export const createUser = (req, res) => {
   );
 };
 
+<<<<<<< HEAD
 export const updateUser = (req, res) => {
   mongoose.connect(MONGO_CONNECTION).then(
     () => {
@@ -123,3 +139,8 @@ export const updateUser = (req, res) => {
     }
   );
 };
+=======
+
+
+
+>>>>>>> 444c60ffa2cd6482da4c91baefb0722f3ec380d9
