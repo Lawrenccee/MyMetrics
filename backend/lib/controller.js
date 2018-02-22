@@ -30,7 +30,7 @@ export const getAllUsers = (req, res) => {
   mongoose.connect(MONGO_CONNECTION).then(
     () => {
       User.find((err, users) => {
-        if (err) res.send(error)
+        if (err) res.send(err)
         if (users) res.send(users);
       });
     },
