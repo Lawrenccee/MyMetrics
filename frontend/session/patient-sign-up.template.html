@@ -1,6 +1,6 @@
 <div class="main-session">
   <h1>MyMetrics</h1>
-  <h3>Patient Sign Up</h3>
+  <h2>Patient Sign Up</h2>
   <a href="#!/doctorsignup">Are you a Doctor? Sign up here</a>
 
   <form id="sign-up" ng-submit='$ctrl.sendUser()'>
@@ -29,7 +29,7 @@
           </label>
 
           <label>DOB:
-            <input type="date" ng-model="$ctrl.user.dob">
+            <input id="signup-dob" type="date" ng-model="$ctrl.user.dob">
           </label>
 
           <h3>Using MyMetrics with your Doctor?</h3>

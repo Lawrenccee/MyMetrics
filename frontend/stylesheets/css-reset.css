@@ -112,3 +112,13 @@ button::-moz-focus-inner {
 }
 
 
+input[type=date], 
+input[type=datetime-local], 
+input[type=month], 
+input[type=time] {
+    -webkit-appearance: textfield;
+    -moz-appearance:    textfield;
+    appearance:         textfield;
+}
+
+
