@@ -129,7 +129,7 @@ export const updateUser = (req, res) => {
   mongoose.connect(MONGO_CONNECTION).then(
     () => {
       const { id } = req.params,
-            { updateUser } = req.body,
+            { userInfo } = req.body,
             options = {
               new: true,
               upsert: false,
@@ -138,27 +138,27 @@ export const updateUser = (req, res) => {
       User.findById(id).then(
         user => {
           let updated = false;
-          if (updateUser.stage && updateUser.stage !== user.stage) {
-            user.stage = updateUser.stage;
+          if (userInfo.stage && userInfo.stage !== user.stage) {
+            user.stage = userInfo.stage;
             updated = true;
           }
-          if (updateUser.weight) {
-            let weightLogEntry = new Log({ value: updateUser.weight });
+          if (userInfo.weight) {
+            let weightLogEntry = new Log({ value: userInfo.weight });
             user.weightLog.push(weightLogEntry);
             updated = true;
           }
-          if (updateUser.sodium) {
-            let sodiumLogEntry = new Log({   value: updateUser.sodium });
+          if (userInfo.sodium) {
+            let sodiumLogEntry = new Log({   value: userInfo.sodium });
             user.sodiumLog.push(sodiumLogEntry);
             updated = true;
           }
-          if (updateUser.fluid) {
-            let fluidLogEntry = new Log({ value: updateUser.fluid });
+          if (userInfo.fluid) {
+            let fluidLogEntry = new Log({ value: userInfo.fluid });
             user.fluidLog.push(fluidLogEntry);
             updated = true;
           }
-          if (updateUser.symptoms) {
-            let sympLogEntry = new SympLog({ symptoms: updateUser.symptoms });
+          if (userInfo.symptoms) {
+            let sympLogEntry = new SympLog({ symptoms: userInfo.symptoms });
             user.symptomsLog.push(sympLogEntry);
             updated = true;
           }
