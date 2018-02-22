@@ -1,9 +1,11 @@
+
 angular.
   module('patientView').
   component('patientView', {
     templateUrl: 'patient-view/patient-view.template.html',
     controller: function ($routeParams, $http, UserService, $window) {
       // do something to fetch the user's id/email from the route params
+      // var Highcharts = require('highcharts');
 
       this.$onInit = () => {
         // Get the patient stored by the login/signup set in the store
@@ -20,6 +22,65 @@ angular.
           this.patient.symptoms = [];
           this.patient.medications = [];
           console.log(this.patient);
+
+          Highcharts.chart('graph', {
+
+              title: {
+                  text: "My Metrics"
+              },
+
+              yAxis: {
+                  title: {
+                      text: 'mg'
+                  }
+              },
+              legend: {
+                  layout: 'vertical',
+                  align: 'right',
+                  verticalAlign: 'middle'
+              },
+
+              xAxis: {
+                type: 'datetime'
+              },
+
+              series: [{
+                  name: 'Weight',
+                  data: this.patient.weightLog,
+                  tooltip: {
+                    valueDecimals: 2
+                  }
+              }, {
+                  name: 'Sodium',
+                  data: this.patient.sodiumLog,
+                  tooltip: {
+                    valueDecimals: 2
+                  }
+              }, {
+                  name: 'Fluid',
+                  data: this.patient.fluidLog,
+                  tooltip: {
+                    valueDecimals: 2
+                  }
+              }],
+
+              responsive: {
+                  rules: [{
+                      condition: {
+                          maxWidth: 500
+                      },
+                      chartOptions: {
+                          legend: {
+                              layout: 'horizontal',
+                              align: 'center',
+                              verticalAlign: 'bottom'
+                          }
+                      }
+                  }]
+              }
+            });
+
+
         });
       };
 
@@ -46,7 +107,7 @@ angular.
         }).then((res) => {
           UserService.clear();
           $window.location.href = '#!/login';
-        });        
+        });
       };
 
       this.symptoms = [

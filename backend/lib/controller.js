@@ -10,7 +10,7 @@ const formatLog = (log) => {
     let entryArr = [];
     let d = new Date(entry.createdAt);
     entryArr.push(d.getTime());
-    entryArr.push(entry.value);
+    entryArr.push(parseInt(entry.value));
     return entryArr;
   });
   return arr;
@@ -30,11 +30,16 @@ export const getAllUsers = (req, res) => {
   mongoose.connect(MONGO_CONNECTION).then(
     () => {
       User.find((err, users) => {
-        res.send(users);
+        if (err) {
+          res.status(404);
+          res.send(err);
+        }
+        if (users) res.send(users);
       });
     },
-    err => {
-      console.log(err);
+    error => {
+      res.status(503);
+      res.send(error);
     }
   );
 };
@@ -47,11 +52,15 @@ export const fetchUser = (req, res) => {
         u => {
           res.send(formatUser(u));
         },
-        err => res.send(err)
+        e => {
+          res.status(404);
+          res.send(e);
+        }
       );
     },
-    err => {
-      console.log(err);
+    error => {
+      res.status(503);
+      res.send(error);
     }
   );
 };
@@ -64,9 +73,10 @@ export const createUser = (req, res) => {
       //   user.patients.push(u);
       //   user.save().then(r => res.send(r), err => res.send(err));
       // });
-      const SALT_FACTOR = 15;
 
-      bcrypt.genSalt(SALT_FACTOR, function(err, salt) {
+      const SALT_FAC = process.env.SALT_FACTOR;
+
+      bcrypt.genSalt(SALT_FAC, function(err, salt) {
         if (err) return next(err);
 
         bcrypt.hash(user.password, salt, null, function(err, hash) {
@@ -74,17 +84,45 @@ export const createUser = (req, res) => {
           user.password = hash;
         });
       });
-      user.save().then(
-        u => res.send(formatUser(u.toObject())),
-        e => res.send(e)
-      );
+      if (user.doc_email) {
+        User.findOne({ email: user.doc_email }).then(
+          doc => {
+            user.save().then(
+              u => {
+                doc.patients.push(u)
+                doc.save();
+                res.send(formatUser(u.toObject()))
+              },
+              e => {
+                res.status(400);
+                res.send(e);
+              }
+            );
+          },
+          err => {
+            res.status(404);
+            res.send(err);
+          }
+        )
+      } else {
+        user.save().then(
+          u => {
+            res.send(formatUser(u.toObject()))
+          },
+          e => {
+            res.status(400);
+            res.send(e);
+          }
+        );
+      }
       // User.create(user, (err, u) => {
       //   if (err) res.send(err);
       //   if (u) res.send(u);
       // })
     },
-    err => {
-      res.send(err);
+    error => {
+      res.status(503);
+      res.send(error);
     }
   );
 };
@@ -129,15 +167,22 @@ export const updateUser = (req, res) => {
           if (updated) {
             user.save().then(
               u => res.send(formatUser(u.toObject())),
-              e => res.send(e)
+              e => {
+                res.status(400);
+                res.send(e);
+              }
             );
           }
         },
-        error => res.send(error)
+        err => {
+          res.status(404);
+          res.send(err);
+        }
       );
     },
-    err => {
-      res.send(err);
+    error => {
+      res.status(503);
+      res.send(error);
     }
   );
 };
