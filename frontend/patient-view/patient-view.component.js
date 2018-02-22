@@ -2,7 +2,7 @@ angular.
   module('patientView').
   component('patientView', {
     templateUrl: 'patient-view/patient-view.template.html',
-    controller: function ($routeParams, $http, UserService) {
+    controller: function ($routeParams, $http, UserService, $window) {
       // do something to fetch the user's id/email from the route params
 
       this.$onInit = () => {
@@ -37,7 +37,9 @@ angular.
         $http({
           method: 'DELETE',
           url: '/api/sessions'
-        });
+        }).then((res) => {
+          $window.location.href = '#!/login';
+        });        
       };
 
       this.symptoms = [

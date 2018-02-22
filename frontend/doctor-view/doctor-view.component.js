@@ -2,7 +2,7 @@ angular.
   module('doctorView').
   component('doctorView', {
     templateUrl: 'doctor-view/doctor-view.template.html',
-    controller: function ($routeParams, $http, UserService) {
+    controller: function ($routeParams, $http, UserService, $window) {
         // Controller will be updated, currently it is similar
         // to the patient view Wed 2/21
       this.$onInit = () => {
@@ -31,6 +31,13 @@ angular.
 
       this.logout = () => {
         UserService.clear();
+        $http({
+          method: 'DELETE',
+          url: '/api/sessions'
+        }).then((res) => {
+          $window.location.href = '#!/login';
+        });
+        
       };
 
       // do something for check boxes to add to an array when they are checked

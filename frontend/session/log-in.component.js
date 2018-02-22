@@ -2,7 +2,7 @@ angular.
   module('logIn').
   component('logIn', {
     templateUrl: 'session/log-in.template.html',
-    controller: function(UserService, $http) {
+    controller: function(UserService, $http, $window) {
 
       this.sendUser = () => {
         // UserService.setStore(this.user);
@@ -15,6 +15,7 @@ angular.
           console.log('response');
           console.log(res.data);
           UserService.setStore(res.data);
+          $window.location.href = '#!/patientview';
         });
       };
     }
