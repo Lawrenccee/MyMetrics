@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Bellefair|Crimson+Text|Josefin+Sans|Nanum+Gothic');
 /* SESSION (login) FORM  */
 .main-session {
     border: 1px solid black;
@@ -11,10 +10,6 @@
     font-family: 'Josefin Sans';
     
 }
-/* 
-font-family: 'Bellefair', serif;
-font-family: 'Josefin Sans', sans-serif;
-*/
 
 .main-session h1 {
     font-size: 70px;
