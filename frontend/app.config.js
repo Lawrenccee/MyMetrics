@@ -20,10 +20,13 @@ angular.
         when('/patientview', {
             template: '<patient-view></patient-view>'
         }).
-          when('/login', {
-              template: '<log-in></log-in>'
-          }).
-          otherwise('/login');
+        when('/doctorview', {
+            template: '<doctor-view></doctor-view>'
+        }).
+        when('/login', {
+            template: '<log-in></log-in>'
+        }).
+        otherwise('/login');
       }
   ]);
 
