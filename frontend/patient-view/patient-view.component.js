@@ -20,6 +20,65 @@ angular.
           this.patient = res.data;
           this.patient.symptoms = [];
           this.patient.medications = [];
+
+
+          Highcharts.chart('graph', {
+
+              title: {
+                  text: "My Metrics"
+              },
+
+              yAxis: {
+                  title: {
+                      text: 'mg'
+                  }
+              },
+              legend: {
+                  layout: 'vertical',
+                  align: 'right',
+                  verticalAlign: 'middle'
+              },
+
+              xAxis: {
+                type: 'datetime'
+              },
+
+              series: [{
+                  name: 'Weight',
+                  data: this.patient.weightLog,
+                  tooltip: {
+                    valueDecimals: 2
+                  }
+              }, {
+                  name: 'Sodium',
+                  data: this.patient.sodiumLog,
+                  tooltip: {
+                    valueDecimals: 2
+                  }
+              }, {
+                  name: 'Fluid',
+                  data: this.patient.fluidLog,
+                  tooltip: {
+                    valueDecimals: 2
+                  }
+              }],
+
+              responsive: {
+                  rules: [{
+                      condition: {
+                          maxWidth: 500
+                      },
+                      chartOptions: {
+                          legend: {
+                              layout: 'horizontal',
+                              align: 'center',
+                              verticalAlign: 'bottom'
+                          }
+                      }
+                  }]
+              }
+            });
+
         });
       };
 
