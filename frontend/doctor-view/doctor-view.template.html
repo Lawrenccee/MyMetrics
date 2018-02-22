@@ -1,0 +1,41 @@
+<div class="doctor-view">
+
+    <div class="doctor-left">
+        <div class="doctor-header">
+            <h1>MyMetrics</h1>
+            <h3>Doctor's name</h3>
+            <!-- <h3>{{$ctrl.doctor.name}}</h3> -->
+        </div>
+
+        <div class="patient-search">
+            <input ng-model="$ctrl.query"/>
+        </div> 
+
+        <div>
+            <ul class="doctors-patients">
+                <li ng-repeat="patient in $ctrl.patients | filter: $ctrl.query" class="patient-item">
+                    <span>{{patient.name}}</span>
+                    <span>{{patient.status}}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="doctor-right">
+        <div class="patient-info">
+
+            <div class="doctor-logout">
+                <button ng-click="$ctrl.logout()">Logout</button>
+            </div>
+
+            <div class="patient-graph">
+                <span>PATIENTS GRAPH FIRST</span> 
+            </div>
+            
+            <div class="patient-biometrics">
+                <span>PATIENTS BIOMETRICS UNDER</span>
+            </div>
+            
+        </div>
+    </div>
+</div>

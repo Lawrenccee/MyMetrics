@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { User, Log, SympLog } from './user.js';
+import { User, Log } from './user.js';
 
 const MONGO_CONNECTION = process.env.MONGODB_URI;
 
@@ -61,8 +61,8 @@ export const createUser = (req, res) => {
       //   user.patients.push(u);
       //   user.save().then(r => res.send(r), err => res.send(err));
       // });
-      user.save().then(
-        u => res.send(formatUser(u.toObject())),
+      user.save().lean().then(
+        u => res.send(formatUser(u)),
         e => res.send(e)
       );
       // User.create(user, (err, u) => {
@@ -89,10 +89,6 @@ export const updateUser = (req, res) => {
       User.findById(id).then(
         user => {
           let updated = false;
-          if (updateUser.stage && updateUser.stage !== user.stage) {
-            user.stage = updateUser.stage;
-            updated = true;
-          }
           if (updateUser.weight) {
             let weightLogEntry = new Log({ value: updateUser.weight });
             user.weightLog.push(weightLogEntry);
@@ -108,14 +104,13 @@ export const updateUser = (req, res) => {
             user.fluidLog.push(fluidLogEntry);
             updated = true;
           }
-          if (updateUser.symptoms) {
-            let sympLogEntry = new SympLog({ symptoms: updateUser.symptoms });
-            user.symptomsLog.push(sympLogEntry);
+          if (updateUser.stage && updateUser.stage !== user.stage) {
+            user.stage = updateUser.stage;
             updated = true;
           }
           if (updated) {
-            user.save().then(
-              u => res.send(formatUser(u.toObject())),
+            user.save().lean().then(
+              u => res.send(formatUser(u)),
               e => res.send(e)
             );
           }

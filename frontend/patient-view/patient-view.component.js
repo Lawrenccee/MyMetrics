@@ -8,32 +8,32 @@ angular.
       this.$onInit = () => {
         // Get the patient stored by the login/signup set in the store
         // TODO: The store gets emptied if the page is refreshed...
-        this.patient = UserService.getStore();
+        this.patient = JSON.parse(UserService.getStore());
         console.log(this.patient);
-
-        if(!this.patient) {
           // Do an http request to grab the patient were on???
           // But how do we know what patient it is...
-          $http({
-            method: 'GET',
-            url: '/api/users'
-          }).then((users) => {
-            this.patient = users.data[0];
-          });
-        }
+        $http({
+          method: 'GET',
+          url: `/api/users/${this.patient.id}`
+        }).then((res) => {
+          this.patient = res.data;
+          console.log(this.patient);
+        });
       };
 
       this.patient = {};
       this.patient.symptoms = [];
       this.patient.medications = [];
+>>>>>>> master
 
       this.date = new Date();
+      this.nextAppt = new Date();
 
       this.updatePatient = () => {
         console.log(this.patient);
         return ($http({
           method: "PUT",
-          url: `/api/users/${this.patient._id}`,
+          url: `/api/users/${this.patient.id}`,
           data: { updateUser: this.patient }
         }).then(
           r => console.log(r),
@@ -43,6 +43,10 @@ angular.
 
       this.logout = () => {
         UserService.clear();
+        $http({
+          method: 'DELETE',
+          url: '/api/sessions'
+        });
       };
 
       this.symptoms = [
