@@ -1,20 +1,19 @@
-<div>
-  Patient Sign Up
+<div class="main-session">
+  <h1>MyMetrics</h1>
+  <h2>Patient Sign Up</h2>
   <a href="#!/doctorsignup">Are you a Doctor? Sign up here</a>
 
-  <form ng-submit='$ctrl.sendUser()'>
-    <div>
-
-      <div>
-
-        <div>
+  <form id="sign-up" ng-submit='$ctrl.sendUser()'>
+    <div class="main-signup-container">
+      <div class="main-signup-form">
+        <div class="left-signup-form">
 
           <label>Email:
-            <input type="email" ng-model="$ctrl.user.email">
+            <input id="signup-email" type="email" ng-model="$ctrl.user.email">
           </label>
 
           <label>Password:
-            <input type="password" ng-model="$ctrl.user.password">
+            <input id="" type="password" ng-model="$ctrl.user.password">
           </label>
 
           <label>Confirm Password:
@@ -23,29 +22,28 @@
 
         </div>
 
-        <div>
+        <div class="right-signup-form">
 
-          <label>Name:
+          <label>Full Name:
             <input type="text" ng-model="$ctrl.user.name">
           </label>
 
           <label>DOB:
-            <input type="date" ng-model="$ctrl.user.dob">
+            <input id="signup-dob" type="date" ng-model="$ctrl.user.dob">
           </label>
 
-          <h2>Using MyMetrics with your Doctor?</h2>
+          <h3>Using MyMetrics with your Doctor?</h3>
 
           <label>Doctor's Email:
-            <input type="text" ng-model="$ctrl.user.doc_email">
+            <input id="signup-email" type="text" ng-model="$ctrl.user.doc_email">
           </label>
 
         </div>
-
       </div>
 
-      <div>
-        <a href="#!/login">Already Signed Up? Log In</a>
-        <input type="submit" value="Sign Up">
+      <div class="signup-clickables">
+        <a id="session-link" href="#!/login">Already Signed Up? Log In</a>
+        <input id="session-button" type="submit" value="Sign Up">
       </div>
 
     </div>
