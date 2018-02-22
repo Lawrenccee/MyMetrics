@@ -11,7 +11,11 @@ angular.
           method: 'POST',
           url: '/api/sessions',
           data: this.user
-        }).then(res => UserService.setStore(res));
+        }).then(res => {
+          console.log('response');
+          console.log(res.data);
+          UserService.setStore(res.data);
+        });
       };
     }
   });

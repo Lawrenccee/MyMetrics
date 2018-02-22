@@ -18,8 +18,8 @@ export const getAllUsers = (req, res) => {
 export const fetchUser = (req, res) => {
   mongoose.connect(process.env.MONGODB_URI).then(
     () => {
-      const { email } = req.params;
-      User.findOne({ email }, (err, users) => {
+      const { id } = req.params;
+      User.findOne({ id }, (err, users) => {
         res.send(users);
       });
     },
