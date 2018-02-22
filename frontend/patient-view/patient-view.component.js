@@ -13,7 +13,7 @@ angular.
         // TODO: The store gets emptied if the page is refreshed...
         this.patient = UserService.getStore();
         console.log(this.patient);
-        
+
         if(!this.patient) {
           // Do an http request to grab the patient were on???
           // But how do we know what patient it is...
@@ -29,18 +29,23 @@ angular.
       console.log("this gets called");
       // set user to that user so we can show it in the html
       // for now it will be a fake user
-      // this.patient = {
-      //   name: "Sam Uchiha",
-      //   weight: 130,
-      //   sodium: 5,
-      //   fluid: 2,
-      //   stage: "5"
-      // };
+      this.patient = {
+        name: "Sam Uchiha",
+        id: "5a8dbb57906a13ff606c49cc"
+      };
 
       this.date = new Date();
 
       this.updatePatient = () => {
         console.log(this.patient);
+        return ($http({
+          method: "GET",
+          url: `/api/users/${this.patient.id}`,
+          // data: { updateUser: this.patient }
+        }).then(
+          r => console.log(r),
+          e => console.log(e)
+        ));
       };
 
       this.logout = () => {
