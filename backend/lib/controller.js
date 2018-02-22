@@ -9,7 +9,7 @@ const formatLog = (log) => {
   arr = log.map(entry => {
     let entryArr = [];
     let d = new Date(entry.createdAt);
-    entryArr.push(d.getTime());
+    entryArr.push(d);
     entryArr.push(entry.value);
     return entryArr;
   });
@@ -121,6 +121,7 @@ export const updateUser = (req, res) => {
           }
           if (updateUser.weight) {
             let weightLogEntry = new Log({ value: updateUser.weight });
+            // let weightLogEntry = { value: updateUser.weight, createdAt: new Date().toString()}
             user.weightLog.push(weightLogEntry);
             updated = true;
           }
