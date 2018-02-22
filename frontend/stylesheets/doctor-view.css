@@ -1,0 +1,17 @@
+.doctor-view {
+    display: flex;
+    flex-direction: row;
+}
+
+.doctor-left,
+.doctor-right {
+    border: 1px solid black;
+    display: flex;
+    width: 50%;
+    height: 95vh;
+}
+
+.doctor-left h1 {
+    
+}
+
