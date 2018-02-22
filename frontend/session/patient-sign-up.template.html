@@ -3,7 +3,7 @@
   <h3>Patient Sign Up</h3>
   <a href="#!/doctorsignup">Are you a Doctor? Sign up here</a>
 
-  <form ng-submit='$ctrl.sendUser()'>
+  <form id="sign-up" ng-submit='$ctrl.sendUser()'>
     <div class="main-signup-container">
       <div class="main-signup-form">
         <div class="left-signup-form">
@@ -43,7 +43,7 @@
 
       <div class="signup-clickables">
         <a href="#!/login">Already Signed Up? Log In</a>
-        <input type="submit" value="Sign Up">
+        <button form="sign-up">Sign Up</button>
       </div>
 
     </div>
