@@ -4,15 +4,15 @@
   <form ng-submit='$ctrl.sendUser()' class="session-form">
 
     <label>Email:
-      <input id="email-input" type="email" ng-model="$ctrl.user.email">
+      <input required id="email-input" type="email" ng-model="$ctrl.user.email">
     </label>
 
     <label>Password:
-      <input id="password-input" type="password" ng-model="$ctrl.user.password">
+      <input required id="password-input" type="password" ng-model="$ctrl.user.password">
     </label>
 
-    <input id="session-button" type="submit" ng-model="$ctrl.user">
+    <input id="login-button" class="session-button" type="submit" ng-model="$ctrl.user">
 
-    <a id="session-link" href='#!/patientsignup'>Don't have an account? Sign Up</a>
+    <a class="session-link" href='#!/patientsignup'>Don't have an account? Sign Up</a>
   </form>
 </div>
