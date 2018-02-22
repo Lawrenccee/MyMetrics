@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 const LogSchema = new Schema ({ value: String }, { timestamps:true });
 const SymptomsSchema = new Schema ({ symptoms: Array }, { timestamps: true});
 
-export const UserSchema = new Schema({
+const UserSchema = new Schema({
   email: {
     type: String,
     validate: {
