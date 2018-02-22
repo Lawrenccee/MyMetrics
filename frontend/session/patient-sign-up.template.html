@@ -9,15 +9,15 @@
         <div class="left-signup-form">
 
           <label>Email:
-            <input id="signup-email" type="email" ng-model="$ctrl.user.email">
+            <input required id="signup-email" type="email" ng-model="$ctrl.user.email">
           </label>
 
           <label>Password:
-            <input id="" type="password" ng-model="$ctrl.user.password">
+            <input id="" required type="password" ng-model="$ctrl.user.password">
           </label>
 
           <label>Confirm Password:
-            <input type="password" ng-model="$ctrl.user.confirm_password">
+            <input required type="password" ng-model="$ctrl.user.confirm_password">
           </label>
 
         </div>
@@ -25,25 +25,25 @@
         <div class="right-signup-form">
 
           <label>Full Name:
-            <input type="text" ng-model="$ctrl.user.name">
+            <input required type="text" ng-model="$ctrl.user.name">
           </label>
 
           <label>DOB:
-            <input id="signup-dob" type="date" ng-model="$ctrl.user.dob">
+            <input required id="signup-dob" type="date" ng-model="$ctrl.user.dob">
           </label>
 
           <h3>Using MyMetrics with your Doctor?</h3>
 
           <label>Doctor's Email:
-            <input id="signup-email" type="text" ng-model="$ctrl.user.doc_email">
+            <input id="doctor-email" type="email" ng-model="$ctrl.user.doc_email">
           </label>
 
         </div>
       </div>
 
       <div class="signup-clickables">
-        <a id="session-link" href="#!/login">Already Signed Up? Log In</a>
-        <input id="session-button" type="submit" value="Sign Up">
+        <a class="session-link" href="#!/login">Already Signed Up? Log In</a>
+        <input id="signup-button" class="session-button" type="submit" value="Sign Up">
       </div>
 
     </div>

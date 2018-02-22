@@ -10,7 +10,7 @@ const formatLog = (log) => {
     let entryArr = [];
     let d = new Date(entry.createdAt);
     entryArr.push(d.getTime());
-    entryArr.push(entry.value);
+    entryArr.push(parseInt(entry.value));
     return entryArr;
   });
   return arr;
@@ -30,11 +30,16 @@ export const getAllUsers = (req, res) => {
   mongoose.connect(MONGO_CONNECTION).then(
     () => {
       User.find((err, users) => {
-        res.send(users);
+        if (err) {
+          res.status(404);
+          res.send(err);
+        }
+        if (users) res.send(users);
       });
     },
-    err => {
-      console.log(err);
+    error => {
+      res.status(503);
+      res.send(error);
     }
   );
 };
@@ -47,11 +52,15 @@ export const fetchUser = (req, res) => {
         u => {
           res.send(formatUser(u));
         },
-        err => res.status(404).send(err)
+        e => {
+          res.status(404);
+          res.send(e);
+        }
       );
     },
-    err => {
-      console.log(err);
+    error => {
+      res.status(503);
+      res.send(error);
     }
   );
 };
@@ -60,35 +69,65 @@ export const createUser = (req, res) => {
   mongoose.connect(MONGO_CONNECTION).then(
     () => {
       let user = new User(req.body.user);
-      // User.findOne({ email: 'test0@test.com' }, (err, u) => {
-      //   user.patients.push(u);
-      //   user.save().then(r => res.send(r), err => res.send(err));
-      // });
-      const SALT_FACTOR = 15;
 
-      bcrypt.genSalt(SALT_FACTOR, function(err, salt) {
-        if (err) res.status(422).json(err);
-        bcrypt.hash(user.password, salt, null, function(error, hash) {
+      const SALT_FAC = process.env.SALT_FACTOR;
+
+      bcrypt.genSalt(SALT_FAC, function(err, salt) {
+
+        bcrypt.hash(user.password, salt, null, function(err, hash) {
           user.password = hash;
         });
       });
-
-
-      user.save().then(
-        u => {
-          req.logIn(user, function(error) {
-            let isDoctor = false;
-            if (error) res.send(422);
-            if (user.license) isDoctor = true;
-            res.send( { email: user.email, id: user._id, isDoctor} );
-          });
-
-        },
-        e => res.status(422).send(e)
-      );
+      if (user.doc_email) {
+        User.findOne({ email: user.doc_email }).then(
+          doc => {
+            user.save().then(
+              u => {
+                doc.patients.push(u);
+                doc.save();
+                req.logIn(user, function(error) {
+                  let isDoctor = false;
+                  if (error) res.send(422);
+                  if (user.license) isDoctor = true;
+                  res.send( { email: user.email, id: user._id, isDoctor} );
+                });
+              },
+              e => {
+                res.status(422);
+                res.send(e);
+              }
+            );
+          },
+          err => {
+            res.status(404);
+            res.send(err);
+          }
+        );
+      } else {
+        user.save().then(
+          u => {
+            req.logIn(user, function(error) {
+              let isDoctor = false;
+              if (error) res.send(422);
+              if (user.license) isDoctor = true;
+              res.send( { email: user.email, id: user._id, isDoctor} );
+            });
+          },
+          e => {
+            res.status(422);
+            res.send(e);
+          }
+        );
+      }
+      // User.create(user, (err, u) => {
+      //   if (err) res.send(err);
+      //   if (u) res.send(u);
+      // })
     },
-    err => {
-      res.status(422).send(err);
+    error => {
+      res.status(503);
+      res.send(error);
+
     }
   );
 };
@@ -140,8 +179,9 @@ export const updateUser = (req, res) => {
         error => res.status(404).send(error)
       );
     },
-    err => {
-      res.send(err);
+    error => {
+      res.status(503);
+      res.send(error);
     }
   );
 };

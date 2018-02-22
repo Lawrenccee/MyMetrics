@@ -1,9 +1,11 @@
+
 angular.
   module('patientView').
   component('patientView', {
     templateUrl: 'patient-view/patient-view.template.html',
     controller: function ($routeParams, $http, UserService, $window) {
       // do something to fetch the user's id/email from the route params
+      // var Highcharts = require('highcharts');
 
       this.$onInit = () => {
         // Get the patient stored by the login/signup set in the store
@@ -29,7 +31,7 @@ angular.
         return ($http({
           method: "PUT",
           url: `/api/users/${this.patient.id}`,
-          data: { updateUser: this.patient }
+          data: { userInfo: this.patient }
         }).then(
           r => console.log(r),
           e => console.log(e)
