@@ -11,16 +11,14 @@ angular.
         this.patient = UserService.getStore();
         console.log(this.patient);
         
-        if(!this.patient) {
           // Do an http request to grab the patient were on???
           // But how do we know what patient it is...
-          $http({
-            method: 'GET',
-            url: '/api/users'
-          }).then((users) => {
-            this.patient = users.data[0];
-          });
-        }
+        $http({
+          method: 'GET',
+          url: `/api/users/${this.patient.id}`
+        }).then((user) => {
+          this.patient = user;
+        });
       };
 
       this.patient = {};
@@ -28,9 +26,10 @@ angular.
       this.patient.medications = [];
 
       this.date = new Date();
+      this.nextAppt = new Date();
 
       this.updatePatient = () => {
-        console.log(this.patient);
+        // DO POST REQUEST TO UPDATE PATIENT sending this.patient
       };
 
       this.logout = () => {
