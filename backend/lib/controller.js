@@ -9,8 +9,8 @@ const formatLog = (log) => {
   arr = log.map(entry => {
     let entryArr = [];
     let d = new Date(entry.createdAt);
-    entryArr.push(d);
-    entryArr.push(entry.value);
+    entryArr.push(d.getTime());
+    entryArr.push(parseInt(entry.value));
     return entryArr;
   });
   return arr;
@@ -30,11 +30,15 @@ export const getAllUsers = (req, res) => {
   mongoose.connect(MONGO_CONNECTION).then(
     () => {
       User.find((err, users) => {
-        if (err) res.send(err)
+        if (err) {
+          res.status(404);
+          res.send(err);
+        }
         if (users) res.send(users);
       });
     },
     error => {
+      res.status(503);
       res.send(error);
     }
   );
@@ -48,10 +52,14 @@ export const fetchUser = (req, res) => {
         u => {
           res.send(formatUser(u));
         },
-        e => res.send(e)
+        e => {
+          res.status(404);
+          res.send(e);
+        }
       );
     },
     error => {
+      res.status(503);
       res.send(error);
     }
   );
@@ -76,27 +84,44 @@ export const createUser = (req, res) => {
           user.password = hash;
         });
       });
-      user.save().then(
-        u => {
-          if (u.doc_email) {
-            User.findOne({ email: u.doc_email }).then(
-              doc => {
+      if (user.doc_email) {
+        User.findOne({ email: user.doc_email }).then(
+          doc => {
+            user.save().then(
+              u => {
                 doc.patients.push(u)
                 doc.save();
+                res.send(formatUser(u.toObject()))
               },
-              err => res.send(err)
-            )
+              e => {
+                res.status(400);
+                res.send(e);
+              }
+            );
+          },
+          err => {
+            res.status(404);
+            res.send(err);
           }
-          res.send(formatUser(u.toObject()))
-        },
-        e => res.send(e)
-      );
+        )
+      } else {
+        user.save().then(
+          u => {
+            res.send(formatUser(u.toObject()))
+          },
+          e => {
+            res.status(400);
+            res.send(e);
+          }
+        );
+      }
       // User.create(user, (err, u) => {
       //   if (err) res.send(err);
       //   if (u) res.send(u);
       // })
     },
     error => {
+      res.status(503);
       res.send(error);
     }
   );
@@ -121,7 +146,6 @@ export const updateUser = (req, res) => {
           }
           if (updateUser.weight) {
             let weightLogEntry = new Log({ value: updateUser.weight });
-            // let weightLogEntry = { value: updateUser.weight, createdAt: new Date().toString()}
             user.weightLog.push(weightLogEntry);
             updated = true;
           }
@@ -143,14 +167,21 @@ export const updateUser = (req, res) => {
           if (updated) {
             user.save().then(
               u => res.send(formatUser(u.toObject())),
-              e => res.send(e)
+              e => {
+                res.status(400);
+                res.send(e);
+              }
             );
           }
         },
-        err => res.send(err)
+        err => {
+          res.status(404);
+          res.send(err);
+        }
       );
     },
     error => {
+      res.status(503);
       res.send(error);
     }
   );
