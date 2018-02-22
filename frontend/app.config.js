@@ -38,11 +38,12 @@ angular.
       let user = JSON.parse(UserService.getStore());
 
       if ($route.routes[$location.path()].auth === true && (!user || !user.email)) {
-        alert("You need to be authenticated to see this page!");
         event.preventDefault();
+        $location.path('/login');
       } else if ($route.routes[$location.path()].auth === false && user && user.email) {
-        alert("You need to be logged out to see this page!");
         event.preventDefault();
+        // DO ANOTHER CONDITIONAL TO REDIRECT TO DOCTOR OR PATIENT VIEW
+        $location.path('/patientview');
       }
     });
   }]
