@@ -11,7 +11,6 @@ angular.
         // Get the patient stored by the login/signup set in the store
         // TODO: The store gets emptied if the page is refreshed...
         this.patient = JSON.parse(UserService.getStore());
-        console.log(this.patient);
           // Do an http request to grab the patient were on???
           // But how do we know what patient it is...
         $http({
@@ -21,7 +20,7 @@ angular.
           this.patient = res.data;
           this.patient.symptoms = [];
           this.patient.medications = [];
-          console.log(this.patient);
+
 
           Highcharts.chart('graph', {
 
@@ -80,7 +79,6 @@ angular.
               }
             });
 
-
         });
       };
 
@@ -89,7 +87,6 @@ angular.
       this.nextAppt = new Date();
 
       this.updatePatient = () => {
-        console.log(this.patient);
         return ($http({
           method: "PUT",
           url: `/api/users/${this.patient.id}`,

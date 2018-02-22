@@ -18,9 +18,11 @@ angular.
           console.log('response');
           console.log(res.data);
           UserService.setStore(res.data);
-
-          // CONDITION HERE FOR DOCTOR/PATIENT REDIRECT
-          $window.location.href = '#!/patientview';
+          if (res.data.isDoctor) {
+            $window.location.href = '#!/doctorview';
+          } else {
+            $window.location.href = '#!/patientview';
+          }
         },
           err => {
             button.setAttribute("enabled", "enabled");

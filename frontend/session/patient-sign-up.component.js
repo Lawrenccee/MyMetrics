@@ -11,12 +11,11 @@ angular.
           url: '/api/users',
           data: { user: this.user }
         }).then(r => {
-          console.log(r);
-          UserService.setStore(this.user);
+          UserService.setStore(r.data);
           $window.location.href = '#!/patientview';
         },
           err => {
-            button.setAttribute("enabled", "enabled")
+            button.setAttribute("enabled", "enabled");
           }
         );
       };

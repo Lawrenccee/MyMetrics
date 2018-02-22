@@ -14,7 +14,7 @@ const formatLog = (log) => {
     return entryArr;
   });
   return arr;
-}
+};
 
 const formatUser = (user) => {
   user.weightLog = formatLog(user.weightLog);
@@ -24,7 +24,7 @@ const formatUser = (user) => {
   delete user._id;
   delete user.password;
   return user;
-}
+};
 
 export const getAllUsers = (req, res) => {
   mongoose.connect(MONGO_CONNECTION).then(
@@ -69,10 +69,6 @@ export const createUser = (req, res) => {
   mongoose.connect(MONGO_CONNECTION).then(
     () => {
       let user = new User(req.body.user);
-      // User.findOne({ email: 'test0@test.com' }, (err, u) => {
-      //   user.patients.push(u);
-      //   user.save().then(r => res.send(r), err => res.send(err));
-      // });
 
       const SALT_FAC = process.env.SALT_FACTOR;
 
@@ -87,9 +83,14 @@ export const createUser = (req, res) => {
           doc => {
             user.save().then(
               u => {
-                doc.patients.push(u)
+                doc.patients.push(u);
                 doc.save();
-                res.send(formatUser(u.toObject()))
+                req.logIn(user, function(error) {
+                  let isDoctor = false;
+                  if (error) res.send(422);
+                  if (user.license) isDoctor = true;
+                  res.send( { email: user.email, id: user._id, isDoctor} );
+                });
               },
               e => {
                 res.status(422);
@@ -101,11 +102,16 @@ export const createUser = (req, res) => {
             res.status(404);
             res.send(err);
           }
-        )
+        );
       } else {
         user.save().then(
           u => {
-            res.send(formatUser(u.toObject()))
+            req.logIn(user, function(error) {
+              let isDoctor = false;
+              if (error) res.send(422);
+              if (user.license) isDoctor = true;
+              res.send( { email: user.email, id: user._id, isDoctor} );
+            });
           },
           e => {
             res.status(422);
@@ -121,6 +127,7 @@ export const createUser = (req, res) => {
     error => {
       res.status(503);
       res.send(error);
+
     }
   );
 };
@@ -165,17 +172,11 @@ export const updateUser = (req, res) => {
           if (updated) {
             user.save().then(
               u => res.send(formatUser(u.toObject())),
-              e => {
-                res.status(422);
-                res.send(e);
-              }
+              e => res.status(422).send(e)
             );
           }
         },
-        err => {
-          res.status(404);
-          res.send(err);
-        }
+        error => res.status(404).send(error)
       );
     },
     error => {

@@ -30,17 +30,17 @@ export const routerConfig = (app, passport) => {
   app.post('/api/sessions', function(req, res, next ){
     passport.authenticate('local', function(err, user, info) {
       if (err) { return next(err); }
-      if (!user) { return res.json( { message: info.message }); }
+      if (!user) { return res.status(401).json( { message: info.message }); }
       req.logIn(user, function(error) {
-        console.log(req.session);
         if (error) { return next(error); }
-        res.send( { email: user.email, id: user._id } );
+        let isDoctor = false;
+        if (user.license) isDoctor = true;
+        res.send( { email: user.email, id: user._id, isDoctor } );
       });
     })(req, res, next);
   });
 
   app.delete('/api/sessions', function(req, res, next){
-    console.log(req.session);
     req.logout();
 
     res.json({message: 'logged out'});

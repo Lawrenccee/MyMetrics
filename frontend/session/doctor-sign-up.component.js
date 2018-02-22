@@ -13,7 +13,7 @@ angular.
           data: { user: this.user }
         }).then(r => {
           console.log(r);
-          UserService.setStore(this.user);
+          UserService.setStore(r.user);
           $window.location.href = '#!/doctorview';
         },
           err => {
