@@ -37,6 +37,10 @@ angular.
     $rootScope.$on("$locationChangeStart", function (event, next, current) {
       let user = JSON.parse(UserService.getStore());
 
+      if (!$route.routes[$location.path()]) {
+        return;
+      }
+
       if ($route.routes[$location.path()].auth === true && (!user || !user.email)) {
         event.preventDefault();
         $location.path('/login');
