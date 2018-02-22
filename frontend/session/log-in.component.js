@@ -12,10 +12,12 @@ angular.
           url: '/api/sessions',
           data: this.user
         }).then(res => {
-          console.log('response');
-          console.log(res.data);
           UserService.setStore(res.data);
-          $window.location.href = '#!/patientview';
+          if (res.data.isDoctor) {
+            $window.location.href = '#!/doctorview';
+          } else {
+            $window.location.href = '#!/patientview';
+          }
         });
       };
     }

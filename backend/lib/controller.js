@@ -14,7 +14,7 @@ const formatLog = (log) => {
     return entryArr;
   });
   return arr;
-}
+};
 
 const formatUser = (user) => {
   user.weightLog = formatLog(user.weightLog);
@@ -24,7 +24,7 @@ const formatUser = (user) => {
   delete user._id;
   delete user.password;
   return user;
-}
+};
 
 export const getAllUsers = (req, res) => {
   mongoose.connect(MONGO_CONNECTION).then(
@@ -47,7 +47,7 @@ export const fetchUser = (req, res) => {
         u => {
           res.send(formatUser(u));
         },
-        err => res.send(err)
+        err => res.status(404).send(err)
       );
     },
     err => {
@@ -67,24 +67,28 @@ export const createUser = (req, res) => {
       const SALT_FACTOR = 15;
 
       bcrypt.genSalt(SALT_FACTOR, function(err, salt) {
-        if (err) return next(err);
-
-        bcrypt.hash(user.password, salt, null, function(err, hash) {
-          if (err) return next(err);
+        if (err) res.status(422).json(err);
+        bcrypt.hash(user.password, salt, null, function(error, hash) {
           user.password = hash;
         });
       });
+
+
       user.save().then(
-        u => res.send(formatUser(u.toObject())),
-        e => res.send(e)
+        u => {
+          req.logIn(user, function(error) {
+            let isDoctor = false;
+            if (error) res.send(422);
+            if (user.license) isDoctor = true;
+            res.send( { email: user.email, id: user._id, isDoctor} );
+          });
+
+        },
+        e => res.status(422).send(e)
       );
-      // User.create(user, (err, u) => {
-      //   if (err) res.send(err);
-      //   if (u) res.send(u);
-      // })
     },
     err => {
-      res.send(err);
+      res.status(422).send(err);
     }
   );
 };
@@ -93,7 +97,7 @@ export const updateUser = (req, res) => {
   mongoose.connect(MONGO_CONNECTION).then(
     () => {
       const { id } = req.params,
-            { updateUser } = req.body,
+            { userInfo } = req.body,
             options = {
               new: true,
               upsert: false,
@@ -102,38 +106,38 @@ export const updateUser = (req, res) => {
       User.findById(id).then(
         user => {
           let updated = false;
-          if (updateUser.stage && updateUser.stage !== user.stage) {
-            user.stage = updateUser.stage;
+          if (userInfo.stage && userInfo.stage !== user.stage) {
+            user.stage = userInfo.stage;
             updated = true;
           }
-          if (updateUser.weight) {
-            let weightLogEntry = new Log({ value: updateUser.weight });
+          if (userInfo.weight) {
+            let weightLogEntry = new Log({ value: userInfo.weight });
             user.weightLog.push(weightLogEntry);
             updated = true;
           }
-          if (updateUser.sodium) {
-            let sodiumLogEntry = new Log({   value: updateUser.sodium });
+          if (userInfo.sodium) {
+            let sodiumLogEntry = new Log({   value: userInfo.sodium });
             user.sodiumLog.push(sodiumLogEntry);
             updated = true;
           }
-          if (updateUser.fluid) {
-            let fluidLogEntry = new Log({ value: updateUser.fluid });
+          if (userInfo.fluid) {
+            let fluidLogEntry = new Log({ value: userInfo.fluid });
             user.fluidLog.push(fluidLogEntry);
             updated = true;
           }
-          if (updateUser.symptoms) {
-            let sympLogEntry = new SympLog({ symptoms: updateUser.symptoms });
+          if (userInfo.symptoms) {
+            let sympLogEntry = new SympLog({ symptoms: userInfo.symptoms });
             user.symptomsLog.push(sympLogEntry);
             updated = true;
           }
           if (updated) {
             user.save().then(
               u => res.send(formatUser(u.toObject())),
-              e => res.send(e)
+              e => res.status(422).send(e)
             );
           }
         },
-        error => res.send(error)
+        error => res.status(404).send(error)
       );
     },
     err => {

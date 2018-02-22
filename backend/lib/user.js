@@ -68,17 +68,6 @@ export const UserSchema = new Schema({
 //   });
 // });
 
-// UserSchema.methods.validPassword = function(candidatePassword, cb) {
-//   bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-//     if (err) { return cb(err); }
-//
-//     cb(null, isMatch);
-//   });
-// };
-// UserSchema.methods.validPassword = function validPassword(candidatePassword) {
-//   console.log('hi',bcrypt.compare(candidatePassword, this.password));
-//   return bcrypt.compare(candidatePassword, this.password);
-// };
 
 UserSchema.methods.validPassword = function (password) {
   return bcrypt.compareSync(password, this.password);
