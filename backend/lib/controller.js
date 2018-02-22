@@ -18,9 +18,11 @@ export const getAllUsers = (req, res) => {
 export const fetchUser = (req, res) => {
   mongoose.connect(process.env.MONGODB_URI).then(
     () => {
-      const { email } = req.params;
-      User.findOne({ email }, (err, users) => {
-        res.send(users);
+      const { id } = req.params;
+      console.log(req.params);
+      console.log(id);
+      User.findById(id, (err, user) => {
+        res.send(user);
       });
     },
     err => {
@@ -32,10 +34,9 @@ export const fetchUser = (req, res) => {
 export const createUser = (req, res) => {
   mongoose.connect(process.env.MONGODB_URI).then(
     () => {
-      let user = new User(req.body.user);
-      User.findOne({ email: 'test0@test.com' }, (err, u) => {
-        user.patients.push(u);
-        user.save().then(r => res.send(r), err => res.send(err));
+      User.create(req.body.user, (err, user) => {
+        if (err) res.send(err);
+        res.send(user);
       });
       // User.create(user, (err, u) => {
       //   if (err) res.send(err);
@@ -47,3 +48,7 @@ export const createUser = (req, res) => {
     }
   );
 };
+
+
+
+
