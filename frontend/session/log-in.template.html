@@ -4,11 +4,11 @@
   <form ng-submit='$ctrl.sendUser()' class="session-form">
 
     <label>Email:
-      <input id="email-input" type="email" ng-model="$ctrl.user.email">
+      <input required id="email-input" type="email" ng-model="$ctrl.user.email">
     </label>
 
     <label>Password:
-      <input id="password-input" type="password" ng-model="$ctrl.user.password">
+      <input required id="password-input" type="password" ng-model="$ctrl.user.password">
     </label>
 
     <input id="session-button" type="submit" ng-model="$ctrl.user">

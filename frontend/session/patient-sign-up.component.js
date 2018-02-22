@@ -2,7 +2,7 @@ angular.
   module('patientSignUp').
   component('patientSignUp', {
     templateUrl: 'session/patient-sign-up.template.html',
-    controller: function ($http, UserService) {
+    controller: function ($http, UserService, $window) {
 
       this.sendUser = () =>
         (
@@ -13,6 +13,7 @@ angular.
           }).then(r => {
             console.log(r);
             UserService.setStore(this.user);
+            $window.location.href = '#!/patientview';
           })
         );
       }

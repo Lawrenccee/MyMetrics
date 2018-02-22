@@ -15,6 +15,8 @@ angular.
           console.log('response');
           console.log(res.data);
           UserService.setStore(res.data);
+
+          // CONDITION HERE FOR DOCTOR/PATIENT REDIRECT
           $window.location.href = '#!/patientview';
         });
       };
