@@ -3,10 +3,8 @@ import bcrypt from 'bcrypt-nodejs';
 
 const Schema = mongoose.Schema;
 
-export const logSchema = new Schema ({
-  time: Number,
-  value: String
-});
+const LogSchema = new Schema ({ value: String }, { timestamps:true });
+const SymptomsSchema = new Schema ({ symptoms: Array }, { timestamps: true});
 
 export const UserSchema = new Schema({
   email: {
@@ -35,11 +33,11 @@ export const UserSchema = new Schema({
     type: String,
     required: [true, "Date of birth is required"]
   },
-  stage: Number,
-  weightLog: [logSchema],
-  sodiumLog: [logSchema],
-  fluidLog: [logSchema],
-  symptoms: [logSchema],
+  stage: String,
+  weightLog: [LogSchema],
+  sodiumLog: [LogSchema],
+  fluidLog: [LogSchema],
+  symptomsLog: [SymptomsSchema],
   medications: [String],
   doc_email: String,
   license: String,
@@ -54,21 +52,21 @@ export const UserSchema = new Schema({
 }
 );
 
-UserSchema.pre('save', function(next) {
-
-  const user = this,
-        SALT_FACTOR = 15;
-
-  bcrypt.genSalt(SALT_FACTOR, function(err, salt) {
-    if (err) return next(err);
-
-    bcrypt.hash(user.password, salt, null, function(err, hash) {
-      if (err) return next(err);
-      user.password = hash;
-      next();
-    });
-  });
-});
+// UserSchema.pre('save', function(next) {
+//
+//   const user = this,
+//         SALT_FACTOR = 15;
+//
+//   bcrypt.genSalt(SALT_FACTOR, function(err, salt) {
+//     if (err) return next(err);
+//
+//     bcrypt.hash(user.password, salt, null, function(err, hash) {
+//       if (err) return next(err);
+//       user.password = hash;
+//       next();
+//     });
+//   });
+// });
 
 // UserSchema.methods.validPassword = function(candidatePassword, cb) {
 //   bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
@@ -87,3 +85,5 @@ UserSchema.methods.validPassword = function (password) {
 };
 
 export const User = mongoose.model('User', UserSchema);
+export const Log = mongoose.model('Log', LogSchema);
+export const SympLog = mongoose.model('SympLog', SymptomsSchema);

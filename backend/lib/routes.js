@@ -19,8 +19,8 @@ export const routerConfig = (app, passport) => {
     .post(controller.createUser);
 
   app.route('/api/users/:id')
-    .get(controller.fetchUser);
-    // .put(controller.updateUser);
+    .get(controller.fetchUser)
+    .put(controller.updateUser);
 
     // If this function gets called, authentication was successful.
     // `req.user` contains the authenticated user.
@@ -87,5 +87,3 @@ export const routerConfig = (app, passport) => {
   // );
 
 };
-
-

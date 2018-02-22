@@ -17,19 +17,26 @@ angular.
           url: `/api/users/${this.patient.id}`
         }).then((res) => {
           this.patient = res.data;
+          this.patient.symptoms = [];
+          this.patient.medications = [];
           console.log(this.patient);
         });
       };
 
-      this.patient = {};
-      this.patient.symptoms = [];
-      this.patient.medications = [];
 
       this.date = new Date();
       this.nextAppt = new Date();
 
       this.updatePatient = () => {
-        // DO POST REQUEST TO UPDATE PATIENT sending this.patient
+        console.log(this.patient);
+        return ($http({
+          method: "PUT",
+          url: `/api/users/${this.patient.id}`,
+          data: { updateUser: this.patient }
+        }).then(
+          r => console.log(r),
+          e => console.log(e)
+        ));
       };
 
       this.logout = () => {
