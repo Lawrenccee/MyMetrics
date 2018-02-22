@@ -94,7 +94,7 @@ export const createUser = (req, res) => {
                 res.send(formatUser(u.toObject()))
               },
               e => {
-                res.status(400);
+                res.status(422);
                 res.send(e);
               }
             );
@@ -110,7 +110,7 @@ export const createUser = (req, res) => {
             res.send(formatUser(u.toObject()))
           },
           e => {
-            res.status(400);
+            res.status(422);
             res.send(e);
           }
         );
@@ -168,7 +168,7 @@ export const updateUser = (req, res) => {
             user.save().then(
               u => res.send(formatUser(u.toObject())),
               e => {
-                res.status(400);
+                res.status(422);
                 res.send(e);
               }
             );
