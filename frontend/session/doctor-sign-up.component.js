@@ -2,7 +2,7 @@ angular.
   module('doctorSignUp').
   component('doctorSignUp', {
     templateUrl: 'session/doctor-sign-up.template.html',
-    controller: function ($http, UserService) {
+    controller: function ($http, $window, UserService) {
 
       this.sendUser = () => {
         let button = document.getElementById("doc-signup-button");
@@ -14,6 +14,7 @@ angular.
         }).then(r => {
           console.log(r);
           UserService.setStore(this.user);
+          $window.location.href = '#!/doctorview';
         },
           err => {
             button.setAttribute("enabled", "enabled")
