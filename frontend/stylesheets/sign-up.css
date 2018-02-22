@@ -1,0 +1,48 @@
+.main-signup-container  {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+}
+
+.main-signup-form {
+    border: 1px solid black;
+    display: flex;
+    height: 150px;
+}
+
+.main-signup-form label {
+    margin-top: auto;
+}
+
+.main-signup-form input {
+    padding: 7px;
+    font-size: 16px;
+}
+
+
+.left-signup-form {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.right-signup-form {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;    
+}
+
+.right-signup-form h3 {
+    font-size: 25px;
+}
+
+.signup-clickables {
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column-reverse;
+}
