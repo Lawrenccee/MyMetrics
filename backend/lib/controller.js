@@ -19,6 +19,8 @@ const formatUser = (user) => {
   user.weightLog = formatLog(user.weightLog);
   user.sodiumLog = formatLog(user.sodiumLog);
   user.fluidLog = formatLog(user.fluidLog);
+  user.id = user._id;
+  delete user._id; 
   delete user.password;
   return user;
 }
@@ -61,8 +63,8 @@ export const createUser = (req, res) => {
       //   user.patients.push(u);
       //   user.save().then(r => res.send(r), err => res.send(err));
       // });
-      user.save().lean().then(
-        u => res.send(formatUser(u)),
+      user.save().then(
+        u => res.send(formatUser(u.toObject())),
         e => res.send(e)
       );
       // User.create(user, (err, u) => {
@@ -109,8 +111,8 @@ export const updateUser = (req, res) => {
             updated = true;
           }
           if (updated) {
-            user.save().lean().then(
-              u => res.send(formatUser(u)),
+            user.save().then(
+              u => res.send(formatUser(u.toObject())),
               e => res.send(e)
             );
           }

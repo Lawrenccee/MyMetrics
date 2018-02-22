@@ -24,7 +24,6 @@ angular.
       this.patient = {};
       this.patient.symptoms = [];
       this.patient.medications = [];
->>>>>>> master
 
       this.date = new Date();
       this.nextAppt = new Date();
