@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
-import { User, Log } from './user.js';
+import bcrypt from 'bcrypt-nodejs';
+import { User, Log, SympLog } from './user.js';
 
 const MONGO_CONNECTION = process.env.MONGODB_URI;
 
@@ -63,6 +64,16 @@ export const createUser = (req, res) => {
       //   user.patients.push(u);
       //   user.save().then(r => res.send(r), err => res.send(err));
       // });
+      const SALT_FACTOR = 15;
+
+      bcrypt.genSalt(SALT_FACTOR, function(err, salt) {
+        if (err) return next(err);
+
+        bcrypt.hash(user.password, salt, null, function(err, hash) {
+          if (err) return next(err);
+          user.password = hash;
+        });
+      });
       user.save().then(
         u => res.send(formatUser(u.toObject())),
         e => res.send(e)

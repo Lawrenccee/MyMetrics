@@ -3,8 +3,8 @@ import bcrypt from 'bcrypt-nodejs';
 
 const Schema = mongoose.Schema;
 
-export const LogSchema = new Schema ({ value: String }, { timestamps:true });
-export const SymptomsSchema = new Schema ({ symptoms: Array }, { timestamps: true});
+const LogSchema = new Schema ({ value: String }, { timestamps:true });
+const SymptomsSchema = new Schema ({ symptoms: Array }, { timestamps: true});
 
 export const UserSchema = new Schema({
   email: {
@@ -52,21 +52,21 @@ export const UserSchema = new Schema({
 }
 );
 
-UserSchema.pre('save', function(next) {
-
-  const user = this,
-        SALT_FACTOR = 15;
-
-  bcrypt.genSalt(SALT_FACTOR, function(err, salt) {
-    if (err) return next(err);
-
-    bcrypt.hash(user.password, salt, null, function(err, hash) {
-      if (err) return next(err);
-      user.password = hash;
-      next();
-    });
-  });
-});
+// UserSchema.pre('save', function(next) {
+//
+//   const user = this,
+//         SALT_FACTOR = 15;
+//
+//   bcrypt.genSalt(SALT_FACTOR, function(err, salt) {
+//     if (err) return next(err);
+//
+//     bcrypt.hash(user.password, salt, null, function(err, hash) {
+//       if (err) return next(err);
+//       user.password = hash;
+//       next();
+//     });
+//   });
+// });
 
 // UserSchema.methods.validPassword = function(candidatePassword, cb) {
 //   bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {

@@ -17,13 +17,12 @@ angular.
           url: `/api/users/${this.patient.id}`
         }).then((res) => {
           this.patient = res.data;
+          this.patient.symptoms = [];
+          this.patient.medications = [];
           console.log(this.patient);
         });
       };
 
-      this.patient = {};
-      this.patient.symptoms = [];
-      this.patient.medications = [];
 
       this.date = new Date();
       this.nextAppt = new Date();
