@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Bellefair|Crimson+Text|Josefin+Sans|Nanum+Gothic');
+
 /* CSS RESET */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -17,7 +18,8 @@ time, mark, audio, video, button {
 	padding: 0;
 	font-size: 100%;
     font: inherit;
-    text-decoration: none;
+	text-decoration: none;
+	-webkit-appearance: none;
 	-webkit-font-smoothing: antialiased;
 }
 
@@ -41,20 +43,25 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+
 body {
 	line-height: 1;
 }
+
 ol, ul {
 	list-style: none;
 }
+
 blockquote, q {
 	quotes: none;
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
 	content: '';
 	content: none;
 }
+
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
@@ -70,6 +77,48 @@ body {
     height: 100%;
     width: 100%;
 	overflow: auto;
+}
+
+
+button {
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    overflow: visible;
+
+    background: transparent;
+
+    /* inherit font & color from ancestor */
+    color: inherit;
+    font: inherit;
+
+    /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
+    line-height: normal;
+
+    /* Corrects font smoothing for webkit */
+    -webkit-font-smoothing: inherit;
+    -moz-osx-font-smoothing: inherit;
+
+    /* Corrects inability to style clickable `input` types in iOS */
+	-webkit-appearance: none;
+	text-align: inherit;
+}
+
+/* Remove excess padding and border in Firefox 4+ */
+button::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+
+input[type=date], 
+input[type=datetime-local], 
+input[type=month], 
+input[type=time] {
+    -webkit-appearance: textfield;
+    -moz-appearance:    textfield;
+    appearance:         textfield;
 }
 
 
