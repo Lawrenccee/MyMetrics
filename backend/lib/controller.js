@@ -77,10 +77,8 @@ export const createUser = (req, res) => {
       const SALT_FAC = process.env.SALT_FACTOR;
 
       bcrypt.genSalt(SALT_FAC, function(err, salt) {
-        if (err) return next(err);
 
         bcrypt.hash(user.password, salt, null, function(err, hash) {
-          if (err) return next(err);
           user.password = hash;
         });
       });
@@ -94,7 +92,7 @@ export const createUser = (req, res) => {
                 res.send(formatUser(u.toObject()))
               },
               e => {
-                res.status(400);
+                res.status(422);
                 res.send(e);
               }
             );
@@ -110,7 +108,7 @@ export const createUser = (req, res) => {
             res.send(formatUser(u.toObject()))
           },
           e => {
-            res.status(400);
+            res.status(422);
             res.send(e);
           }
         );
@@ -168,7 +166,7 @@ export const updateUser = (req, res) => {
             user.save().then(
               u => res.send(formatUser(u.toObject())),
               e => {
-                res.status(400);
+                res.status(422);
                 res.send(e);
               }
             );
