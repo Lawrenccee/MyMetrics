@@ -8,16 +8,16 @@ angular.
       this.$onInit = () => {
         // Get the patient stored by the login/signup set in the store
         // TODO: The store gets emptied if the page is refreshed...
-        this.patient = UserService.getStore();
+        this.patient = JSON.parse(UserService.getStore());
         console.log(this.patient);
-
           // Do an http request to grab the patient were on???
           // But how do we know what patient it is...
         $http({
           method: 'GET',
           url: `/api/users/${this.patient.id}`
-        }).then((user) => {
-          this.patient = user;
+        }).then((res) => {
+          this.patient = res.data;
+          console.log(this.patient);
         });
       };
 

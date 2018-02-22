@@ -19,8 +19,10 @@ export const fetchUser = (req, res) => {
   mongoose.connect(process.env.MONGODB_URI).then(
     () => {
       const { id } = req.params;
-      User.findOne({ id }, (err, users) => {
-        res.send(users);
+      console.log(req.params);
+      console.log(id);
+      User.findById(id, (err, user) => {
+        res.send(user);
       });
     },
     err => {
