@@ -17,18 +17,20 @@ angular.
           url: `/api/users/${this.patient.id}`
         }).then((res) => {
           this.patient = res.data;
-          console.log(this.patient);
+          // this.patient.symptoms = [];
+          // this.patient.medications = [];
         });
       };
 
-      this.patient = {};
+      this.patient = {};  
       this.patient.symptoms = [];
-      this.patient.medications = [];
+      this.patient.medications = [];    
 
       this.date = new Date();
       this.nextAppt = new Date();
 
       this.updatePatient = () => {
+        console.log(this.patient);
         // DO POST REQUEST TO UPDATE PATIENT sending this.patient
       };
 
@@ -49,6 +51,7 @@ angular.
       ];
 
       this.updateSymptoms = (event) => {
+        console.log(this.patient);
         let index = this.patient.symptoms.indexOf(event.target.value);
 
         if (index > -1) {
