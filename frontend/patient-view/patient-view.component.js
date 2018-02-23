@@ -19,16 +19,7 @@ angular.
           }
           this.patient.symptoms = [];
 
-          createChart(this.patient);
-
-          console.log(res.data.weightLog[0][0]);
-          console.log(new Date(
-            new Date().
-            setHours(0, 0, 0, 0)).
-            setFullYear(this.date.getFullYear(), 
-            this.date.getMonth(), 
-            this.date.getDate()
-          ));
+          createChart(this.patient.logData);
 
           let today = new Date(
             new Date().setHours(0, 0, 0, 0)).
@@ -38,21 +29,12 @@ angular.
               this.date.getDate()
             );
 
-          this.patient.weightLog.forEach((values, index) => {
-            if (new Date(values[0]) === today) {
-              this.weight = values[1];
-            }
-          });
 
-          this.patient.sodiumLog.forEach((values, index) => {
-            if (new Date(values[0]) === today) {
-              this.sodium = values[1];
-            }
-          });
-
-          this.patient.fluidLog.forEach((values, index) => {
-            if (new Date(values[0]) === today) {
-              this.fluid = values[1];
+          this.patient.log.forEach((obj, index) => {
+            if (parseInt(obj.entryDate) === today) {
+              this.patient.weight = obj.weightEntry;
+              this.patient.sodium = obj.sodiumEntry;
+              this.patient.fluid = obj.fluidEntry;
             }
           });
         });
@@ -62,7 +44,7 @@ angular.
       this.nextAppt = undefined;
 
       this.updatePatient = () => {
-        this.patient.date = new Date(
+        this.patient.entryDate = new Date(
           new Date().setHours(0, 0, 0, 0)).
           setFullYear(
             this.date.getFullYear(),
@@ -70,13 +52,15 @@ angular.
             this.date.getDate()
           );
 
+        console.log(this.patient);
+
         return ($http({
           method: "PUT",
           url: `/api/users/${this.patient.id}`,
           data: { userInfo: this.patient }
         }).then(
           r => {
-            createChart(r.data);
+            createChart(r.data.logData);
           },
           e => console.log(e)
         ));
