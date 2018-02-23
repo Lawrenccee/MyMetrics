@@ -96,12 +96,6 @@ angular.
             this.patient.fluid = obj.fluidEntry;
           }
         });
-        
-        // HTTP REQUEST TO CHANGE LOGS
-        // in the then()
-        // this.patient.weight = res.data.weightEntry ? res.data.weightEntry[1] : undefined;
-        // this.patient.sodium = res.data.sodiumEntry ? res.data.sodiumEntry[1] : undefined;
-        // this.patient.fluid = res.data.fluidEntry ? res.data.fluidEntry[1] : undefined;
       };
 
       this.changeNextAppt = () => {

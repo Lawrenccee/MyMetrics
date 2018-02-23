@@ -16,11 +16,12 @@ const formatLog = (log) => {
       sodiumEntryArr = [],
       fluidEntryArr = [];
     console.log(date.entryDate);
-    weightEntryArr.push(date.entryDate);
+    let dateInt = parseInt(date.entryDate);
+    weightEntryArr.push(dateInt);
     weightEntryArr.push(date.weightEntry);
-    sodiumEntryArr.push(date.entryDate);
+    sodiumEntryArr.push(dateInt);
     sodiumEntryArr.push(date.sodiumEntry);
-    fluidEntryArr.push(date.entryDate);
+    fluidEntryArr.push(dateInt);
     fluidEntryArr.push(date.fluidEntry);
     obj.weightLog.push(weightEntryArr);
     obj.sodiumLog.push(sodiumEntryArr);
