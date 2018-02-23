@@ -26,10 +26,10 @@
     height: 185px;
 }
 
-.main-signup-form label {
+/* .main-signup-form label {
     margin-bottom: auto;
     margin-top: auto;
-}
+} */
 
 .main-signup-form input {
     padding: 7px;
@@ -86,4 +86,44 @@
     align-items: center;
     flex-direction: column-reverse;
     padding: 9px;
+}
+
+
+/* Doctor Signup Specific Styling */
+
+.doctor-signup-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    height: 270px;
+    width: 600px;
+}
+
+.doctor-left-signup {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 10px 0px 10px 0px;
+}
+
+.doctor-left-signup input {
+    margin-right: 20px;
+}
+
+.doctor-right-signup {
+    display: flex;
+    flex-grow: 3;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 5px 30px 5px 0;
+}
+
+#doctor-dob {
+    padding: 4px;
+    width: 163px;
+    font-size: 15px;
+    text-align: center;
 }
