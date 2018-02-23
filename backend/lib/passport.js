@@ -12,7 +12,6 @@ passport.use(new LocalStrategy({
     passwordField: 'password'
   },
   function(email, password, done) {
-    console.log('test',email);
     mongoose.connect(process.env.MONGODB_URI).then(
       User.findOne({ email }, function (err, user) {
 
@@ -22,7 +21,6 @@ passport.use(new LocalStrategy({
         }
 
         if (!user.validPassword(password)) {
-          console.log('false')
           return done(null, false, { message: 'Incorrect password.' });
         }
 
