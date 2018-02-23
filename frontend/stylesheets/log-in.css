@@ -45,7 +45,7 @@
     justify-content: space-between;
     align-items: center;
     width: 20%;
-    height: 165px;
+    height: 170px;
     margin-top: 30px;
 }
 
@@ -64,7 +64,8 @@
 
 .email-container input,
 .password-container input {
-    padding: 7px;
+    height: 35px;
+    width: 160px;
     font-size: 16px;
 }
 
