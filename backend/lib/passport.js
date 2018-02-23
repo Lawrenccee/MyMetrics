@@ -1,9 +1,9 @@
-import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
+// import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
 import mongoose from 'mongoose';
 import { User } from './user.js';
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
-import bcrypt from 'bcrypt-nodejs';
+import bcrypt from 'bcrypt';
 
 require('dotenv').config();
 
@@ -15,13 +15,17 @@ passport.use(new LocalStrategy({
     console.log('test',email);
     mongoose.connect(process.env.MONGODB_URI).then(
       User.findOne({ email }, function (err, user) {
+
         if (err) { return done(err); }
         if (!user) {
           return done(null, false, { message: 'Incorrect email.' });
         }
+
         if (!user.validPassword(password)) {
+          console.log('false')
           return done(null, false, { message: 'Incorrect password.' });
         }
+
         return done(null, user);
       })
     );
@@ -29,16 +33,16 @@ passport.use(new LocalStrategy({
 ));
 
 
-passport.serializeUser(function(user, done) {
-  console.log('serialize');
-  done(null, user.id);
-});
-
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user);
-  });
-});
+// passport.serializeUser(function(user, done) {
+//   console.log('serialize');
+//   done(null, user.id);
+// });
+//
+// passport.deserializeUser(function(id, done) {
+//   User.findById(id, function(err, user) {
+//     done(err, user);
+//   });
+// });
 
 // const googleConfig = {
 //   clientID: process.env.G_CLIENT_ID,

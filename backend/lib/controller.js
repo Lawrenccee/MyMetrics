@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import bcrypt from 'bcrypt-nodejs';
+import bcrypt from 'bcrypt';
 import { User, Log, SympLog } from './user.js';
 
 const MONGO_CONNECTION = process.env.MONGODB_URI;
@@ -72,57 +72,55 @@ export const createUser = (req, res) => {
 
       const SALT_FAC = process.env.SALT_FACTOR;
 
-      bcrypt.genSalt(SALT_FAC, function(err, salt) {
-
-        bcrypt.hash(user.password, salt, null, function(err, hash) {
+      bcrypt.genSalt(parseInt(SALT_FAC), function(err, salt) {
+        bcrypt.hash(user.password, salt, function(error, hash) {
           user.password = hash;
-        });
-      });
-      if (user.doc_email) {
-        User.findOne({ email: user.doc_email }).then(
-          doc => {
+
+          if (user.doc_email) {
+            User.findOne({ email: user.doc_email }).then(
+              doc => {
+                user.save().then(
+                  u => {
+                    doc.patients.push(u);
+                    doc.save();
+                    req.logIn(user, function(error) {
+                      let isDoctor = false;
+                      if (error) res.send(422);
+                      if (user.license) isDoctor = true;
+                      res.send( { email: user.email, id: user._id, isDoctor } );
+                    });
+                  },
+                  e => {
+                    res.status(422);
+                    res.send(e);
+                  }
+                );
+              },
+              err => {
+                res.status(404);
+                res.send(err);
+              }
+            );
+          } else {
             user.save().then(
               u => {
-                doc.patients.push(u);
-                doc.save();
                 req.logIn(user, function(error) {
                   let isDoctor = false;
-                  if (error) res.send(422);
                   if (user.license) isDoctor = true;
                   res.send( { email: user.email, id: user._id, isDoctor} );
                 });
               },
               e => {
                 res.status(422);
-                res.send(e);
+                res.send({message: "Email has already been taken"});
               }
             );
-          },
-          err => {
-            res.status(404);
-            res.send(err);
           }
-        );
-      } else {
-        user.save().then(
-          u => {
-            req.logIn(user, function(error) {
-              let isDoctor = false;
-              if (error) res.send(422);
-              if (user.license) isDoctor = true;
-              res.send( { email: user.email, id: user._id, isDoctor} );
-            });
-          },
-          e => {
-            res.status(422);
-            res.send(e);
-          }
-        );
-      }
-      // User.create(user, (err, u) => {
-      //   if (err) res.send(err);
-      //   if (u) res.send(u);
-      // })
+
+        });
+      });
+
+
     },
     error => {
       res.status(503);

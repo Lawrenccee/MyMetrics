@@ -3,14 +3,14 @@ import path from 'path';
 
 // import passport from 'passport';
 
-const isLoggedIn = (req, res, next) => {
-  console.log(req);
-  if (req.user) {
-    return next();
-  } else {
-    return res.status(401).json( { error: 'User not logged in' } );
-  }
-};
+// const isLoggedIn = (req, res, next) => {
+//   console.log(req);
+//   if (req.user) {
+//     return next();
+//   } else {
+//     return res.status(401).json( { error: 'User not logged in' } );
+//   }
+// };
 
 export const routerConfig = (app, passport) => {
 
@@ -31,7 +31,8 @@ export const routerConfig = (app, passport) => {
     passport.authenticate('local', function(err, user, info) {
       if (err) { return next(err); }
       if (!user) { return res.status(401).json( { message: info.message }); }
-      req.logIn(user, function(error) {
+      req.logIn(user, { session: false },function(error) {
+        console.log('log in');
         if (error) { return next(error); }
         let isDoctor = false;
         if (user.license) isDoctor = true;
