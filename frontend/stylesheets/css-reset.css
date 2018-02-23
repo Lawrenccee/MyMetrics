@@ -104,7 +104,7 @@ input[type=submit] {
 
     /* Corrects inability to style clickable `input` types in iOS */
 	-webkit-appearance: none;
-	text-align: inherit;
+	text-align: center;
 }
 
 /* Remove excess padding and border in Firefox 4+ */
