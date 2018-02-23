@@ -196,7 +196,7 @@ export const updateUser = (req, res) => {
               user.markModified('dates');
             }
             user.save().then(
-              u => res.send(formatUser(u.toObject())),
+              u => res.send(formatUser(u.populate('log').toObject()));},
               e => res.status(422).send(e)
             );
           } else {

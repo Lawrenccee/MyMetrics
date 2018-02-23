@@ -1,12 +1,33 @@
 .patient-view {
   display: flex;
   flex-direction: row;
+  font-size: 20px;
+  height: 100vh;
+  padding: 20px;
+}
+
+.patient-view h1 {
+  font-size: 50px;
+}
+
+.patient-view h2 {
+  font-size: 30px;
 }
 
 .patient-view .left, .patient-view .right {
   display: flex;
   flex-direction: column;
   width: 50%;
+  height: 100%;
+  padding: 10px;
+}
+
+.patient-view .left {
+  justify-content: space-between;  
+}
+
+.patient-view .header {
+  flex: 1 1 0%;
 }
 
 .patient-view .name-stage {
@@ -17,31 +38,95 @@
 .patient-view .name-date {
   display: flex;
   flex-direction: row;
+  margin: 10px 0;
+}
+
+.patient-view .name {
+  margin-right: 10px;
+}
+
+.patient-view .stage {
+  margin-top: 10px;
 }
 
 .patient-view .metrics {
   display: flex;
   flex-direction: column;
+  flex: 3 1 0%;
+  justify-content: center;
 }
 
 .patient-view .metrics form {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 10px;
 }
 
 .patient-view .symptoms-medications {
   display: flex;
   flex-direction: row;
+  flex: 3 1 0%;
+  justify-content: space-between;
 }
 
 .patient-view .symptoms {
   display: flex;
   flex-direction: column;
+  white-space: nowrap;
+  width: 50%;
+}
+
+.patient-view .symptoms h2 {
+  margin-bottom: 10px;
+}
+
+.patient-view .symptoms label {
+  margin: 3px;
+}
+
+.patient-view .symptoms button {
+  margin-top: auto;
+  text-align: center;
+  margin-right: 10px;
 }
 
 .patient-view .medications {
   display: flex;
   flex-direction: column;
+  width: 50%;
+  justify-content: space-between;
+}
+
+.patient-view .medications h2 {
+  margin-bottom: 10px;
+}
+
+.patient-view .medication-list {
+  overflow: auto;
+  border: 1px solid black;
+  flex: 1 1 auto;
+  padding: 5px;
+}
+
+.patient-view .medications ul {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.patient-view .medications li {
+  display: flex;
+  flex-direction: row;
+}
+
+.patient-view .medication-form {
+  margin-top: 5px;
+}
+
+.patient-view .medication-form input {
+  width: 100%;
+  margin-top: 3px;
 }
 
 .patient-view .warnings-appointment-logout-graph {
@@ -52,4 +137,36 @@
 .patient-view .warnings-appointment-logout {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.patient-view .name {
+  font-size: 30px;
+}
+
+.patient-view .metrics .labels {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.patient-view .metrics .inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.patient-view .metrics .labels label, .patient-view .metrics .inputs input {
+  margin: 3px;
+}
+
+.patient-view button, .patient-view input[type='submit'] {
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+#graph {
+  height: 100%;
 }

@@ -1,49 +1,49 @@
 <div class="patient-view">
   <div class="left">
-    <div class="HEADER">
+    <div class="header">
       <h1>MyMetrics</h1>
-    </div>
 
-    <div class="name-stage">
-      <div class="name-date">
-        <div class="name">
-          {{$ctrl.patient.name}}
+      <div class="name-stage">
+        <div class="name-date">
+          <div class="name">
+            {{$ctrl.patient.name}}
+          </div>
+
+          <div class="date">
+            <input type="date" ng-model="$ctrl.date" ng-change="$ctrl.changeDate()">
+          </div>
         </div>
 
-        <div class="date">
-          <input type="date" ng-model="$ctrl.date">
+        <div class="stage">
+          <label>Stage:
+            <select name="stage" ng-model="$ctrl.patient.stage">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </label>
         </div>
       </div>
-
-      <div class="stage">
-        <label>Stage:
-          <select name="stage" ng-model="$ctrl.patient.stage">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-        </label>
-      </div>
-
     </div>
+    
 
     <div class="metrics">
       <h2>Metrics</h2>
 
       <form>
-        <label>Weight:
+        <div class="labels">
+          <label>Weight:</label>
+          <label>Sodium Intake:</label>
+          <label>Fluid Intake:</label>
+        </div>
+
+        <div class="inputs">
           <input type="number" ng-model="$ctrl.patient.weight">
-        </label>
-
-        <label>Sodium Intake:
           <input type="number" ng-model="$ctrl.patient.sodium">
-        </label>
-
-        <label>Fluid Intake:
           <input type="number" ng-model="$ctrl.patient.fluid">
-        </label>
+        </div>
       </form>
     </div>
 
@@ -56,23 +56,30 @@
             <input type="checkbox" value="{{symptom}}" ng-click="$ctrl.updateSymptoms($event)">{{symptom}}
           </label>
         </div>
+
+        <button ng-click="$ctrl.updatePatient()">SUBMIT ALL DATA</button>    
       </div>
 
       <div class="medications">
         <h2>Medications</h2>
 
-        <ul ng-repeat="medication in $ctrl.patient.medications">
-          <li>{{medication}}<button ng-click="$ctrl.removeMedication(medication)">x</button></li>
-        </ul>
+        <div class="medication-list">
+          <ul>
+            <li ng-repeat="medication in $ctrl.patient.medications">{{medication}}
+              <button ng-click="$ctrl.removeMedication(medication)">x</button>
+            </li>
+          </ul>
+        </div>
 
-        <label>Add a Medication:
-          <input type="text" ng-model="$ctrl.medication">
-          <button ng-click="$ctrl.addMedication($ctrl.medication)">Add</button>
-        </label>
+        <form class="medication-form">
+          <label>Add a Medication:     
+            <input type="text" ng-model="$ctrl.medication">
+          </label>
+
+          <input type="submit" ng-click="$ctrl.addMedication($ctrl.medication)" value="ADD">
+        </form>
       </div>
     </div>
-
-    <button ng-click="$ctrl.updatePatient()">SUBMIT</button>
   </div>
 
   <div class="right">
@@ -84,7 +91,7 @@
 
         <div class="appointment">
           <label>Next Appointment:
-            <input type="date" ng-model="$ctrl.nextAppt">
+            <input type="date" ng-model="$ctrl.nextAppt" ng-change="$ctrl.changeNextAppt()">
           </label>
         </div>
 
