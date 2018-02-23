@@ -17,13 +17,14 @@ angular.
           url: `/api/users/${this.doctor.id}`
         }).then((res) => {
           this.doctor = res.data;
-          console.log(this.doctor);
-
           this.patients = this.doctor.patients;
+          this.currentPatient = this.patients[0];
+          console.log(this.doctor);
           console.log(this.patients);
+          console.log(this.currentPatient);
         });
       };
-
+      
 
       this.logout = () => {
         $http({
@@ -36,7 +37,10 @@ angular.
 
       };
 
-      // do something for check boxes to add to an array when they are checked
-      // otherwise remove from patient array
+
+      this.getPatient = (event) => {
+        console.log(JSON.parse(event.target.dataset.patient));
+        this.currentPatient = JSON.parse(event.target.dataset.patient);
+      };
     }
   });
