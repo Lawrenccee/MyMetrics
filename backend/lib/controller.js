@@ -48,7 +48,7 @@ export const fetchUser = (req, res) => {
   mongoose.connect(MONGO_CONNECTION).then(
     () => {
       const { id } = req.params;
-      User.findById(id).lean().then(
+      User.findById(id).populate('patients', '-password').lean().then(
         u => {
           res.send(formatUser(u));
         },
@@ -116,11 +116,8 @@ export const createUser = (req, res) => {
               }
             );
           }
-
         });
       });
-
-
     },
     error => {
       res.status(503);
@@ -162,16 +159,25 @@ export const updateUser = (req, res) => {
             user.fluidLog.push(fluidLogEntry);
             updated = true;
           }
-          if (userInfo.symptoms) {
+          if (userInfo.symptoms.length > 0) {
             let sympLogEntry = new SympLog({ symptoms: userInfo.symptoms });
             user.symptomsLog.push(sympLogEntry);
             updated = true;
           }
+          if (userInfo.medications) {
+            if (user.medications.length != userInfo.medications.length || !(user.medications.every(function(med, idx) { return med === userInfo.medications[idx] }))){
+              user.medications = userInfo.medications;
+              updated = true;
+            }
+          }
           if (updated) {
+            console.log("did update");
             user.save().then(
               u => res.send(formatUser(u.toObject())),
               e => res.status(422).send(e)
             );
+          } else {
+            console.log("no update");
           }
         },
         error => res.status(404).send(error)

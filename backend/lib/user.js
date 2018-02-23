@@ -16,8 +16,8 @@ const UserSchema = new Schema({
       },
       message: 'Valid email address is required'
     },
-    unique: true,
-    index: true,
+    unique: [true, "This email has been taken"],
+    index: [true, "This email has been taken"],
     lowercase: true,
     required: [true, "Valid email address is required"]
   },
