@@ -10,7 +10,7 @@
             <label>Patients: <input class="patient-search-box" placeholder="Search" ng-model="$ctrl.query"/></label>
         </div> 
 
-        <div>
+        <div class="doctors-patients-container">
             <ul class="doctors-patients">
                 <li ng-repeat="patient in $ctrl.patients | filter: $ctrl.query" class="patient-item">
                     <span>{{patient.name}}</span>
