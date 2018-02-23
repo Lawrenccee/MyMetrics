@@ -10,7 +10,7 @@
           </div>
 
           <div class="date">
-            <input type="date" ng-model="$ctrl.date">
+            <input type="date" ng-model="$ctrl.date" ng-change="$ctrl.changeDate()">
           </div>
         </div>
 
@@ -85,7 +85,7 @@
 
         <div class="appointment">
           <label>Next Appointment:
-            <input type="date" ng-model="$ctrl.nextAppt">
+            <input type="date" ng-model="$ctrl.nextAppt" ng-change="$ctrl.changeNextAppt()">
           </label>
         </div>
 
