@@ -16,17 +16,17 @@ const formatLog = (log) => {
       sodiumEntryArr = [],
       fluidEntryArr = [];
       if (date.weightEntry) {
-        weightEntryArr.push(new Date(date.entryDate).getTime());
+        weightEntryArr.push(date.entryDate);
         weightEntryArr.push(date.weightEntry);
         obj.weightLog.push(weightEntryArr);
       }
       if (date.sodiumEntry) {
-        sodiumEntryArr.push(new Date(date.entryDate).getTime());
+        sodiumEntryArr.push(date.entryDate);
         sodiumEntryArr.push(date.sodiumEntry);
         obj.sodiumLog.push(sodiumEntryArr);
       }
       if (date.fluidEntry) {
-        fluidEntryArr.push(new Date(date.entryDate).getTime());
+        fluidEntryArr.push(date.entryDate);
         fluidEntryArr.push(date.fluidEntry);
         obj.fluidLog.push(fluidEntryArr);
       }
@@ -156,8 +156,11 @@ export const updateUser = (req, res) => {
       User.findById(id).then(
         user => {
           let userUpdated = false,
-            logUpdated = false;
-          let logEntry = new LogEntry({ entryDate: userInfo.entryDate });
+            logUpdated = false,
+            logEntry = new LogEntry({ entryDate: new Date().getTime() });
+          if (!user.dates){
+              user.dates = {};
+          }
           if (userInfo.weight) {
             logEntry.weightEntry = userInfo.weight;
             logUpdated = true;
@@ -189,6 +192,8 @@ export const updateUser = (req, res) => {
             if (logUpdated) {
               logEntry.save();
               user.log.push(logEntry);
+              user.dates[`${logEntry.entryDate}`] = logEntry._id;
+              user.markModified('dates');
             }
             user.save().then(
               u => res.send(formatUser(u.toObject())),

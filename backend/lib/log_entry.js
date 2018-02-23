@@ -7,7 +7,7 @@ const LogSchema = new Schema ({
   sodiumEntry: Number,
   fluidEntry: Number,
   symptomsEntry: Array,
-  entryDate: String
+  entryDate: Number
 });
 
 export const LogEntry = mongoose.model('LogEntry', LogSchema);
