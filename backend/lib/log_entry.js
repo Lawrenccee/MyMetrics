@@ -6,6 +6,7 @@ const LogSchema = new Schema ({
   weightEntry: Number,
   sodiumEntry: Number,
   fluidEntry: Number,
+  symptomsEntry: Array,
   entryDate: String
 });
 

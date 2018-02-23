@@ -38,7 +38,6 @@ const UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'LogEntry'
   }],
-  symptomsLog: [SymptomsSchema],
   medications: [String],
   doc_email: String,
   license: String,

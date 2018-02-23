@@ -15,15 +15,21 @@ const formatLog = (log) => {
     let weightEntryArr = [],
       sodiumEntryArr = [],
       fluidEntryArr = [];
-    weightEntryArr.push(new Date(date.entryDate).getTime());
-    weightEntryArr.push(date.weightEntry);
-    sodiumEntryArr.push(new Date(date.entryDate).getTime());
-    sodiumEntryArr.push(date.sodiumEntry);
-    fluidEntryArr.push(new Date(date.entryDate).getTime());
-    fluidEntryArr.push(date.fluidEntry);
-    obj.weightLog.push(weightEntryArr);
-    obj.sodiumLog.push(sodiumEntryArr);
-    obj.fluidLog.push(fluidEntryArr);
+      if (date.weightEntry) {
+        weightEntryArr.push(new Date(date.entryDate).getTime());
+        weightEntryArr.push(date.weightEntry);
+        obj.weightLog.push(weightEntryArr);
+      }
+      if (date.sodiumEntry) {
+        sodiumEntryArr.push(new Date(date.entryDate).getTime());
+        sodiumEntryArr.push(date.sodiumEntry);
+        obj.sodiumLog.push(sodiumEntryArr);
+      }
+      if (date.fluidEntry) {
+        fluidEntryArr.push(new Date(date.entryDate).getTime());
+        fluidEntryArr.push(date.fluidEntry);
+        obj.fluidLog.push(fluidEntryArr);
+      }
   })
   return obj;
 };
@@ -149,40 +155,41 @@ export const updateUser = (req, res) => {
             };
       User.findById(id).then(
         user => {
-          let updated = false;
-          if (userInfo.stage && userInfo.stage !== user.stage) {
-            user.stage = userInfo.stage;
-            updated = true;
-          }
-          let logEntry = new LogEntry({ entryDate: new Date().toString() });
+          let userUpdated = false,
+            logUpdated = false;
+          let logEntry = new LogEntry({ entryDate: userInfo.entryDate });
           if (userInfo.weight) {
             logEntry.weightEntry = userInfo.weight;
-            updated = true;
+            logUpdated = true;
           }
           if (userInfo.sodium) {
             logEntry.sodiumEntry = userInfo.sodium;
-            updated = true;
+            logUpdated = true;
           }
           if (userInfo.fluid) {
             logEntry.fluidEntry = userInfo.fluid;
-            updated = true;
+            logUpdated = true;
           }
-
           if (userInfo.symptoms.length > 0) {
-            let sympLogEntry = new SympLog({ symptoms: userInfo.symptoms });
-            user.symptomsLog.push(sympLogEntry);
-            updated = true;
+            logEntry.symptomsEntry = userInfo.symptoms;
+            logUpdated = true;
+          }
+          if (userInfo.stage && userInfo.stage !== user.stage) {
+            user.stage = userInfo.stage;
+            userUpdated = true;
           }
           if (userInfo.medications) {
             if (user.medications.length != userInfo.medications.length || !(user.medications.every(function(med, idx) { return med === userInfo.medications[idx] }))){
               user.medications = userInfo.medications;
-              updated = true;
+              userUpdated = true;
             }
           }
-          if (updated) {
+          if (userUpdated || logUpdated) {
             console.log("did update");
-            logEntry.save();
-            user.log.push(logEntry);
+            if (logUpdated) {
+              logEntry.save();
+              user.log.push(logEntry);
+            }
             user.save().then(
               u => res.send(formatUser(u.toObject())),
               e => res.status(422).send(e)
