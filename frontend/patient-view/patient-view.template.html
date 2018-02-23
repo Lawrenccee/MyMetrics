@@ -25,7 +25,6 @@
             </select>
           </label>
         </div>
-
       </div>
     </div>
     
@@ -57,29 +56,30 @@
             <input type="checkbox" value="{{symptom}}" ng-click="$ctrl.updateSymptoms($event)">{{symptom}}
           </label>
         </div>
+
+        <button ng-click="$ctrl.updatePatient()">SUBMIT ALL DATA</button>    
       </div>
 
       <div class="medications">
         <h2>Medications</h2>
 
         <div class="medication-list">
-          <ul ng-repeat="medication in $ctrl.patient.medications">
-            <li>{{medication}}
+          <ul>
+            <li ng-repeat="medication in $ctrl.patient.medications">{{medication}}
               <button ng-click="$ctrl.removeMedication(medication)">x</button>
             </li>
           </ul>
         </div>
 
-        <label>Add a Medication:
-          <form>
+        <form class="medication-form">
+          <label>Add a Medication:     
             <input type="text" ng-model="$ctrl.medication">
-            <input type="submit" ng-click="$ctrl.addMedication($ctrl.medication)" value="ADD">
-          </form>
-        </label>
+          </label>
+
+          <input type="submit" ng-click="$ctrl.addMedication($ctrl.medication)" value="ADD">
+        </form>
       </div>
     </div>
-
-    <button ng-click="$ctrl.updatePatient()">SUBMIT</button>
   </div>
 
   <div class="right">

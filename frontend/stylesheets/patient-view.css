@@ -19,6 +19,7 @@
   flex-direction: column;
   width: 50%;
   height: 100%;
+  padding: 10px;
 }
 
 .patient-view .left {
@@ -37,6 +38,15 @@
 .patient-view .name-date {
   display: flex;
   flex-direction: row;
+  margin: 10px 0;
+}
+
+.patient-view .name {
+  margin-right: 10px;
+}
+
+.patient-view .stage {
+  margin-top: 10px;
 }
 
 .patient-view .metrics {
@@ -75,10 +85,17 @@
   margin: 3px;
 }
 
+.patient-view .symptoms button {
+  margin-top: auto;
+  text-align: center;
+  margin-right: 10px;
+}
+
 .patient-view .medications {
   display: flex;
   flex-direction: column;
   width: 50%;
+  justify-content: space-between;
 }
 
 .patient-view .medications h2 {
@@ -87,6 +104,9 @@
 
 .patient-view .medication-list {
   overflow: auto;
+  border: 1px solid black;
+  flex: 1 1 auto;
+  padding: 5px;
 }
 
 .patient-view .medications ul {
@@ -98,6 +118,15 @@
 .patient-view .medications li {
   display: flex;
   flex-direction: row;
+}
+
+.patient-view .medication-form {
+  margin-top: 5px;
+}
+
+.patient-view .medication-form input {
+  width: 100%;
+  margin-top: 3px;
 }
 
 .patient-view .warnings-appointment-logout-graph {
@@ -136,13 +165,6 @@
   border: 1px solid black;
   border-radius: 5px;
   padding: 5px;
-}
-
-.patient-view .left button {
-  width: 90px;
-  display: flex;
-  justify-content: center;
-  text-align: center;
 }
 
 #graph {
