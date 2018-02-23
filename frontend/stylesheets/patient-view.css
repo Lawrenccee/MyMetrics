@@ -1,12 +1,27 @@
 .patient-view {
   display: flex;
   flex-direction: row;
+  font-size: 20px;
+  height: 100vh;
+}
+
+.patient-view h1 {
+  font-size: 50px;
+}
+
+.patient-view h2 {
+  font-size: 30px;
 }
 
 .patient-view .left, .patient-view .right {
   display: flex;
   flex-direction: column;
   width: 50%;
+  height: 100%;
+}
+
+.patient-view .left {
+  justify-content: space-between;  
 }
 
 .patient-view .name-stage {
@@ -26,7 +41,8 @@
 
 .patient-view .metrics form {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .patient-view .symptoms-medications {
@@ -37,6 +53,7 @@
 .patient-view .symptoms {
   display: flex;
   flex-direction: column;
+  white-space: nowrap;
 }
 
 .patient-view .medications {
@@ -52,4 +69,33 @@
 .patient-view .warnings-appointment-logout {
   display: flex;
   flex-direction: row;
+}
+
+.patient-view .name {
+  font-size: 30px;
+}
+
+.patient-view .metrics .labels {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.patient-view .metrics .inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.patient-view button, .patient-view input[type='submit'] {
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.patient-view .left button {
+  width: 90px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }

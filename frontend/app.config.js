@@ -46,11 +46,11 @@ angular.
         $location.path('/login');
       } else if ($route.routes[$location.path()].auth === false && user && user.email) {
         event.preventDefault();
-        
+
         if (user.isDoctor) {
-          $location.path('#!/doctorview');
+          $location.path('/doctorview');
         } else {
-          $location.path('#!/patientview');
+          $location.path('/patientview');
         }
       }
     });
