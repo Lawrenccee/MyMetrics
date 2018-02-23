@@ -1,9 +1,9 @@
-import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
+// import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
 import mongoose from 'mongoose';
 import { User } from './user.js';
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
-import bcrypt from 'bcrypt-nodejs';
+import bcrypt from 'bcrypt';
 
 require('dotenv').config();
 
@@ -12,16 +12,18 @@ passport.use(new LocalStrategy({
     passwordField: 'password'
   },
   function(email, password, done) {
-    console.log('test',email);
     mongoose.connect(process.env.MONGODB_URI).then(
       User.findOne({ email }, function (err, user) {
+
         if (err) { return done(err); }
         if (!user) {
           return done(null, false, { message: 'Incorrect email.' });
         }
+
         if (!user.validPassword(password)) {
           return done(null, false, { message: 'Incorrect password.' });
         }
+
         return done(null, user);
       })
     );
@@ -30,7 +32,6 @@ passport.use(new LocalStrategy({
 
 
 passport.serializeUser(function(user, done) {
-  console.log('serialize');
   done(null, user.id);
 });
 
