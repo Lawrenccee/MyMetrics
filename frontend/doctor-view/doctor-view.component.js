@@ -17,6 +17,7 @@ angular.
           url: `/api/users/${this.doctor.id}`
         }).then((res) => {
           this.doctor = res.data;
+          console.log(this.doctor);
           this.patients = this.doctor.patients;
           console.log(this.patients);
         });

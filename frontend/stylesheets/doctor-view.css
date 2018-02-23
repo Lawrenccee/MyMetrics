@@ -11,7 +11,25 @@
     height: 95vh;
 }
 
-.doctor-left h1 {
-    
+.doctor-left {
+    flex-direction: column;
+}
+
+.doctor-header {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 110px;
+    padding-top: 15px;
+    padding-left: 15px;
+}
+
+.doctor-header h1 {
+    font-size: 50px;
+}
+
+.doctor-header h3 {
+    font-size: 30px;
 }
 
