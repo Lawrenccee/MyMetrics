@@ -3,14 +3,14 @@ import path from 'path';
 
 // import passport from 'passport';
 
-const isLoggedIn = (req, res, next) => {
-  console.log(req);
-  if (req.user) {
-    return next();
-  } else {
-    return res.status(401).json( { error: 'User not logged in' } );
-  }
-};
+// const isLoggedIn = (req, res, next) => {
+//   console.log(req);
+//   if (req.user) {
+//     return next();
+//   } else {
+//     return res.status(401).json( { error: 'User not logged in' } );
+//   }
+// };
 
 export const routerConfig = (app, passport) => {
 
