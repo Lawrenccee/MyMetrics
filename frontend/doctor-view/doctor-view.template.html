@@ -12,7 +12,7 @@
 
         <div class="doctors-patients-container">
             <ul class="doctors-patients">
-                <li ng-repeat="patient in $ctrl.patients | filter: $ctrl.query" class="patient-item">
+                <li ng-repeat="patient in $ctrl.patients | filter: $ctrl.query" ng-click="$ctrl.getPatient($event)" data-patient={{patient}} class="patient-item">
                     <span>{{patient.name}}</span>
                     <span>{{patient.status}}</span>
                 </li>
@@ -22,9 +22,13 @@
 
     <div class="doctor-right">
         <div class="patient-info">
-
+            
             <div class="doctor-logout">
                 <button ng-click="$ctrl.logout()">Logout</button>
+            </div>
+
+            <div class="patient-name">
+                <h1>{{$ctrl.currentPatient.name}}</h1> 
             </div>
 
             <div class="patient-graph">
@@ -32,7 +36,11 @@
             </div>
             
             <div class="patient-biometrics">
-                <span>PATIENTS BIOMETRICS UNDER</span>
+                <span>PATIENT BIOMETRICS HERE</span>
+                <span>{{$ctrl.currentPatient.stage}}</span>
+                <span>{{$ctrl.currentPatient.medications}}</span>
+                <span>{{$ctrl.currentPatient.symptoms}}</span>
+                <span>{{$ctrl.currentPatient.weightLog[-1]}}</span>
             </div>
             
         </div>
