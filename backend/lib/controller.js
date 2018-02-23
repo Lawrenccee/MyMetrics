@@ -15,7 +15,6 @@ const formatLog = (log) => {
     let weightEntryArr = [],
       sodiumEntryArr = [],
       fluidEntryArr = [];
-    console.log(date.entryDate);
     let dateInt = parseInt(date.entryDate);
     weightEntryArr.push(dateInt);
     weightEntryArr.push(date.weightEntry);
@@ -187,7 +186,7 @@ export const updateUser = (req, res) => {
             logEntry.save();
             user.log.push(logEntry);
             user.save().then(
-              u => res.send(formatUser(u.toObject())),
+              u => {console.log(u.populate('log')); res.send(formatUser(u.populate('log').toObject()));},
               e => res.status(422).send(e)
             );
           } else {

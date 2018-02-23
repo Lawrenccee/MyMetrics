@@ -60,6 +60,7 @@ angular.
           data: { userInfo: this.patient }
         }).then(
           r => {
+            console.log(r);
             createChart(r.data.logData);
           },
           e => console.log(e)
