@@ -3,6 +3,10 @@
   <h2>Log In</h2>
   <form ng-submit='$ctrl.sendUser()' class="session-form">
 
+    <div ng-if="$ctrl.error">
+      {{$ctrl.error}}
+    </div>
+    
     <label>Email:
       <input required id="email-input" type="email" ng-model="$ctrl.user.email">
     </label>
@@ -11,12 +15,9 @@
       <input required id="password-input" type="password" ng-model="$ctrl.user.password">
     </label>
 
-    <input id="login-button" class="session-button" type="submit" ng-model="$ctrl.user">
+    <button id="login-button" class="session-button" ng-model="$ctrl.user">Log In</button>
 
     <a class="session-link" href='#!/patientsignup'>Don't have an account? Sign Up</a>
 
-    <div ng-if="$ctrl.error">
-      {{$ctrl.error}}
-    </div>
   </form>
 </div>
