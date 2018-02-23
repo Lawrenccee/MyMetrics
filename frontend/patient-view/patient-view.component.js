@@ -13,7 +13,6 @@ angular.
           url: `/api/users/${this.patient.id}`
         }).then((res) => {
           this.patient = res.data;
-          this.patient.nextAppt = new Date().setDate(new Date().getDate() + 1);
           if (new Date() < this.patient.nextAppt) {
             // MIGHT HAVE TO CONVERT FROM MILLISECONDS TO DATE
             this.nextAppt = this.patient.nextAppt;
@@ -133,7 +132,7 @@ angular.
       this.addMedication = (medication) => {
         let index = this.patient.medications.indexOf(medication);
 
-        if (index < 0) {
+        if (index < 0 && medication && medication.length > 0) {
           this.patient.medications.push(medication);
         }
 

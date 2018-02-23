@@ -62,13 +62,19 @@
       <div class="medications">
         <h2>Medications</h2>
 
-        <ul ng-repeat="medication in $ctrl.patient.medications">
-          <li>{{medication}}<button ng-click="$ctrl.removeMedication(medication)">x</button></li>
-        </ul>
+        <div class="medication-list">
+          <ul ng-repeat="medication in $ctrl.patient.medications">
+            <li>{{medication}}
+              <button ng-click="$ctrl.removeMedication(medication)">x</button>
+            </li>
+          </ul>
+        </div>
 
         <label>Add a Medication:
-          <input type="text" ng-model="$ctrl.medication">
-          <button ng-click="$ctrl.addMedication($ctrl.medication)">Add</button>
+          <form>
+            <input type="text" ng-model="$ctrl.medication">
+            <input type="submit" ng-click="$ctrl.addMedication($ctrl.medication)" value="ADD">
+          </form>
         </label>
       </div>
     </div>
