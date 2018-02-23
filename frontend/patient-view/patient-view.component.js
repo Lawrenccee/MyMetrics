@@ -20,7 +20,6 @@ angular.
           this.patient = res.data;
           this.patient.symptoms = [];
 
-
           Highcharts.chart('graph', {
 
               title: {
