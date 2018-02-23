@@ -7,6 +7,11 @@ angular.
       this.sendUser = () => {
         this.error = null;
 
+        if (this.user.password !== this.user.confirmPassword) {
+          this.error = "Passwords do not match!";
+          return;
+        }
+
         let button = document.getElementById("doc-signup-button");
         button.setAttribute("disabled", "disabled");
         $http({
