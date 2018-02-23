@@ -19,8 +19,6 @@ angular.
         }).then((res) => {
           this.patient = res.data;
           this.patient.symptoms = [];
-          this.patient.medications = [];
-
 
           Highcharts.chart('graph', {
 
