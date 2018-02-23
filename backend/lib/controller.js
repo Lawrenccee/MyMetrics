@@ -115,7 +115,7 @@ export const createUser = (req, res) => {
           },
           e => {
             res.status(422);
-            res.send(e);
+            res.send({ message: "Email has already been taken" });
           }
         );
       }

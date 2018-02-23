@@ -5,6 +5,8 @@ angular.
     controller: function ($http, $window, UserService) {
 
       this.sendUser = () => {
+        this.error = null;
+
         let button = document.getElementById("doc-signup-button");
         button.setAttribute("disabled", "disabled");
         $http({
@@ -17,7 +19,8 @@ angular.
           $window.location.href = '#!/doctorview';
         },
           err => {
-            button.setAttribute("enabled", "enabled")
+            this.error = err.data.message; 
+            button.removeAttribute("disabled");
           }
         );
       };

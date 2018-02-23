@@ -4,6 +4,8 @@ angular.
     templateUrl: 'session/patient-sign-up.template.html',
     controller: function ($http, UserService, $window) {
       this.sendUser = () => {
+        this.error = null;
+
         let button = document.getElementById("signup-button");
         button.setAttribute("disabled", "disabled");
         $http({
@@ -15,7 +17,8 @@ angular.
           $window.location.href = '#!/patientview';
         },
           err => {
-            button.setAttribute("enabled", "enabled");
+            this.error = err.data.message; 
+            button.removeAttribute("disabled");
           }
         );
       };

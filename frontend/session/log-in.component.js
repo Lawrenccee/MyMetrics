@@ -5,8 +5,8 @@ angular.
     controller: function(UserService, $http, $window) {
 
       this.sendUser = () => {
-        // UserService.setStore(this.user);
-        // console.log(this.user);
+        this.error = null;
+        
         let button = document.getElementById("login-button");
         button.setAttribute("disabled", "disabled");
         $http({
@@ -15,8 +15,6 @@ angular.
           data: this.user
         }).then(
           res => {
-          console.log('response');
-          console.log(res.data);
           UserService.setStore(res.data);
           if (res.data.isDoctor) {
             $window.location.href = '#!/doctorview';
@@ -25,7 +23,8 @@ angular.
           }
         },
           err => {
-            button.setAttribute("enabled", "enabled");
+            this.error = err.data.message;
+            button.removeAttribute("disabled");
           }
       );
       };
