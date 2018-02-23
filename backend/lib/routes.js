@@ -31,8 +31,7 @@ export const routerConfig = (app, passport) => {
     passport.authenticate('local', function(err, user, info) {
       if (err) { return next(err); }
       if (!user) { return res.status(401).json( { message: info.message }); }
-      req.logIn(user, { session: false },function(error) {
-        console.log('log in');
+      req.logIn(user, function(error) {
         if (error) { return next(error); }
         let isDoctor = false;
         if (user.license) isDoctor = true;
