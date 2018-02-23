@@ -14,5 +14,9 @@
     <input id="login-button" class="session-button" type="submit" ng-model="$ctrl.user">
 
     <a class="session-link" href='#!/patientsignup'>Don't have an account? Sign Up</a>
+
+    <div ng-if="$ctrl.error">
+      {{$ctrl.error}}
+    </div>
   </form>
 </div>
