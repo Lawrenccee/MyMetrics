@@ -33,3 +33,15 @@
     font-size: 30px;
 }
 
+.patient-search {
+    border: 1px solid black;
+    display: flex;
+    padding: 15px 0px 15px 15px;
+    font-size: 20px;
+}
+
+.patient-search .patient-search-box {
+    margin-left: 5px;
+    padding: 7px;
+}
+
