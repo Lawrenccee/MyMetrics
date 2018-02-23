@@ -48,7 +48,7 @@ export const fetchUser = (req, res) => {
   mongoose.connect(MONGO_CONNECTION).then(
     () => {
       const { id } = req.params;
-      User.findById(id).lean().then(
+      User.findById(id).populate("patients").lean().then(
         u => {
           res.send(formatUser(u));
         },

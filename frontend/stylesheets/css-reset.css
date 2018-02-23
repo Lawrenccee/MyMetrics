@@ -18,6 +18,7 @@ time, mark, audio, video, button {
 	padding: 0;
 	font-size: 100%;
     font: inherit;
+    font-family: 'Josefin Sans', Helvetica;
 	text-decoration: none;
 	-webkit-appearance: none;
 	-webkit-font-smoothing: antialiased;
@@ -86,7 +87,7 @@ button {
     padding: 0;
     width: auto;
     overflow: visible;
-
+    background-color: transparent;
     background: transparent;
 
     /* inherit font & color from ancestor */
