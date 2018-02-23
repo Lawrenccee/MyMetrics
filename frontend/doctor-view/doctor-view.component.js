@@ -18,6 +18,7 @@ angular.
         }).then((res) => {
           this.doctor = res.data;
           console.log(this.doctor);
+
           this.patients = this.doctor.patients;
           console.log(this.patients);
         });
@@ -32,7 +33,7 @@ angular.
           UserService.clear();
           $window.location.href = '#!/login';
         });
-        
+
       };
 
       // do something for check boxes to add to an array when they are checked
