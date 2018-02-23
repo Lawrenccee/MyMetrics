@@ -4,15 +4,10 @@ angular.
   component('patientView', {
     templateUrl: 'patient-view/patient-view.template.html',
     controller: function ($routeParams, $http, UserService, $window) {
-      // do something to fetch the user's id/email from the route params
-      // var Highcharts = require('highcharts');
 
       this.$onInit = () => {
-        // Get the patient stored by the login/signup set in the store
-        // TODO: The store gets emptied if the page is refreshed...
         this.patient = JSON.parse(UserService.getStore());
-          // Do an http request to grab the patient were on???
-          // But how do we know what patient it is...
+          
         $http({
           method: 'GET',
           url: `/api/users/${this.patient.id}`
@@ -20,77 +15,65 @@ angular.
           this.patient = res.data;
           this.patient.symptoms = [];
 
-          Highcharts.chart('graph', {
+          createChart(this.patient);
 
-              title: {
-                  text: "My Metrics"
-              },
+          console.log(res.data.weightLog[0][0]);
+          console.log(new Date(
+            new Date().
+            setHours(0, 0, 0, 0)).
+            setFullYear(this.date.getFullYear(), 
+            this.date.getMonth(), 
+            this.date.getDate()
+          ));
 
-              yAxis: {
-                  title: {
-                      text: 'mg'
-                  }
-              },
-              legend: {
-                  layout: 'vertical',
-                  align: 'right',
-                  verticalAlign: 'middle'
-              },
+          let today = new Date(
+            new Date().setHours(0, 0, 0, 0)).
+            setFullYear(
+              this.date.getFullYear(),
+              this.date.getMonth(),
+              this.date.getDate()
+            );
 
-              xAxis: {
-                type: 'datetime'
-              },
+          this.patient.weightLog.forEach((values, index) => {
+            if (new Date(values[0]) === today) {
+              this.weight = values[1];
+            }
+          });
 
-              series: [{
-                  name: 'Weight',
-                  data: this.patient.weightLog,
-                  tooltip: {
-                    valueDecimals: 2
-                  }
-              }, {
-                  name: 'Sodium',
-                  data: this.patient.sodiumLog,
-                  tooltip: {
-                    valueDecimals: 2
-                  }
-              }, {
-                  name: 'Fluid',
-                  data: this.patient.fluidLog,
-                  tooltip: {
-                    valueDecimals: 2
-                  }
-              }],
+          this.patient.sodiumLog.forEach((values, index) => {
+            if (new Date(values[0]) === today) {
+              this.sodium = values[1];
+            }
+          });
 
-              responsive: {
-                  rules: [{
-                      condition: {
-                          maxWidth: 500
-                      },
-                      chartOptions: {
-                          legend: {
-                              layout: 'horizontal',
-                              align: 'center',
-                              verticalAlign: 'bottom'
-                          }
-                      }
-                  }]
-              }
-            });
-
+          this.patient.fluidLog.forEach((values, index) => {
+            if (new Date(values[0]) === today) {
+              this.fluid = values[1];
+            }
+          });
         });
       };
-
 
       this.date = new Date();
       this.nextAppt = new Date();
 
       this.updatePatient = () => {
+        this.patient.date = new Date(
+          new Date().setHours(0, 0, 0, 0)).
+          setFullYear(
+            this.date.getFullYear(),
+            this.date.getMonth(),
+            this.date.getDate()
+          );
+
         return ($http({
           method: "PUT",
           url: `/api/users/${this.patient.id}`,
           data: { userInfo: this.patient }
         }).then(
-          r => console.log(r),
+          r => {
+            createChart(r.data);
+          },
           e => console.log(e)
         ));
       };
@@ -137,6 +120,65 @@ angular.
         if (index > -1) {
           this.patient.medications.splice(index, 1);
         }
+      };
+
+      const createChart = ({ weightLog, sodiumLog, fluidLog }) => {
+        Highcharts.chart('graph', {
+
+          title: {
+            text: "My Metrics"
+          },
+
+          yAxis: {
+            title: {
+              text: 'mg'
+            }
+          },
+          legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle'
+          },
+
+          xAxis: {
+            type: 'datetime'
+          },
+
+          series: [{
+            name: 'Weight',
+            data: weightLog,
+            tooltip: {
+              valueDecimals: 2
+            }
+          }, {
+            name: 'Sodium',
+            data: sodiumLog,
+            tooltip: {
+              valueDecimals: 2
+            }
+          }, {
+            name: 'Fluid',
+            data: fluidLog,
+            tooltip: {
+              valueDecimals: 2
+            }
+          }],
+
+          responsive: {
+            rules: [{
+              condition: {
+                maxWidth: 500
+              },
+              chartOptions: {
+                legend: {
+                  layout: 'horizontal',
+                  align: 'center',
+                  verticalAlign: 'bottom'
+                }
+              }
+            }]
+          }
+        });
       };
     }
   });
