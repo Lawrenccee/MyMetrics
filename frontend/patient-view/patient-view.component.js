@@ -19,7 +19,7 @@ angular.
         }).then((res) => {
           this.patient = res.data;
           this.patient.symptoms = [];
-
+          console.log(this.patient);
           Highcharts.chart('graph', {
 
               title: {
@@ -43,19 +43,19 @@ angular.
 
               series: [{
                   name: 'Weight',
-                  data: this.patient.weightLog,
+                  data: this.patient.logData.weightLog,
                   tooltip: {
                     valueDecimals: 2
                   }
               }, {
                   name: 'Sodium',
-                  data: this.patient.sodiumLog,
+                  data: this.patient.logData.sodiumLog,
                   tooltip: {
                     valueDecimals: 2
                   }
               }, {
                   name: 'Fluid',
-                  data: this.patient.fluidLog,
+                  data: this.patient.logData.fluidLog,
                   tooltip: {
                     valueDecimals: 2
                   }

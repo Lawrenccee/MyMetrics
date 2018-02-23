@@ -1,25 +1,35 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
-import { User, Log, SympLog } from './user.js';
+import { User, SympLog } from './user.js';
+import { LogEntry } from './log_entry.js'
 
 const MONGO_CONNECTION = process.env.MONGODB_URI;
 
 const formatLog = (log) => {
-  let arr = [];
-  arr = log.map(entry => {
-    let entryArr = [];
-    let d = new Date(entry.createdAt);
-    entryArr.push(d.getTime());
-    entryArr.push(parseInt(entry.value));
-    return entryArr;
-  });
-  return arr;
+  let obj = {
+    weightLog: [],
+    sodiumLog: [],
+    fluidLog: []
+  };
+  log.map(date => {
+    let weightEntryArr = [],
+      sodiumEntryArr = [],
+      fluidEntryArr = [];
+    weightEntryArr.push(new Date(date.entryDate).getTime());
+    weightEntryArr.push(date.weightEntry);
+    sodiumEntryArr.push(new Date(date.entryDate).getTime());
+    sodiumEntryArr.push(date.sodiumEntry);
+    fluidEntryArr.push(new Date(date.entryDate).getTime());
+    fluidEntryArr.push(date.fluidEntry);
+    obj.weightLog.push(weightEntryArr);
+    obj.sodiumLog.push(sodiumEntryArr);
+    obj.fluidLog.push(fluidEntryArr);
+  })
+  return obj;
 };
 
 const formatUser = (user) => {
-  user.weightLog = formatLog(user.weightLog);
-  user.sodiumLog = formatLog(user.sodiumLog);
-  user.fluidLog = formatLog(user.fluidLog);
+  user.logData = formatLog(user.log);
   user.id = user._id;
   delete user._id;
   delete user.password;
@@ -48,7 +58,7 @@ export const fetchUser = (req, res) => {
   mongoose.connect(MONGO_CONNECTION).then(
     () => {
       const { id } = req.params;
-      User.findById(id).populate('patients', '-password').lean().then(
+      User.findById(id).populate('patients', '-password').populate('log').lean().then(
         u => {
           res.send(formatUser(u));
         },
@@ -144,21 +154,20 @@ export const updateUser = (req, res) => {
             user.stage = userInfo.stage;
             updated = true;
           }
+          let logEntry = new LogEntry({ entryDate: new Date().toString() });
           if (userInfo.weight) {
-            let weightLogEntry = new Log({ value: userInfo.weight });
-            user.weightLog.push(weightLogEntry);
+            logEntry.weightEntry = userInfo.weight;
             updated = true;
           }
           if (userInfo.sodium) {
-            let sodiumLogEntry = new Log({   value: userInfo.sodium });
-            user.sodiumLog.push(sodiumLogEntry);
+            logEntry.sodiumEntry = userInfo.sodium;
             updated = true;
           }
           if (userInfo.fluid) {
-            let fluidLogEntry = new Log({ value: userInfo.fluid });
-            user.fluidLog.push(fluidLogEntry);
+            logEntry.fluidEntry = userInfo.fluid;
             updated = true;
           }
+
           if (userInfo.symptoms.length > 0) {
             let sympLogEntry = new SympLog({ symptoms: userInfo.symptoms });
             user.symptomsLog.push(sympLogEntry);
@@ -172,6 +181,8 @@ export const updateUser = (req, res) => {
           }
           if (updated) {
             console.log("did update");
+            logEntry.save();
+            user.log.push(logEntry);
             user.save().then(
               u => res.send(formatUser(u.toObject())),
               e => res.status(422).send(e)

@@ -14,7 +14,10 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^1.0.3",
+<<<<<<< HEAD
     "bcrypt-nodejs": "0.0.3",
+=======
+>>>>>>> bcbdecd485933b500e422f046a0d0df6c173e8fc
     "body-parser": "^1.18.2",
     "dotenv": "^5.0.0",
     "ejs": "^2.5.7",
