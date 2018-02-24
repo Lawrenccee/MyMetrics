@@ -293,7 +293,7 @@ const updateLog = (logEntry, weight, sodium, fluid, symptoms) => {
     logEntry.fluidEntry = fluid;
     updated = true;
   }
-  if (symptoms && symptons.length > 0 && !compareArray(logEntry.symptomsEntry, symptoms)) {
+  if (symptoms && (symptoms.length !== logEntry.symptomsEntry.length || !compareArray(logEntry.symptomsEntry, symptoms))) {
     logEntry.symptomsEntry = symptoms;
     updated = true;
   }
@@ -301,5 +301,8 @@ const updateLog = (logEntry, weight, sodium, fluid, symptoms) => {
 };
 
 const compareArray = (arr1, arr2) => {
-  return (arr1.every(function(el, idx) { return el === arr2[idx] }));
+  arr1.sort();
+  arr2.sort();
+
+  return (arr1.every(function (el, idx) { return el === arr2[idx]; }));
 };
