@@ -22,6 +22,63 @@ angular.
           console.log(this.doctor);
           console.log(this.patients);
           console.log(this.currentPatient);
+
+          Highcharts.chart('graph', {
+
+            title: {
+              text: `${this.currentPatient.name}`
+            },
+
+            yAxis: {
+              title: {
+                text: 'mg'
+              }
+            },
+            legend: {
+              layout: 'vertical',
+              align: 'right',
+              verticalAlign: 'middle'
+            },
+
+            xAxis: {
+              type: 'datetime'
+            },
+
+            series: [{
+              name: 'Weight',
+              data: this.currentPatient.weightLog,
+              tooltip: {
+                valueDecimals: 2
+              }
+            }, {
+              name: 'Sodium',
+              data: this.currentPatient.sodiumLog,
+              tooltip: {
+                valueDecimals: 2
+              }
+            }, {
+              name: 'Fluid',
+              data: this.currentPatient.fluidLog,
+              tooltip: {
+                valueDecimals: 2
+              }
+            }],
+
+            responsive: {
+              rules: [{
+                condition: {
+                  maxWidth: 500
+                },
+                chartOptions: {
+                  legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                  }
+                }
+              }]
+            }
+          });
         });
       };
       
