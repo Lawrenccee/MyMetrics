@@ -162,7 +162,7 @@ export const updateUser = (req, res) => {
           if (logId) {
             LogEntry.findById(logId).then(
               log => {
-                updateLog(log, userInfo.weight, userInfo.sodium, userInfo.fluid, userInfo.symptoms);
+                let logUpdated = updateLog(log, userInfo.weight, userInfo.sodium, userInfo.fluid, userInfo.symptoms);
                 if (userInfo.stage && userInfo.stage !== user.stage) {
                   user.stage = userInfo.stage;
                   userUpdated = true;
@@ -173,8 +173,9 @@ export const updateUser = (req, res) => {
                     userUpdated = true;
                   }
                 }
-                log.save().then(
-                  l => {
+                if (logUpdated) {
+                  log.save().then(
+                    l => {
                       user.save().then(
                         u => {
                           u.populate('log', (popError, populatedUser) => {
@@ -187,12 +188,23 @@ export const updateUser = (req, res) => {
                           res.send(userSaveError);
                         }
                       );
-                  },
-                  logSaveError => {
-                    res.status(422);
-                    res.send(logSaveError);
-                  }
-                );
+                    },
+                    logSaveError => {
+                      res.status(422);
+                      res.send(logSaveError);
+                    }
+                  );
+                } else if (userUpdated) {
+                  user.save().then(
+                    u => {
+                      console.log("user saved");
+                      u.populate('log', (popError, populatedUser) => {
+                        if (popError) res.send(popError);
+                        if (populatedUser) res.send(formatUser(populatedUser.toObject()));
+                      })
+                    }
+                  )
+                }
               }
             );
           } else {
