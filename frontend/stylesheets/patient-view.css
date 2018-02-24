@@ -156,6 +156,7 @@
 
 #round-button {
   width: 35px;
+  height: 32px;
   background-image: url('../assets/plus-button.svg');
   background-size: cover;
   border-radius: 200px;
@@ -184,7 +185,7 @@
 }
 
 .patient-view .name {
-  font-size: 30px;
+  font-size: 2.8vh;
 }
 
 .patient-view .metrics .labels {
@@ -239,6 +240,7 @@
 div.medication-list ul li button.delete-button {
   border: none;
   width: 20px;
+  height: 20px;
   background-image: url('../assets/delete-button.svg');
   background-size: cover;
 }
