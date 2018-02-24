@@ -260,7 +260,9 @@ angular.
             align: 'right',
             verticalAlign: 'middle'
           },
-
+          tooltip: {
+            xDateFormat: '%Y %b %e',
+          },
           xAxis: {
             type: 'datetime',
             labels: {
