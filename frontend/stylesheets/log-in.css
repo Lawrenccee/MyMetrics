@@ -49,7 +49,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    width: 270px;
+    width: 360px;
     height: 170px;
     margin-top: 30px;
 }
@@ -70,7 +70,7 @@
 .email-container input,
 .password-container input {
     height: 35px;
-    width: 160px;
+    width: 250px;
     font-size: 16px;
 }
 

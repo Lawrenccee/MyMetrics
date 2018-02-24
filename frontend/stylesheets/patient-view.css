@@ -119,6 +119,7 @@
   border-radius: 5px;
   flex: 1 1 auto;
   padding: 5px;
+  background-color: white;
 }
 
 .patient-view .medications ul {
@@ -281,9 +282,12 @@ input[type='date'] {
 .warnings li {
   text-indent: 37px;
   font-size: 2vh;
+  margin: 3px;
 }
 
 #warning-icon {
+  position: relative;
+  top: 6px;
   display: inline-block;
   background-image: urL('../assets/exclamation.svg');
   background-size: cover;
