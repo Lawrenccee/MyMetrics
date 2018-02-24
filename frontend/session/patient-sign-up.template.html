@@ -1,7 +1,14 @@
 <div class="main-session">
   <h1>MyMetrics</h1>
-  <h2>Patient Sign Up</h2>
-  <a href="#!/doctorsignup">Are you a Doctor? Sign up here</a>
+  
+  <div class="signup-header">
+    <h2>Patient Sign Up</h2>
+    <a href="#!/doctorsignup">Are you a Doctor? Sign up here</a>
+  </div>
+  
+  <div class="error-container" ng-if="$ctrl.error">
+    {{$ctrl.error}}
+  </div>
 
   <form id="sign-up" ng-submit='$ctrl.sendUser()'>
     <div class="main-signup-container">
@@ -51,7 +58,4 @@
 
   </form>
 
-  <div ng-if="$ctrl.error">
-    {{$ctrl.error}}
-  </div>
 </div>
