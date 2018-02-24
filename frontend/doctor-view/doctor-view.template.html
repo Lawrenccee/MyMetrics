@@ -32,17 +32,25 @@
         <div class="patient-info">
             
             <div class="patient-metrics">
-                <span>{{$ctrl.currentPatient.stage}}</span>
-
+                <h1>Metrics:</h1>
+                <label>Stage: <span>{{$ctrl.currentPatient.stage}}</span></label>
+                <label>Weight: <span>{{$ctrl.currentWeight}} lb</span></label>
+                <label>Sodium Level: <span>{{$ctrl.currentSodium}} mg</span></label>
+                <label>Fluid Level: <span>{{$ctrl.currentFluid}} mL</span></label>
             </div>
 
             <div class= "patient-symptoms">
-
+                <h1>Symptoms:</h1> 
+                <span>{{$ctrl.currentPatient.symptoms}}</span>
             </div>
 
             <div class="patient-medications">
-                <span>{{$ctrl.currentPatient.medications}}</span>
-                <span>{{$ctrl.currentPatient.symptoms}}</span>
+                <h1>Medications:</h1>
+                <ul>
+                    <li ng-repeat="medication in $ctrl.currentPatient.medications">
+                        <span>{{medication}}</span>
+                    </li>
+                </ul>
             </div>
             
         </div>

@@ -20,9 +20,24 @@ angular.
           this.patients = this.doctor.patients;
           this.currentPatient = this.patients[0];
           console.log(this.doctor);
-          console.log(this.patients);
           console.log(this.currentPatient);
           this.createChart(this.currentPatient);
+
+          let weight;
+          weight = this.currentPatient.logData.weightLog;
+          this.currentWeight = weight[weight.length-1][1];
+
+          let sodium;
+          sodium = this.currentPatient.logData.sodiumLog;
+          this.currentSodium = sodium[sodium.length-1][1];
+
+          let fluid;
+          fluid = this.currentPatient.logData.fluidLog;
+          this.currentFluid = fluid[fluid.length-1][1];
+
+          console.log(this.currentSodium);
+          console.log(this.currentWeight);
+          console.log(this.currentFluid);
         });
       };
       
@@ -42,8 +57,7 @@ angular.
         Highcharts.chart('patient-graph', {
 
           title: {
-            // text: `${this.currentPatient.name}`
-            text: 'Patient Metrics'
+            text: currentPatient.name
           },
 
           yAxis: {
@@ -63,22 +77,19 @@ angular.
 
           series: [{
             name: 'Weight',
-            data: `${this.currentPatient.logData.weightLog}`,
-            data: "",
+            data: currentPatient.logData.weightLog,
             tooltip: {
               valueDecimals: 2
             }
           }, {
             name: 'Sodium',
-            data: `${this.currentPatient.logData.sodiumLog}`,
-            data: "",
+            data: currentPatient.logData.sodiumLog,
             tooltip: {
               valueDecimals: 2
             }
           }, {
             name: 'Fluid',
-            data: `${this.currentPatient.logData.fluidLog}`,
-            data: "",
+            data: currentPatient.logData.fluidLog,
             tooltip: {
               valueDecimals: 2
             }
