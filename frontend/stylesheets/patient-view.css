@@ -51,6 +51,10 @@
   margin-top: 10px;
 }
 
+.patient-view .next-appointment-label {
+  margin-top: 10px;
+}
+
 .patient-view .metrics {
   display: flex;
   flex-direction: column;
@@ -147,7 +151,7 @@
   width: 100%;
   margin-top: 3px;
   margin-right: 5px;
-  padding: 8px 5px 3px 5px;
+  /* padding: 8px 5px 3px 5px; */
   border-radius: 10px;
 }
 
@@ -263,5 +267,4 @@ div.medication-list ul li button.delete-button {
 
 input[type='date'] {
   border-radius: 10px;
-  padding: 3px 5px 0 5px;
 }

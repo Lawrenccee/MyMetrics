@@ -37,7 +37,6 @@ const formatLog = (log) => {
 };
 
 const formatUser = (user) => {
-  console.log(user);
   user.logData = formatLog(user.log);
   user.id = user._id;
   delete user._id;
@@ -246,7 +245,7 @@ export const updateUser = (req, res) => {
                         e => res.status(422).send(e)
                       );
                     });
-                    
+
                   },
                   logSaveError => {
                     res.status(422);
@@ -293,7 +292,7 @@ const updateLog = (logEntry, weight, sodium, fluid, symptoms) => {
     logEntry.fluidEntry = fluid;
     updated = true;
   }
-  if (symptoms.length > 0 && !compareArray(logEntry.symptomsEntry, symptoms)) {
+  if (symptoms && symptoms.length > 0 && !compareArray(logEntry.symptomsEntry, symptoms)) {
     logEntry.symptomsEntry = symptoms;
     updated = true;
   }
@@ -301,5 +300,6 @@ const updateLog = (logEntry, weight, sodium, fluid, symptoms) => {
 };
 
 const compareArray = (arr1, arr2) => {
-  return (arr1.every(function(el, idx) { return el === arr2[idx] }))
-}
+  console.log((arr1.every(function(el, idx) { return el === arr2[idx] })))
+  return arr1.every(function(el, idx) { return el === arr2[idx] });
+};
