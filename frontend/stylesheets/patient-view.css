@@ -23,7 +23,7 @@
 }
 
 .patient-view .left {
-  justify-content: space-between;  
+  justify-content: space-between;
 }
 
 .patient-view .header {
@@ -36,12 +36,13 @@
 }
 
 .patient-view .name-date {
-  display: flex;
-  flex-direction: row;
+  /* display: flex;
+  flex-direction: row; */
   margin: 10px 0;
 }
 
 .patient-view .name {
+  color: #293241;
   margin-right: 10px;
 }
 
@@ -65,7 +66,7 @@
 
 .patient-view .symptoms-medications {
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
   flex: 3 1 0%;
   justify-content: space-between;
 }
@@ -75,6 +76,7 @@
   flex-direction: column;
   white-space: nowrap;
   width: 50%;
+  margin: 10px;
 }
 
 .patient-view .symptoms h2 {
@@ -82,6 +84,8 @@
 }
 
 .patient-view .symptoms label {
+  display: flex;
+  align-items: baseline;
   margin: 3px;
 }
 
@@ -96,10 +100,11 @@
   flex-direction: column;
   width: 50%;
   justify-content: space-between;
+  margin: 10px 20px;
 }
 
 .patient-view .medications h2 {
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 }
 
 .patient-view .medication-list {
@@ -118,15 +123,51 @@
 .patient-view .medications li {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  margin: 5px;
 }
 
 .patient-view .medication-form {
   margin-top: 5px;
 }
 
+.patient-view div.medication-input-container{
+  height: 40px;
+  display: flex;
+  align-items: center;
+  margin-top: 3px;
+  padding: 2px 0 2px 3px;
+  /* padding-left: 0; */
+}
+
 .patient-view .medication-form input {
   width: 100%;
   margin-top: 3px;
+  padding: 5px;
+}
+
+.patient-view .medication-form label {
+  width: 100%;
+  margin: 10px 0;
+}
+
+
+
+#round-button {
+  position: relative;
+  width: 32px;
+  margin-left: 5px;
+  background-image: url('../assets/plus-button.svg');
+  background-size: cover;
+  border-radius: 200px;
+  border: none;
+}
+#round-button:hover {
+  box-shadow: 0 0 10px #ee6c4d;
+}
+#round-button:active {
+  background-color: black;
+  box-shadow: 0 0 10px #ee6c4d;
 }
 
 .patient-view .warnings-appointment-logout-graph {
@@ -169,4 +210,45 @@
 
 #graph {
   height: 100%;
+}
+
+#submit-button, #logout-button {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 8px;
+  background: #ee6c4d;
+  border: none;
+  padding: 8px 10px 5px 10px;
+}
+
+#submit-button:hover, #logout-button:hover {
+  box-shadow: 0 0 10px #ee6c4d;
+}
+#submit-button:active, #logout-button:active {
+  background-color: black;
+  box-shadow: 0 0 10px #ee6c4d;
+}
+
+#checkbox-input {
+  margin: 5px;
+}
+
+div.medication-list ul li button.delete-button {
+  border: none;
+  width: 20px;
+  background-image: url('../assets/delete-button.svg');
+  background-size: cover;
+}
+
+.patient-view h2 {
+  color: white;
+  padding: 5px;
+  padding-top: 9px;
+  background-color: #ee6c4d;
+}
+
+.medications, .symptoms {
+  /* font-size: 20px; */
 }

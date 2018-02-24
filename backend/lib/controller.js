@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import { User } from './user.js';
 import { LogEntry } from './log_entry.js'
 
+
 const MONGO_CONNECTION = process.env.MONGODB_URI;
 
 const formatLog = (log) => {
@@ -15,6 +16,7 @@ const formatLog = (log) => {
     let weightEntryArr = [],
       sodiumEntryArr = [],
       fluidEntryArr = [];
+
       if (date.weightEntry) {
         weightEntryArr.push(date.entryDate);
         weightEntryArr.push(date.weightEntry);
@@ -35,6 +37,7 @@ const formatLog = (log) => {
 };
 
 const formatUser = (user) => {
+  console.log(user);
   user.logData = formatLog(user.log);
   user.id = user._id;
   delete user._id;
