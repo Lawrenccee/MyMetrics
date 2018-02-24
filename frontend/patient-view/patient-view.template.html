@@ -57,7 +57,7 @@
 
         <div ng-repeat="symptom in $ctrl.symptoms">
           <label>
-            <input type="checkbox" value="{{symptom}}" id="checkbox-input" ng-click="$ctrl.updateSymptoms($event)"><span>{{symptom}}</span>
+            <input type="checkbox" ng-checked="$ctrl.symptomExists(symptom)" id="checkbox-input" ng-click="$ctrl.updateSymptoms(symptom)"><span>{{symptom}}</span>
           </label>
         </div>
 
