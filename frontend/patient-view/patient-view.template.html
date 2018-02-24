@@ -40,9 +40,9 @@
         </div>
 
         <div class="inputs">
-          <input type="number" ng-model="$ctrl.patient.weight">
-          <input type="number" ng-model="$ctrl.patient.sodium">
-          <input type="number" ng-model="$ctrl.patient.fluid">
+          <label><input type="number" ng-model="$ctrl.patient.weight">lbs</label>
+          <label><input type="number" ng-model="$ctrl.patient.sodium">mg</label>
+          <label><input type="number" ng-model="$ctrl.patient.fluid">ml</label>
         </div>
       </form>
     </div>
@@ -88,7 +88,7 @@
   <div class="right">
     <div class="warnings-appointment-logout-graph">
       <div class="warnings-appointment-logout">
-        <div class="warnings" ng-if="$ctrl.warnings">
+        <div class="warnings" ng-if="$ctrl.warnings.length > 0">
           SOMETHING ABOUT WARNINGS
         </div>
 

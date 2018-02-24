@@ -29,6 +29,7 @@ angular.
               this.date.getDate()
             );
 
+          checkVitals();
 
           this.patient.log.forEach((obj, index) => {
             if (parseInt(obj.entryDate) === today) {
@@ -40,6 +41,7 @@ angular.
         });
       };
 
+      this.warnings = [];
       this.date = new Date();
       this.nextAppt = undefined;
 
@@ -52,8 +54,6 @@ angular.
             this.date.getDate()
           );
 
-        console.log(this.patient);
-
         return ($http({
           method: "PUT",
           url: `/api/users/${this.patient.id}`,
@@ -61,6 +61,9 @@ angular.
         }).then(
           r => {
             console.log(r);
+            this.warnings = [];
+            this.patient.log = r.data.log;
+            checkVitals();
             createChart(r.data.logData);
           },
           e => console.log(e)
@@ -91,6 +94,9 @@ angular.
         this.patient.fluid = undefined;
 
         this.patient.log.forEach((obj, index) => {
+          console.log(dateMs);
+          console.log(obj.entryDate);
+          console.log('\n');
           if (parseInt(obj.entryDate) === dateMs) {
             this.patient.weight = obj.weightEntry;
             this.patient.sodium = obj.sodiumEntry;
@@ -124,6 +130,17 @@ angular.
 
         if (index < 0 && medication && medication.length > 0) {
           this.patient.medications.push(medication);
+          
+          $http({
+            method: "PUT",
+            url: `/api/users/${this.patient.id}`,
+            data: { userInfo: { medications: this.patient.medications } }
+          }).then(
+            r => {
+              this.patient.medications = r.data.medications;
+            },
+            e => console.log(e)
+          );
         }
 
         this.medication = "";
@@ -134,6 +151,17 @@ angular.
 
         if (index > -1) {
           this.patient.medications.splice(index, 1);
+
+          $http({
+            method: "PUT",
+            url: `/api/users/${this.patient.id}`,
+            data: { userInfo: { medications: this.patient.medications } }
+          }).then(
+            r => {
+              this.patient.medications = r.data.medications;
+            },
+            e => console.log(e)
+          );
         }
       };
 
@@ -149,48 +177,64 @@ angular.
         weekAgo.setDate(weekAgo.getDate() - 7);
         weekAgo = weekAgo.setHours(0, 0, 0, 0);
 
-        console.log(new Date(today));
-        console.log(new Date(yday));
-        console.log(new Date(weekAgo));
+        let ydayWeight = null;
+        let weekAgoWeight = null;
+        let todayWeight = null;
+        let todayFluid = null;
+        let todaySodium = null;
 
-        // // fetch weight from previous day
-        // // if weight of today - yday is >= 2 warn
-        // if (this.patient.weight - ydayWeight >= 2) {
-        //   this.warnings.push("You have gained 2 or more pounds since yesterday");
-        // }
+        this.patient.log.forEach((obj, index) => {
+          if (parseInt(obj.entryDate) === today) {
+            todayWeight = obj.weightEntry;
+            todayFluid = obj.fluidEntry;
+            todaySodium = obj.sodiumEntry;
+          }
+          if (parseInt(obj.entryDate) === yday) {
+             ydayWeight = obj.weightEntry;
+          }
+          if (parseInt(obj.entryDate) === weekAgo) {
+            weekAgoWeight = obj.weightEntry;
+          }
+        });
 
-        // // fetch weight from a week ago
-        // // if weight of today - week ago is >= 7 warn
-        // if (this.patient.weight - weekAgoWeight >= 5) {
-        //   this.warnings.push("You have gained 5 or more pounds in a week");
-        // }
+        if (ydayWeight && todayWeight && todayWeight - ydayWeight >= 2) {
+          this.warnings.push("You have gained 2 or more pounds since yesterday");
+        }
 
-        // // look at todays fluids
-        // // if more than 2 liters warn
-        // if (this.patient.fluid >= 2) {
-        //   this.warnings.push("Your fluids are over 2 Liters for the day");
-        // }
+        if (weekAgoWeight && todayWeight && todayWeight - weekAgoWeight >= 5) {
+          this.warnings.push("You have gained 5 or more pounds in a week");
+        }
 
-        // // look at todays sodium
-        // // if more than ... warn
-        // if (this.patient.sodium >= ???) {
-        //   this.warnings.push("Your sodium is over *** for the day");
-        // }
+        if (todayFluid && todayFluid >= 2000) {
+          this.warnings.push("Your fluids are over 2 liters for the day");
+        }
+
+        if (todaySodium && todaySodium >= 2000) {
+          this.warnings.push("Your sodium is over 2 grams for the day");
+        }
+
+        console.log(this.warnings);
       };
 
-      checkVitals();
-
       const createChart = ({ weightLog, sodiumLog, fluidLog }) => {
-        Highcharts.chart('graph', {
+        this.chart = Highcharts.chart('graph', {
 
           title: {
             text: "My Metrics"
           },
-
           yAxis: {
             title: {
-              text: 'mg'
-            }
+              text: 'lbs/mg/ml'
+            },
+            plotLines: [{
+              value: 2000,
+              color: 'red',
+              dashStyle: 'shortdash',
+              width: 2,
+              label: {
+                text: 'Sodium and Fluid Thresholds'
+              }
+            }]
           },
           legend: {
             layout: 'vertical',
@@ -203,12 +247,6 @@ angular.
           },
 
           series: [{
-            name: 'Weight',
-            data: weightLog,
-            tooltip: {
-              valueDecimals: 2
-            }
-          }, {
             name: 'Sodium',
             data: sodiumLog,
             tooltip: {
@@ -220,23 +258,34 @@ angular.
             tooltip: {
               valueDecimals: 2
             }
+          }, {
+            name: 'Weight',
+            data: weightLog,
+            tooltip: {
+              valueDecimals: 2
+            },
+            visible: false
           }],
 
           responsive: {
             rules: [{
               condition: {
-                maxWidth: 500
+                minWidth: 0,
               },
               chartOptions: {
                 legend: {
+                  verticalAlign: 'top',                  
                   layout: 'horizontal',
                   align: 'center',
-                  verticalAlign: 'bottom'
+                  itemStyle: {
+                    fontSize: "20px",
+                  },
                 }
               }
             }]
           }
         });
+        this.chart.series[0].hide();        
       };
     }
   });
