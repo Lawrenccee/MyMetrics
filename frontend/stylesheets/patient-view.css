@@ -51,6 +51,10 @@
   margin-top: 10px;
 }
 
+.patient-view .next-appointment-label {
+  margin-top: 10px;
+}
+
 .patient-view .metrics {
   display: flex;
   flex-direction: column;
@@ -147,7 +151,7 @@
   width: 100%;
   margin-top: 3px;
   margin-right: 5px;
-  padding: 8px 5px 3px 5px;
+  /* padding: 8px 5px 3px 5px; */
   border-radius: 10px;
 }
 
@@ -263,5 +267,26 @@ div.medication-list ul li button.delete-button {
 
 input[type='date'] {
   border-radius: 10px;
-  padding: 3px 5px 0 5px;
+}
+
+.warnings {
+  color: red;
+  margin-top: 10px;
+}
+
+.warnings span {
+  font-size: 2.3vh;
+  font-weight: bold;
+}
+.warnings li {
+  text-indent: 37px;
+  font-size: 2vh;
+}
+
+#warning-icon {
+  display: inline-block;
+  background-image: urL('../assets/exclamation.svg');
+  background-size: cover;
+  width: 30px;
+  height: 30px;
 }

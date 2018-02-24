@@ -41,6 +41,7 @@ const UserSchema = new Schema({
   doc_email: String,
   license: String,
   hospital: String,
+  nextAppt: Number,
   patients: [{
     type: Schema.Types.ObjectId,
     ref: 'User'

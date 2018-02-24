@@ -45,6 +45,7 @@ input {
 	border-style: none;
 	border: 1px solid lightgray;
 	box-sizing: border-box;
+	padding: 4px 5px 3px 7px;
 }
 input:focus {
 	border: 1px solid #3d5a80;

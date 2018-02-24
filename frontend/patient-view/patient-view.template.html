@@ -3,6 +3,15 @@
     <div class="header">
       <h1>MyMetrics</h1>
 
+      <div class="warnings" ng-if="$ctrl.warnings.length > 0">
+        <div id="warning-icon"></div>
+        <span>Your doctor has been notified for the following reasons:</span>
+        <ul>
+          <li ng-repeat="warning in $ctrl.warnings">{{warning}}</li>
+        </ul>
+      </div>
+
+
       <div class="name-stage">
         <div class="name-date">
           <div class="name">
@@ -25,6 +34,10 @@
             </select>
           </label>
         </div>
+
+        <!-- <div class="next-appointment-label">
+          <span>Next Appointment: {{$ctrl.patient.nextAppt}}</span>
+        </div> -->
       </div>
     </div>
 
@@ -88,9 +101,7 @@
   <div class="right">
     <div class="warnings-appointment-logout-graph">
       <div class="warnings-appointment-logout">
-        <div class="warnings" ng-if="$ctrl.warnings.length > 0">
-          SOMETHING ABOUT WARNINGS
-        </div>
+
 
         <div class="appointment">
           <label>Next Appointment:
