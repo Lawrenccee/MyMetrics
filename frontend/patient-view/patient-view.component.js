@@ -213,7 +213,7 @@ angular.
       };
 
       const createChart = ({ weightLog, sodiumLog, fluidLog }) => {
-        Highcharts.chart('graph', {
+        this.chart = Highcharts.chart('graph', {
 
           title: {
             text: "My Metrics"
@@ -221,8 +221,17 @@ angular.
 
           yAxis: {
             title: {
-              text: 'mg'
-            }
+              text: 'lbs/mg/ml'
+            },
+            plotLines: [{
+              value: 2000,
+              color: 'red',
+              dashStyle: 'shortdash',
+              width: 2,
+              label: {
+                text: 'Sodium and Fluid Thresholds'
+              }
+            }]
           },
           legend: {
             layout: 'vertical',
@@ -235,12 +244,6 @@ angular.
           },
 
           series: [{
-            name: 'Weight',
-            data: weightLog,
-            tooltip: {
-              valueDecimals: 2
-            }
-          }, {
             name: 'Sodium',
             data: sodiumLog,
             tooltip: {
@@ -252,23 +255,34 @@ angular.
             tooltip: {
               valueDecimals: 2
             }
+          }, {
+            name: 'Weight',
+            data: weightLog,
+            tooltip: {
+              valueDecimals: 2
+            },
+            visible: false
           }],
 
           responsive: {
             rules: [{
               condition: {
-                maxWidth: 500
+                minWidth: 0,
               },
               chartOptions: {
                 legend: {
+                  verticalAlign: 'top',                  
                   layout: 'horizontal',
                   align: 'center',
-                  verticalAlign: 'bottom'
+                  itemStyle: {
+                    fontSize: "20px",
+                  },
                 }
               }
             }]
           }
         });
+        this.chart.series[0].hide();        
       };
     }
   });
