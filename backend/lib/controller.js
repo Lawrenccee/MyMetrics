@@ -169,14 +169,13 @@ export const updateUser = (req, res) => {
             logEntry.fluidEntry = userInfo.fluid;
             updated = true;
           }
-
-          if (userInfo.symptoms.length > 0) {
+          if (userInfo.symptoms && userInfo.symptoms.length > 0) {
             let sympLogEntry = new SympLog({ symptoms: userInfo.symptoms });
             user.symptomsLog.push(sympLogEntry);
             updated = true;
           }
           if (userInfo.medications) {
-            if (user.medications.length != userInfo.medications.length || !(user.medications.every(function(med, idx) { return med === userInfo.medications[idx] }))){
+            if (user.medications.length !== userInfo.medications.length || !(user.medications.every(function(med, idx) { return med === userInfo.medications[idx] }))){
               user.medications = userInfo.medications;
               updated = true;
             }
