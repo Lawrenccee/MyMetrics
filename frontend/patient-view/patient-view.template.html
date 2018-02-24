@@ -27,7 +27,7 @@
         </div>
       </div>
     </div>
-    
+
 
     <div class="metrics">
       <h2>Metrics</h2>
@@ -53,31 +53,34 @@
 
         <div ng-repeat="symptom in $ctrl.symptoms">
           <label>
-            <input type="checkbox" value="{{symptom}}" ng-click="$ctrl.updateSymptoms($event)">{{symptom}}
+            <input type="checkbox" value="{{symptom}}" id="checkbox-input" ng-click="$ctrl.updateSymptoms($event)"><span>{{symptom}}</span>
           </label>
         </div>
 
-        <button ng-click="$ctrl.updatePatient()">SUBMIT ALL DATA</button>    
+        <button ng-click="$ctrl.updatePatient()" id="submit-button"><span>Submit</span></button>
       </div>
 
       <div class="medications">
         <h2>Medications</h2>
 
+        <form class="medication-form">
+          <label>Add a Medication:
+            <div class="medication-input-container">
+              <input type="text" ng-model="$ctrl.medication">
+              <input type="submit" id="round-button" ng-click="$ctrl.addMedication($ctrl.medication)" value="">
+            </div>
+          </label>
+
+        </form>
+
         <div class="medication-list">
           <ul>
             <li ng-repeat="medication in $ctrl.patient.medications">{{medication}}
-              <button ng-click="$ctrl.removeMedication(medication)">x</button>
+              <button ng-click="$ctrl.removeMedication(medication)" class="delete-button"></button>
             </li>
           </ul>
         </div>
 
-        <form class="medication-form">
-          <label>Add a Medication:     
-            <input type="text" ng-model="$ctrl.medication">
-          </label>
-
-          <input type="submit" ng-click="$ctrl.addMedication($ctrl.medication)" value="ADD">
-        </form>
       </div>
     </div>
   </div>
@@ -96,7 +99,10 @@
         </div>
 
         <div class="logout">
-          <button ng-click="$ctrl.logout()">Logout</button>
+          <button
+            ng-click="$ctrl.logout()"
+            id="logout-button"
+          ><span>Logout</span></button>
         </div>
       </div>
     </div>
