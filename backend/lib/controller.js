@@ -70,7 +70,7 @@ export const fetchUser = (req, res) => {
       User.findById(id).populate('patients', '-password').populate('log').lean().then(
         u => {
           if (u.patients.length > 0) {
-            for (let i = 0; i < patients.length; i++) {
+            for (let i = 0; i < u.patients.length; i++) {
               u.patients[i] = formatUser(patients[i]);
             }
           }
