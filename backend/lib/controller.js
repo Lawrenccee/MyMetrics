@@ -32,7 +32,7 @@ const formatLog = (log) => {
         fluidEntryArr.push(date.fluidEntry);
         obj.fluidLog.push(fluidEntryArr);
       }
-  })
+  });
   return obj;
 };
 
@@ -240,17 +240,24 @@ export const updateUser = (req, res) => {
                 logEntry.save().then(
                   l => {
                     user.log.push(logEntry);
-                    user.dates[`${logEntry.entryDate}`] = logEntry._id;
-                    user.markModified('dates');
-                    user.save().then(
-                      u => {
-                        u.populate('log', (popError, populatedUser) => {
-                          if (popError) res.send(popError);
-                          if (populatedUser) res.send(formatUser(populatedUser.toObject()));
-                        });
-                      },
-                      e => res.status(422).send(e)
-                    );
+                    user.populate('log', (err, populatedUser) => {
+                      populatedUser.log.sort(function (x, y) {
+                        return x.entryDate - y.entryDate;
+                      });
+                      user.log = populatedUser.log;
+                      user.dates[`${logEntry.entryDate}`] = logEntry._id;
+                      user.markModified('dates');
+                      user.save().then(
+                        u => {
+                          u.populate('log', (popError, newPopulatedUser) => {
+                            if (popError) res.send(popError);
+                            if (newPopulatedUser) res.send(formatUser(newPopulatedUser.toObject()));
+                          });
+                        },
+                        e => res.status(422).send(e)
+                      );
+                    });
+                    
                   },
                   logSaveError => {
                     res.status(422);
