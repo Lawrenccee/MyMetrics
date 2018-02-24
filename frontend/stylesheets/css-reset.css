@@ -38,6 +38,16 @@ figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video, input, textarea, button {
 	outline: none;
+
+}
+
+input {
+	border-style: none;
+	border: 1px solid lightgray;
+	box-sizing: border-box;
+}
+input:focus {
+	border: 1px solid #3d5a80;
 }
 
 article, aside, details, figcaption, figure,
@@ -114,9 +124,9 @@ button::-moz-focus-inner {
 }
 
 
-input[type=date], 
-input[type=datetime-local], 
-input[type=month], 
+input[type=date],
+input[type=datetime-local],
+input[type=month],
 input[type=time] {
     -webkit-appearance: textfield;
     -moz-appearance:    textfield;
