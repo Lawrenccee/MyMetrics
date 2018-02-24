@@ -71,7 +71,7 @@ export const fetchUser = (req, res) => {
         u => {
           if (u.patients.length > 0) {
             for (let i = 0; i < u.patients.length; i++) {
-              u.patients[i] = formatUser(patients[i]);
+              u.patients[i] = formatUser(u.patients[i]);
             }
           }
           res.send(formatUser(u));

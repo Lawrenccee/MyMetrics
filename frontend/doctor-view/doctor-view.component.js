@@ -42,7 +42,8 @@ angular.
         Highcharts.chart('patient-graph', {
 
           title: {
-            text: `${this.currentPatient.name}`
+            // text: `${this.currentPatient.name}`
+            text: 'Patient Metrics'
           },
 
           yAxis: {
@@ -62,21 +63,21 @@ angular.
 
           series: [{
             name: 'Weight',
-            // data: `${this.currentPatient.logData.weightLog}`,
+            data: `${this.currentPatient.logData.weightLog}`,
             data: "",
             tooltip: {
               valueDecimals: 2
             }
           }, {
             name: 'Sodium',
-            // data: `${this.currentPatient.logData.sodiumLog}`,
+            data: `${this.currentPatient.logData.sodiumLog}`,
             data: "",
             tooltip: {
               valueDecimals: 2
             }
           }, {
             name: 'Fluid',
-            // data: `${this.currentPatient.logData.fluidLog}`,
+            data: `${this.currentPatient.logData.fluidLog}`,
             data: "",
             tooltip: {
               valueDecimals: 2

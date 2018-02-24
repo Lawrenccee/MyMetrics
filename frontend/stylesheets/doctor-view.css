@@ -117,3 +117,18 @@
 .patient-info {
     border: 1px solid black;
 }
+
+.patient-metrics { 
+    border: 1px solid black;
+    
+}
+
+.patient-symptoms {
+    border: 1px solid black;
+    
+}
+
+.patient-medications {
+    border: 1px solid black;
+    
+}
