@@ -12,6 +12,7 @@
 .main-session h1 {
     font-size: 70px;
     margin-bottom: 20px;
+    /* color: #EE6C4D */
 }
 
 .error-container {
@@ -24,6 +25,10 @@
     font-size: 32px;
     font-weight: 500;
     /* margin-bottom: 15px; */
+}
+
+.error-container h2 {
+    /* color: #98C1D9; */
 }
 
 .errors {
@@ -84,6 +89,8 @@
     border-radius: 2px;
     padding: 7px;
     font-size: 20px;
+    /* background-color: #EE6C4D; */
+    /* color: #E0FBFC; */
     /* margin-top: auto; */
     box-shadow: 0 2px 6px 0 rgba(0,0,0,0.40);
     -webkit-transform: perspective(1px) translateZ(0);
