@@ -292,7 +292,7 @@ const updateLog = (logEntry, weight, sodium, fluid, symptoms) => {
     logEntry.fluidEntry = fluid;
     updated = true;
   }
-  if (symptoms.length !== logEntry.symptomsEntry.length || !compareArray(logEntry.symptomsEntry, symptoms)) {
+  if (symptoms && (symptoms.length !== logEntry.symptomsEntry.length || !compareArray(logEntry.symptomsEntry, symptoms))) {
     logEntry.symptomsEntry = symptoms;
     updated = true;
   }
