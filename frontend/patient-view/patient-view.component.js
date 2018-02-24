@@ -36,6 +36,8 @@ angular.
               this.patient.weight = obj.weightEntry;
               this.patient.sodium = obj.sodiumEntry;
               this.patient.fluid = obj.fluidEntry;
+              this.patient.symptoms = obj.symptomsEntry;
+              console.log(obj);
             }
           });
         });
@@ -62,6 +64,19 @@ angular.
           r => {
             console.log(r);
             this.warnings = [];
+            let today = new Date(
+              new Date().setHours(0, 0, 0, 0)).
+              setFullYear(
+                this.date.getFullYear(),
+                this.date.getMonth(),
+                this.date.getDate()
+              );
+            this.patient.log.forEach((obj, index) => {
+              if (parseInt(obj.entryDate) === today) {
+                this.patient.symptoms = obj.symptomsEntry;
+                console.log(obj);
+              }
+            });
             this.patient.log = r.data.log;
             checkVitals();
             createChart(r.data.logData);
@@ -92,15 +107,14 @@ angular.
         this.patient.weight = undefined;
         this.patient.sodium = undefined;
         this.patient.fluid = undefined;
+        this.patient.symptoms = [];
 
         this.patient.log.forEach((obj, index) => {
-          console.log(dateMs);
-          console.log(obj.entryDate);
-          console.log('\n');
           if (parseInt(obj.entryDate) === dateMs) {
             this.patient.weight = obj.weightEntry;
             this.patient.sodium = obj.sodiumEntry;
             this.patient.fluid = obj.fluidEntry;
+            this.patient.symptoms = obj.symptomsEntry;          
           }
         });
       };
@@ -115,14 +129,20 @@ angular.
         "Swelling in legs"
       ];
 
-      this.updateSymptoms = (event) => {
-        let index = this.patient.symptoms.indexOf(event.target.value);
+      this.updateSymptoms = (symptom) => {
+        let index = this.patient.symptoms.indexOf(symptom);
 
         if (index > -1) {
           this.patient.symptoms.splice(index, 1);
         } else {
-          this.patient.symptoms.push(event.target.value);
+          this.patient.symptoms.push(symptom);
         }
+      };
+
+      this.symptomExists = (symptom) => {
+        if (this.patient.symptoms) {
+          return this.patient.symptoms.indexOf(symptom) > -1;
+        } 
       };
 
       this.addMedication = (medication) => {
@@ -213,7 +233,6 @@ angular.
           this.warnings.push("Your sodium is over 2 grams for the day");
         }
 
-        console.log(this.warnings);
       };
 
       const createChart = ({ weightLog, sodiumLog, fluidLog }) => {
@@ -243,7 +262,10 @@ angular.
           },
 
           xAxis: {
-            type: 'datetime'
+            type: 'datetime',
+            labels: {
+              format: '{value:%Y-%b-%e}'
+            }
           },
 
           series: [{
@@ -264,7 +286,7 @@ angular.
             tooltip: {
               valueDecimals: 2
             },
-            visible: false
+            // visible: false
           }],
 
           responsive: {
@@ -285,7 +307,8 @@ angular.
             }]
           }
         });
-        this.chart.series[0].hide();        
+        // this.chart.series[0].hide();
+        this.chart.series.forEach(chart => console.log(chart.visible));        
       };
     }
   });
