@@ -169,23 +169,28 @@ export const updateUser = (req, res) => {
       User.findById(id).then(
         user => {
           let userUpdated = false,
+            logUpdated = false,
             logEntry = null,
             logId = user.dates[`${userInfo.entryDate}`];
 
+          if (userInfo.nextAppt !== user.nextAppt) {
+            user.nextAppt = userInfo.nextAppt;
+            userUpdated = true;
+          }
+          if (userInfo.stage && userInfo.stage !== user.stage) {
+            user.stage = userInfo.stage;
+            userUpdated = true;
+          }
+          if (userInfo.medications) {
+            if (user.medications.length != userInfo.medications.length || !compareArray(user.medications, userInfo.medications)){
+              user.medications = userInfo.medications;
+              userUpdated = true;
+            }
+          }
           if (logId) {
             LogEntry.findById(logId).then(
               log => {
-                let logUpdated = updateLog(log, userInfo.weight, userInfo.sodium, userInfo.fluid, userInfo.symptoms);
-                if (userInfo.stage && userInfo.stage !== user.stage) {
-                  user.stage = userInfo.stage;
-                  userUpdated = true;
-                }
-                if (userInfo.medications) {
-                  if (user.medications.length != userInfo.medications.length || !compareArray(user.medications, userInfo.medications)){
-                    user.medications = userInfo.medications;
-                    userUpdated = true;
-                  }
-                }
+                logUpdated = updateLog(log, userInfo.weight, userInfo.sodium, userInfo.fluid, userInfo.symptoms);
                 if (logUpdated) {
                   log.save().then(
                     l => {
@@ -222,20 +227,9 @@ export const updateUser = (req, res) => {
             );
           } else {
             logEntry = new LogEntry({ entryDate: userInfo.entryDate });
-            userUpdated = updateLog(logEntry, userInfo.weight, userInfo.sodium, userInfo.fluid, userInfo.symptoms);
-
-            if (userInfo.stage && userInfo.stage !== user.stage) {
-              user.stage = userInfo.stage;
-              userUpdated = true;
-            }
-            if (userInfo.medications) {
-              if (user.medications.length != userInfo.medications.length || !compareArray(user.medications, userInfo.medications)){
-                user.medications = userInfo.medications;
-                userUpdated = true;
-              }
-            }
-            if (userUpdated) {
-              if (logEntry) {
+            logUpdated = updateLog(logEntry, userInfo.weight, userInfo.sodium, userInfo.fluid, userInfo.symptoms);
+            if (userUpdated || logUpdated) {
+              if (logUpdated) {
                 logEntry.save().then(
                   l => {
                     user.log.push(logEntry);
