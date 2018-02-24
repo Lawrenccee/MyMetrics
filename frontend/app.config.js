@@ -46,8 +46,12 @@ angular.
         $location.path('/login');
       } else if ($route.routes[$location.path()].auth === false && user && user.email) {
         event.preventDefault();
-        // DO ANOTHER CONDITIONAL TO REDIRECT TO DOCTOR OR PATIENT VIEW
-        $location.path('/patientview');
+
+        if (user.isDoctor) {
+          $location.path('/doctorview');
+        } else {
+          $location.path('/patientview');
+        }
       }
     });
   }]
