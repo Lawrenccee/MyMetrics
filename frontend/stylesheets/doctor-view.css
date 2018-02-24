@@ -7,12 +7,17 @@
 .doctor-right {
     border: 1px solid black;
     display: flex;
-    width: 50%;
-    height: 95vh;
+    height: 100vh;
 }
+
+.doctor-right {
+    width: 75%;
+}
+
 
 .doctor-left {
     flex-direction: column;
+    width: 35%;
 }
 
 .doctor-header {
@@ -29,7 +34,7 @@
     font-size: 50px;
 }
 
-.doctor-header h3 {
+.doctor-header h2 {
     font-size: 30px;
 }
 
@@ -45,3 +50,27 @@
     padding: 7px;
 }
 
+.doctors-patients-container {
+    border: 1px solid black;
+    flex-grow: 1;
+    position: relative;
+    overflow-y: scroll;
+}
+
+.doctors-patients {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    flex-direction: column;
+}
+
+.patient-item {
+    display: flex;
+    font-size: 20px;
+    border-radius: 2px;
+    padding: 5px;
+    height: 70px;
+    margin: 12px;
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.40);
+
+}

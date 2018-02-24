@@ -60,6 +60,7 @@ angular.
           data: { userInfo: this.patient }
         }).then(
           r => {
+            console.log(r);
             createChart(r.data.logData);
           },
           e => console.log(e)
@@ -77,7 +78,6 @@ angular.
       };
 
       this.changeDate = () => {
-        console.log(this.date);
         let dateMs = new Date(
           new Date().setHours(0, 0, 0, 0)).
           setFullYear(
@@ -85,12 +85,18 @@ angular.
             this.date.getMonth(),
             this.date.getDate()
           );
-        
-        // HTTP REQUEST TO CHANGE LOGS
-        // in the then()
-        // this.patient.weight = res.data.weightEntry ? res.data.weightEntry[1] : undefined;
-        // this.patient.sodium = res.data.sodiumEntry ? res.data.sodiumEntry[1] : undefined;
-        // this.patient.fluid = res.data.fluidEntry ? res.data.fluidEntry[1] : undefined;
+
+        this.patient.weight = undefined;
+        this.patient.sodium = undefined;
+        this.patient.fluid = undefined;
+
+        this.patient.log.forEach((obj, index) => {
+          if (parseInt(obj.entryDate) === dateMs) {
+            this.patient.weight = obj.weightEntry;
+            this.patient.sodium = obj.sodiumEntry;
+            this.patient.fluid = obj.fluidEntry;
+          }
+        });
       };
 
       this.changeNextAppt = () => {
