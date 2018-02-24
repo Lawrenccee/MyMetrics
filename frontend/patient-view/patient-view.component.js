@@ -7,7 +7,7 @@ angular.
 
       this.$onInit = () => {
         this.patient = JSON.parse(UserService.getStore());
-          
+
         $http({
           method: 'GET',
           url: `/api/users/${this.patient.id}`
@@ -15,7 +15,7 @@ angular.
           this.patient = res.data;
           if (new Date() < this.patient.nextAppt) {
             // MIGHT HAVE TO CONVERT FROM MILLISECONDS TO DATE
-            this.nextAppt = this.patient.nextAppt;
+            this.nextAppt = new Date(this.patient.nextAppt);
           }
           this.patient.symptoms = [];
 
@@ -45,7 +45,7 @@ angular.
 
       this.warnings = [];
       this.date = new Date();
-      this.nextAppt = undefined;
+      // this.nextAppt = undefined;
 
       this.updatePatient = () => {
         this.patient.entryDate = new Date(
@@ -114,13 +114,14 @@ angular.
             this.patient.weight = obj.weightEntry;
             this.patient.sodium = obj.sodiumEntry;
             this.patient.fluid = obj.fluidEntry;
-            this.patient.symptoms = obj.symptomsEntry;          
+            this.patient.symptoms = obj.symptomsEntry;
           }
         });
       };
 
       this.changeNextAppt = () => {
-        this.patient.nextAppt = this.nextAppt;
+        console.log(this.nextAppt);
+        this.patient.nextAppt = Date.parse(this.nextAppt);
       };
 
       this.symptoms = [
@@ -142,7 +143,7 @@ angular.
       this.symptomExists = (symptom) => {
         if (this.patient.symptoms) {
           return this.patient.symptoms.indexOf(symptom) > -1;
-        } 
+        }
       };
 
       this.addMedication = (medication) => {
@@ -150,7 +151,7 @@ angular.
 
         if (index < 0 && medication && medication.length > 0) {
           this.patient.medications.push(medication);
-          
+
           $http({
             method: "PUT",
             url: `/api/users/${this.patient.id}`,
@@ -296,7 +297,7 @@ angular.
               },
               chartOptions: {
                 legend: {
-                  verticalAlign: 'top',                  
+                  verticalAlign: 'top',
                   layout: 'horizontal',
                   align: 'center',
                   itemStyle: {
@@ -308,7 +309,7 @@ angular.
           }
         });
         // this.chart.series[0].hide();
-        this.chart.series.forEach(chart => console.log(chart.visible));        
+        this.chart.series.forEach(chart => console.log(chart.visible));
       };
     }
   });
