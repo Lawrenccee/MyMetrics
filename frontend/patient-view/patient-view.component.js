@@ -93,6 +93,9 @@ angular.
         this.patient.fluid = undefined;
 
         this.patient.log.forEach((obj, index) => {
+          console.log(dateMs);
+          console.log(obj.entryDate);
+          console.log('\n');
           if (parseInt(obj.entryDate) === dateMs) {
             this.patient.weight = obj.weightEntry;
             this.patient.sodium = obj.sodiumEntry;
@@ -218,7 +221,6 @@ angular.
           title: {
             text: "My Metrics"
           },
-
           yAxis: {
             title: {
               text: 'lbs/mg/ml'

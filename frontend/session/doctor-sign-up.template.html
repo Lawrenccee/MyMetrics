@@ -1,16 +1,22 @@
-<div>
-  Doctor Sign Up
-  <a href="#!/patientsignup">Are you a Patient? Sign up here</a>
+<div class="main-session">
+  <h1>MyMetrics</h1> 
+  
+  <div class="signup-header">
+    <h2>Doctor Sign Up</h2>
+    <a href="#!/patientsignup">Are you a Patient? Sign up here</a>
+  </div>
+  
+  <div class="error-container" ng-if="$ctrl.error">
+    {{$ctrl.error}}
+  </div>
 
-  <form ng-submit='$ctrl.sendUser()'>
-    <div>
-
-      <div>
-
-        <div>
+  <form id="sign-up" ng-submit='$ctrl.sendUser()'>
+    <div class="doctor-signup-container">
+      <div class="main-signup-form">
+        <div class="doctor-left-signup">
 
           <label>Email:
-            <input required type="email" ng-model="$ctrl.user.email">
+            <input required id="signup-email" type="email" ng-model="$ctrl.user.email">
           </label>
 
           <label>Password:
@@ -23,14 +29,14 @@
 
         </div>
 
-        <div>
+        <div class="doctor-right-signup">
 
-          <label>Name:
+          <label>Full Name:
             <input required type="text" ng-model="$ctrl.user.name">
           </label>
 
           <label>DOB:
-            <input required type="date" ng-model="$ctrl.user.dob">
+            <input required id="doctor-dob" type="date" ng-model="$ctrl.user.dob">
           </label>
 
           <label>License #:
@@ -42,20 +48,15 @@
           </label>
 
         </div>
-
       </div>
 
-      <div>
+      <div class="signup-clickables">
         <a href="#!/login">Already Signed Up? Log In</a>
-        <input id="doc-signup-button" type="submit" value="Sign Up">
+        <button id="doc-signup-button" class="session-button">Sign Up</button>
       </div>
 
     </div>
 
-
   </form>
 
-  <div ng-if="$ctrl.error">
-    {{$ctrl.error}}
-  </div>
 </div>

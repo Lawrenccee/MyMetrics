@@ -81,7 +81,8 @@ body {
 }
 
 
-button {
+button,
+input[type=submit] {
     border: none;
     margin: 0;
     padding: 0;
@@ -103,7 +104,7 @@ button {
 
     /* Corrects inability to style clickable `input` types in iOS */
 	-webkit-appearance: none;
-	text-align: inherit;
+	text-align: center;
 }
 
 /* Remove excess padding and border in Firefox 4+ */
