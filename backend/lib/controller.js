@@ -32,7 +32,7 @@ const formatLog = (log) => {
         fluidEntryArr.push(date.fluidEntry);
         obj.fluidLog.push(fluidEntryArr);
       }
-  })
+  });
   return obj;
 };
 
