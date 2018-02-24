@@ -1,25 +1,44 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
-import { User, Log, SympLog } from './user.js';
+import { User } from './user.js';
+import { LogEntry } from './log_entry.js'
+
 
 const MONGO_CONNECTION = process.env.MONGODB_URI;
 
 const formatLog = (log) => {
-  let arr = [];
-  arr = log.map(entry => {
-    let entryArr = [];
-    let d = new Date(entry.createdAt);
-    entryArr.push(d.getTime());
-    entryArr.push(parseInt(entry.value));
-    return entryArr;
-  });
-  return arr;
+  let obj = {
+    weightLog: [],
+    sodiumLog: [],
+    fluidLog: []
+  };
+  log.map(date => {
+    let weightEntryArr = [],
+      sodiumEntryArr = [],
+      fluidEntryArr = [];
+
+      if (date.weightEntry) {
+        weightEntryArr.push(date.entryDate);
+        weightEntryArr.push(date.weightEntry);
+        obj.weightLog.push(weightEntryArr);
+      }
+      if (date.sodiumEntry) {
+        sodiumEntryArr.push(date.entryDate);
+        sodiumEntryArr.push(date.sodiumEntry);
+        obj.sodiumLog.push(sodiumEntryArr);
+      }
+      if (date.fluidEntry) {
+        fluidEntryArr.push(date.entryDate);
+        fluidEntryArr.push(date.fluidEntry);
+        obj.fluidLog.push(fluidEntryArr);
+      }
+  })
+  return obj;
 };
 
 const formatUser = (user) => {
-  user.weightLog = formatLog(user.weightLog);
-  user.sodiumLog = formatLog(user.sodiumLog);
-  user.fluidLog = formatLog(user.fluidLog);
+  console.log(user);
+  user.logData = formatLog(user.log);
   user.id = user._id;
   delete user._id;
   delete user.password;
@@ -37,9 +56,9 @@ export const getAllUsers = (req, res) => {
         if (users) res.send(users);
       });
     },
-    error => {
+    dbConnectError => {
       res.status(503);
-      res.send(error);
+      res.send(dbConnectError);
     }
   );
 };
@@ -48,19 +67,19 @@ export const fetchUser = (req, res) => {
   mongoose.connect(MONGO_CONNECTION).then(
     () => {
       const { id } = req.params;
-      User.findById(id).populate('patients', '-password').lean().then(
+      User.findById(id).populate('patients', '-password').populate('log').lean().then(
         u => {
           res.send(formatUser(u));
         },
-        e => {
+        noUserError => {
           res.status(404);
-          res.send(e);
+          res.send(noUserError);
         }
       );
     },
-    error => {
+    dbConnectError => {
       res.status(503);
-      res.send(error);
+      res.send(dbConnectError);
     }
   );
 };
@@ -69,7 +88,7 @@ export const createUser = (req, res) => {
   mongoose.connect(MONGO_CONNECTION).then(
     () => {
       let user = new User(req.body.user);
-
+      user.dates = {};
       const SALT_FAC = process.env.SALT_FACTOR;
 
       bcrypt.genSalt(parseInt(SALT_FAC), function(err, salt) {
@@ -90,15 +109,15 @@ export const createUser = (req, res) => {
                       res.send( { email: user.email, id: user._id, isDoctor } );
                     });
                   },
-                  e => {
+                  userSaveError => {
                     res.status(422);
-                    res.send(e);
+                    res.send(userSaveError);
                   }
                 );
               },
-              err => {
+              noUserError => {
                 res.status(404);
-                res.send(err);
+                res.send(noUserError);
               }
             );
           } else {
@@ -110,7 +129,7 @@ export const createUser = (req, res) => {
                   res.send( { email: user.email, id: user._id, isDoctor} );
                 });
               },
-              e => {
+              userSaveError => {
                 res.status(422);
                 res.send({message: "Email has already been taken"});
               }
@@ -119,9 +138,9 @@ export const createUser = (req, res) => {
         });
       });
     },
-    error => {
+    dbConnectError => {
       res.status(503);
-      res.send(error);
+      res.send(dbConnectError);
 
     }
   );
@@ -139,53 +158,141 @@ export const updateUser = (req, res) => {
             };
       User.findById(id).then(
         user => {
-          let updated = false;
-          if (userInfo.stage && userInfo.stage !== user.stage) {
-            user.stage = userInfo.stage;
-            updated = true;
-          }
-          if (userInfo.weight) {
-            let weightLogEntry = new Log({ value: userInfo.weight });
-            user.weightLog.push(weightLogEntry);
-            updated = true;
-          }
-          if (userInfo.sodium) {
-            let sodiumLogEntry = new Log({   value: userInfo.sodium });
-            user.sodiumLog.push(sodiumLogEntry);
-            updated = true;
-          }
-          if (userInfo.fluid) {
-            let fluidLogEntry = new Log({ value: userInfo.fluid });
-            user.fluidLog.push(fluidLogEntry);
-            updated = true;
-          }
-          if (userInfo.symptoms.length > 0) {
-            let sympLogEntry = new SympLog({ symptoms: userInfo.symptoms });
-            user.symptomsLog.push(sympLogEntry);
-            updated = true;
-          }
-          if (userInfo.medications) {
-            if (user.medications.length != userInfo.medications.length || !(user.medications.every(function(med, idx) { return med === userInfo.medications[idx] }))){
-              user.medications = userInfo.medications;
-              updated = true;
-            }
-          }
-          if (updated) {
-            console.log("did update");
-            user.save().then(
-              u => res.send(formatUser(u.toObject())),
-              e => res.status(422).send(e)
+          let userUpdated = false,
+            logEntry = null,
+            logId = user.dates[`${userInfo.entryDate}`];
+
+          if (logId) {
+            LogEntry.findById(logId).then(
+              log => {
+                let logUpdated = updateLog(log, userInfo.weight, userInfo.sodium, userInfo.fluid, userInfo.symptoms);
+                if (userInfo.stage && userInfo.stage !== user.stage) {
+                  user.stage = userInfo.stage;
+                  userUpdated = true;
+                }
+                if (userInfo.medications) {
+                  if (user.medications.length != userInfo.medications.length || !compareArray(user.medications, userInfo.medications)){
+                    user.medications = userInfo.medications;
+                    userUpdated = true;
+                  }
+                }
+                if (logUpdated) {
+                  log.save().then(
+                    l => {
+                      user.save().then(
+                        u => {
+                          u.populate('log', (popError, populatedUser) => {
+                            if (popError) res.send(popError);
+                            if (populatedUser) res.send(formatUser(populatedUser.toObject()));
+                          })
+                        },
+                        userSaveError => {
+                          res.status(422);
+                          res.send(userSaveError);
+                        }
+                      );
+                    },
+                    logSaveError => {
+                      res.status(422);
+                      res.send(logSaveError);
+                    }
+                  );
+                } else if (userUpdated) {
+                  user.save().then(
+                    u => {
+                      console.log("user saved");
+                      u.populate('log', (popError, populatedUser) => {
+                        if (popError) res.send(popError);
+                        if (populatedUser) res.send(formatUser(populatedUser.toObject()));
+                      })
+                    }
+                  )
+                }
+              }
             );
           } else {
-            console.log("no update");
+            logEntry = new LogEntry({ entryDate: userInfo.entryDate });
+            userUpdated = updateLog(logEntry, userInfo.weight, userInfo.sodium, userInfo.fluid, userInfo.symptoms);
+
+            if (userInfo.stage && userInfo.stage !== user.stage) {
+              user.stage = userInfo.stage;
+              userUpdated = true;
+            }
+            if (userInfo.medications) {
+              if (user.medications.length != userInfo.medications.length || !compareArray(user.medications, userInfo.medications)){
+                user.medications = userInfo.medications;
+                userUpdated = true;
+              }
+            }
+            if (userUpdated) {
+              if (logEntry) {
+                logEntry.save().then(
+                  l => {
+                    user.log.push(logEntry);
+                    user.dates[`${logEntry.entryDate}`] = logEntry._id;
+                    user.markModified('dates');
+                    user.save().then(
+                      u => {
+                        u.populate('log', (popError, populatedUser) => {
+                          if (popError) res.send(popError);
+                          if (populatedUser) res.send(formatUser(populatedUser.toObject()));
+                        });
+                      },
+                      e => res.status(422).send(e)
+                    );
+                  },
+                  logSaveError => {
+                    res.status(422);
+                    res.send(logSaveError);
+                  }
+                );
+              } else {
+                user.save().then(
+                  u => {
+                    u.populate('log', (popError, populatedUser) => {
+                      if (popError) res.send(popError);
+                      if (populatedUser) res.send(formatUser(populatedUser.toObject()));
+                    });
+                  },
+                  userSaveError => res.status(422).send(userSaveError)
+                );
+              }
+            } else {
+              console.log("no update");
+            }
           }
         },
-        error => res.status(404).send(error)
+        noUserError => res.status(404).send(noUserError)
       );
     },
-    error => {
+    dbConnectError => {
       res.status(503);
-      res.send(error);
+      res.send(dbConnectError);
     }
   );
 };
+
+const updateLog = (logEntry, weight, sodium, fluid, symptoms) => {
+  let updated = false;
+  if (weight && logEntry.weightEntry != weight) {
+    logEntry.weightEntry = weight;
+    updated = true;
+  }
+  if (sodium && logEntry.sodiumEntry != sodium) {
+    logEntry.sodiumEntry = sodium;
+    updated = true;
+  }
+  if (fluid && logEntry.fluidEntry != fluid) {
+    logEntry.fluidEntry = fluid;
+    updated = true;
+  }
+  if (symptoms.length > 0 && !compareArray(logEntry.symptomsEntry, symptoms)) {
+    logEntry.symptomsEntry = symptoms;
+    updated = true;
+  }
+  return updated;
+};
+
+const compareArray = (arr1, arr2) => {
+  return (arr1.every(function(el, idx) { return el === arr2[idx] }))
+}
