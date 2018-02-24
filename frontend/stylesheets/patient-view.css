@@ -1,17 +1,17 @@
 .patient-view {
   display: flex;
   flex-direction: row;
-  font-size: 20px;
+  font-size: 2.2vh;
   height: 100vh;
   padding: 20px;
 }
 
 .patient-view h1 {
-  font-size: 50px;
+  font-size: 4vh;
 }
 
 .patient-view h2 {
-  font-size: 30px;
+  font-size: 2.8vh;
 }
 
 .patient-view .left, .patient-view .right {
@@ -53,7 +53,7 @@
 .patient-view .metrics {
   display: flex;
   flex-direction: column;
-  flex: 3 1 0%;
+  flex: 2 1 0%;
   justify-content: center;
 }
 
@@ -76,7 +76,7 @@
   flex-direction: column;
   white-space: nowrap;
   width: 50%;
-  margin: 10px;
+  margin: 10px 0px 10px 10px;
 }
 
 .patient-view .symptoms h2 {
@@ -100,7 +100,7 @@
   flex-direction: column;
   width: 50%;
   justify-content: space-between;
-  margin: 10px 20px;
+  margin: 10px 10px 10px 0px;
 }
 
 .patient-view .medications h2 {
@@ -136,13 +136,14 @@
   display: flex;
   align-items: center;
   margin-top: 3px;
-  padding: 2px 0 2px 3px;
+  /* padding: 2px 0 2px 3px; */
   /* padding-left: 0; */
 }
 
 .patient-view .medication-form input {
   width: 100%;
   margin-top: 3px;
+  margin-right: 5px;
   padding: 5px;
 }
 
@@ -154,13 +155,13 @@
 
 
 #round-button {
-  position: relative;
-  width: 32px;
-  margin-left: 5px;
+  width: 35px;
   background-image: url('../assets/plus-button.svg');
   background-size: cover;
   border-radius: 200px;
   border: none;
+  padding-bottom: 6px;
+  margin-right: 0;
 }
 #round-button:hover {
   box-shadow: 0 0 10px #ee6c4d;
