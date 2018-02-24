@@ -187,7 +187,7 @@ export const updateUser = (req, res) => {
               userUpdated = true;
             }
           }
-          if (userInfo.inDanger && userInfo.inDanger != user.inDanger) {
+          if (userInfo.inDanger !== undefined && userInfo.inDanger != user.inDanger) {
             user.inDanger = userInfo.inDanger;
             userUpdated = true;
           }
