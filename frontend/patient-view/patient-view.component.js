@@ -37,7 +37,6 @@ angular.
               this.patient.sodium = obj.sodiumEntry;
               this.patient.fluid = obj.fluidEntry;
               this.patient.symptoms = obj.symptomsEntry;
-              console.log(obj);
             }
           });
         });
@@ -45,7 +44,6 @@ angular.
 
       this.warnings = [];
       this.date = new Date();
-      // this.nextAppt = undefined;
 
       this.updatePatient = () => {
         this.patient.entryDate = new Date(
@@ -62,8 +60,8 @@ angular.
           data: { userInfo: this.patient }
         }).then(
           r => {
-            console.log(r);
             this.warnings = [];
+
             let today = new Date(
               new Date().setHours(0, 0, 0, 0)).
               setFullYear(
@@ -71,13 +69,15 @@ angular.
                 this.date.getMonth(),
                 this.date.getDate()
               );
-            this.patient.log.forEach((obj, index) => {
+
+            r.data.log.forEach((obj, index) => {
               if (parseInt(obj.entryDate) === today) {
                 this.patient.symptoms = obj.symptomsEntry;
-                console.log(obj);
               }
             });
+
             this.patient.log = r.data.log;
+
             checkVitals();
             createChart(r.data.logData);
           },
@@ -120,7 +120,6 @@ angular.
       };
 
       this.changeNextAppt = () => {
-        console.log(this.nextAppt);
         this.patient.nextAppt = Date.parse(this.nextAppt);
       };
 
@@ -289,7 +288,6 @@ angular.
             tooltip: {
               valueDecimals: 2
             },
-            // visible: false
           }],
 
           responsive: {
@@ -310,8 +308,6 @@ angular.
             }]
           }
         });
-        // this.chart.series[0].hide();
-        this.chart.series.forEach(chart => console.log(chart.visible));
       };
     }
   });
