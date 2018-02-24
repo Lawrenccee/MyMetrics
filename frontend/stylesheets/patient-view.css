@@ -8,6 +8,7 @@
 
 .patient-view h1 {
   font-size: 4vh;
+  color: #ee6c4d;
 }
 
 .patient-view h2 {
@@ -43,7 +44,7 @@
 
 .patient-view .name {
   color: #293241;
-  margin-right: 10px;
+  margin: 10px 0 10px 0;
 }
 
 .patient-view .stage {
@@ -63,6 +64,7 @@
   justify-content: space-around;
   margin-top: 10px;
 }
+
 
 .patient-view .symptoms-medications {
   display: flex;
@@ -109,7 +111,8 @@
 
 .patient-view .medication-list {
   overflow: auto;
-  border: 1px solid black;
+  border: 1px solid lightgray;
+  border-radius: 5px;
   flex: 1 1 auto;
   padding: 5px;
 }
@@ -144,7 +147,8 @@
   width: 100%;
   margin-top: 3px;
   margin-right: 5px;
-  padding: 5px;
+  padding: 8px 5px 3px 5px;
+  border-radius: 10px;
 }
 
 .patient-view .medication-form label {
@@ -200,12 +204,13 @@
 }
 
 .patient-view .metrics .labels label, .patient-view .metrics .inputs input {
-  margin: 3px;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 10px;
 }
 
 .patient-view button, .patient-view input[type='submit'] {
   cursor: pointer;
-  border: 1px solid black;
   border-radius: 5px;
   padding: 5px;
 }
@@ -249,9 +254,14 @@ div.medication-list ul li button.delete-button {
   color: white;
   padding: 5px;
   padding-top: 9px;
-  background-color: #ee6c4d;
+  background-color: #98c1d9;
 }
 
 .medications, .symptoms {
   /* font-size: 20px; */
+}
+
+input[type='date'] {
+  border-radius: 10px;
+  padding: 3px 5px 0 5px;
 }

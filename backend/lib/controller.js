@@ -37,7 +37,6 @@ const formatLog = (log) => {
 };
 
 const formatUser = (user) => {
-  console.log(user);
   user.logData = formatLog(user.log);
   user.id = user._id;
   delete user._id;
@@ -170,23 +169,28 @@ export const updateUser = (req, res) => {
       User.findById(id).then(
         user => {
           let userUpdated = false,
+            logUpdated = false,
             logEntry = null,
             logId = user.dates[`${userInfo.entryDate}`];
 
+          if (userInfo.nextAppt !== user.nextAppt) {
+            user.nextAppt = userInfo.nextAppt;
+            userUpdated = true;
+          }
+          if (userInfo.stage && userInfo.stage !== user.stage) {
+            user.stage = userInfo.stage;
+            userUpdated = true;
+          }
+          if (userInfo.medications) {
+            if (user.medications.length != userInfo.medications.length || !compareArray(user.medications, userInfo.medications)){
+              user.medications = userInfo.medications;
+              userUpdated = true;
+            }
+          }
           if (logId) {
             LogEntry.findById(logId).then(
               log => {
-                let logUpdated = updateLog(log, userInfo.weight, userInfo.sodium, userInfo.fluid, userInfo.symptoms);
-                if (userInfo.stage && userInfo.stage !== user.stage) {
-                  user.stage = userInfo.stage;
-                  userUpdated = true;
-                }
-                if (userInfo.medications) {
-                  if (user.medications.length != userInfo.medications.length || !compareArray(user.medications, userInfo.medications)){
-                    user.medications = userInfo.medications;
-                    userUpdated = true;
-                  }
-                }
+                logUpdated = updateLog(log, userInfo.weight, userInfo.sodium, userInfo.fluid, userInfo.symptoms);
                 if (logUpdated) {
                   log.save().then(
                     l => {
@@ -223,20 +227,9 @@ export const updateUser = (req, res) => {
             );
           } else {
             logEntry = new LogEntry({ entryDate: userInfo.entryDate });
-            userUpdated = updateLog(logEntry, userInfo.weight, userInfo.sodium, userInfo.fluid, userInfo.symptoms);
-
-            if (userInfo.stage && userInfo.stage !== user.stage) {
-              user.stage = userInfo.stage;
-              userUpdated = true;
-            }
-            if (userInfo.medications) {
-              if (user.medications.length != userInfo.medications.length || !compareArray(user.medications, userInfo.medications)){
-                user.medications = userInfo.medications;
-                userUpdated = true;
-              }
-            }
-            if (userUpdated) {
-              if (logEntry) {
+            logUpdated = updateLog(logEntry, userInfo.weight, userInfo.sodium, userInfo.fluid, userInfo.symptoms);
+            if (userUpdated || logUpdated) {
+              if (logUpdated) {
                 logEntry.save().then(
                   l => {
                     user.log.push(logEntry);
@@ -257,7 +250,7 @@ export const updateUser = (req, res) => {
                         e => res.status(422).send(e)
                       );
                     });
-                    
+
                   },
                   logSaveError => {
                     res.status(422);
@@ -304,7 +297,7 @@ const updateLog = (logEntry, weight, sodium, fluid, symptoms) => {
     logEntry.fluidEntry = fluid;
     updated = true;
   }
-  if (symptoms.length > 0 && !compareArray(logEntry.symptomsEntry, symptoms)) {
+  if (symptoms && (symptoms.length !== logEntry.symptomsEntry.length || !compareArray(logEntry.symptomsEntry, symptoms))) {
     logEntry.symptomsEntry = symptoms;
     updated = true;
   }
@@ -312,5 +305,8 @@ const updateLog = (logEntry, weight, sodium, fluid, symptoms) => {
 };
 
 const compareArray = (arr1, arr2) => {
-  return (arr1.every(function(el, idx) { return el === arr2[idx] }))
-}
+  arr1.sort();
+  arr2.sort();
+
+  return (arr1.every(function (el, idx) { return el === arr2[idx]; }));
+};
