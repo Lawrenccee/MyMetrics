@@ -62,6 +62,7 @@ angular.
           r => {
             console.log(r);
             this.warnings = [];
+            this.patient.log = r.data.log;
             checkVitals();
             createChart(r.data.logData);
           },
