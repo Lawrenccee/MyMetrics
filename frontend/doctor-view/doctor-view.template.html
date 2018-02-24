@@ -14,7 +14,8 @@
             <ul class="doctors-patients">
                 <li ng-repeat="patient in $ctrl.patients | filter: $ctrl.query" ng-click="$ctrl.getPatient($event)" data-patient={{patient}} class="patient-item">
                     <span>{{patient.name}}</span>
-                    <span>{{patient.status}}</span>
+                    <span style="color: red" ng-if="patient.inDanger">Status: Bad</span>
+                    <span style="color: green" ng-if="!patient.inDanger">Status: Good</span>
                 </li>
             </ul>
         </div>
