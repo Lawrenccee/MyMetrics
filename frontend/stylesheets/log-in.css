@@ -58,7 +58,7 @@
     justify-content: space-between;
     width: 100%;
     font-size: 19px;
-    /* padding: 5px 0 5px 0; */
+
 
 }
 
@@ -67,6 +67,7 @@
     height: 35px;
     width: 160px;
     font-size: 16px;
+    padding: 5px 5px 0 5px;
 }
 
 #email-input {
