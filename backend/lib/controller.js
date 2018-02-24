@@ -67,7 +67,13 @@ export const fetchUser = (req, res) => {
   mongoose.connect(MONGO_CONNECTION).then(
     () => {
       const { id } = req.params;
-      User.findById(id).populate('patients', '-password').populate('log').lean().then(
+      User.findById(id).populate({
+        path: 'patients',
+        select: '-password',
+        populate: {
+          path: 'log'
+        }
+      }).populate('log').lean().then(
         u => {
           if (u.patients.length > 0) {
             for (let i = 0; i < u.patients.length; i++) {
