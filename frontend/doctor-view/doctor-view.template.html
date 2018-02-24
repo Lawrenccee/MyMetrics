@@ -3,7 +3,7 @@
     <div class="doctor-left">
         <div class="doctor-header">
             <h1>MyMetrics</h1>
-            <h2>{{$ctrl.doctor.name}}</h2>
+            <h2>{{$ctrl.doctor.name}} MD</h2>
         </div>
 
         <div class="patient-search">
@@ -23,6 +23,7 @@
     <div class="doctor-right">
 
         <div class="doctor-logout">
+            <h1>{{$ctrl.currentPatient.name}}</h1>
             <button class="doctor-logout-button" ng-click="$ctrl.logout()">Logout</button>
         </div>
 
@@ -31,12 +32,16 @@
 
         <div class="patient-info">
             
-            <div class="patient-metrics">
+            <div class="patient-metrics-container">
                 <h1>Metrics:</h1>
-                <label>Stage: <span>{{$ctrl.currentPatient.stage}}</span></label>
-                <label>Weight: <span>{{$ctrl.currentWeight}} lb</span></label>
-                <label>Sodium Level: <span>{{$ctrl.currentSodium}} mg</span></label>
-                <label>Fluid Level: <span>{{$ctrl.currentFluid}} mL</span></label>
+
+                <div class="patient-metrics">
+                    <label>Stage: <span>{{$ctrl.currentPatient.stage}}</span></label>
+                    <label>Weight: <span>{{$ctrl.currentWeight}} lb</span></label>
+                    <label>Sodium Level: <span>{{$ctrl.currentSodium}} mg</span></label>
+                    <label>Fluid Level: <span>{{$ctrl.currentFluid}} mL</span></label>
+                </div>
+
             </div>
 
             <div class= "patient-symptoms">
@@ -46,7 +51,7 @@
 
             <div class="patient-medications">
                 <h1>Medications:</h1>
-                <ul>
+                <ul class="medication-list">
                     <li ng-repeat="medication in $ctrl.currentPatient.medications">
                         <span>{{medication}}</span>
                     </li>

@@ -5,7 +5,7 @@
 
 .doctor-left,
 .doctor-right {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display: flex;
     height: 100vh;
 }
@@ -21,37 +21,42 @@
 }
 
 .doctor-header {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 110px;
-    padding-top: 15px;
-    padding-left: 15px;
+    height: 18vh;
+    padding: 15px 0px 5px 15px;
 }
 
 .doctor-header h1 {
+    color: #EE6C4D;
     font-size: 50px;
 }
 
 .doctor-header h2 {
+    color: #98C1D9;
     font-size: 30px;
 }
 
 .patient-search {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display: flex;
     padding: 15px 0px 15px 15px;
     font-size: 20px;
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.15);    
+    background-color:  #98C1D9;
+    color: white;
 }
 
 .patient-search .patient-search-box {
     margin-left: 5px;
     padding: 7px;
+    width: 20vw;
 }
 
 .doctors-patients-container {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     flex-grow: 1;
     position: relative;
     overflow-y: scroll;
@@ -78,7 +83,7 @@
 /* GRAPH CLASS */
 
 #patient-graph {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: 100%;
 }
 
@@ -89,13 +94,22 @@
 }
 
 .doctor-logout {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
+    height: 10vh;
+    overflow: visible;
 }
 
-.doctor-logout .doctor-logout-button {
+.doctor-logout h1 {
+    font-size: 30px;
+    margin-left: 3vw;
+}
+
+.doctor-logout-button {
     width: 100px;
+    height: 6vh;
     cursor: pointer;
     border-radius: 2px;
     padding: 7px;
@@ -115,7 +129,7 @@
 }
 
 .patient-info {
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     display: flex;
     flex-direction: row;
     flex-grow: 1;
@@ -125,26 +139,50 @@
     color: white;
     background-color: #98C1D9;
     font-size: 30px;
+    padding: 5px;
 }
 
-.patient-metrics { 
-    border: 1px solid black;
-    flex-grow: 1;
+.patient-metrics-container { 
+    /* border: 1px solid black; */
+    /* flex-grow: 1; */
     display: flex;
     flex-direction: column;
+}
 
+.patient-metrics {
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    /* height: 300px; */
+    flex-grow: 1;
+}
+
+.patient-metrics label {
+    margin: auto 0px auto 10px;
 }
 
 .patient-symptoms {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     flex-grow: 1;
     display: flex;
     flex-direction: column;
 }
 
 .patient-medications {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+}
+
+.medication-list {
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    height: 300px;
+}
+
+.medication-list li {
+    margin: auto 0px auto 10px;
+
 }
