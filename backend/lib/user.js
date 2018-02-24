@@ -4,8 +4,6 @@ import bcrypt from 'bcrypt';
 
 const Schema = mongoose.Schema;
 
-const SymptomsSchema = new Schema ({ symptoms: Array }, { timestamps: true});
-
 const UserSchema = new Schema({
   email: {
     type: String,
@@ -49,7 +47,8 @@ const UserSchema = new Schema({
   }]
 },
 {
-  timestamps: true
+  timestamps: true,
+  minimize: false
 }
 );
 
@@ -75,4 +74,3 @@ UserSchema.methods.validPassword = function (password) {
 };
 
 export const User = mongoose.model('User', UserSchema);
-export const SympLog = mongoose.model('SympLog', SymptomsSchema);
