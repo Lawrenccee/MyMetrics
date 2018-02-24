@@ -42,6 +42,10 @@ const UserSchema = new Schema({
   license: String,
   hospital: String,
   nextAppt: Number,
+  inDanger: {
+    type: Boolean,
+    default: false
+  },
   patients: [{
     type: Schema.Types.ObjectId,
     ref: 'User'
