@@ -21,25 +21,31 @@
     </div>
 
     <div class="doctor-right">
+
         <div class="doctor-logout">
-            <button ng-click="$ctrl.logout()">Logout</button>
+            <button class="doctor-logout-button" ng-click="$ctrl.logout()">Logout</button>
         </div>
 
-        <div id="graph" class="patient-graph">
-            
-        </div>
+        <div id="patient-graph" class="patient-graph"></div>
 
 
         <div class="patient-info">
             
-            
-            <div class="patient-biometrics">
-                <span>PATIENT BIOMETRICS HERE</span>
+            <div class="patient-metrics">
                 <span>{{$ctrl.currentPatient.stage}}</span>
+
+            </div>
+
+            <div class= "patient-symptoms">
+
+            </div>
+
+            <div class="patient-medications">
                 <span>{{$ctrl.currentPatient.medications}}</span>
                 <span>{{$ctrl.currentPatient.symptoms}}</span>
             </div>
             
         </div>
+
     </div>
 </div>

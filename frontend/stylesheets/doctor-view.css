@@ -77,6 +77,43 @@
 
 /* GRAPH CLASS */
 
-.patient-graph {
+#patient-graph {
+    border: 1px solid black;
     width: 100%;
+}
+
+/* RIGHT SIDE */
+
+.doctor-right {
+    flex-direction: column;
+}
+
+.doctor-logout {
+    border: 1px solid black;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.doctor-logout .doctor-logout-button {
+    width: 100px;
+    cursor: pointer;
+    border-radius: 2px;
+    padding: 7px;
+    font-size: 20px;
+    /* background-color: #EE6C4D; */
+    /* color: #E0FBFC; */
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.40);
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+}
+
+.doctor-logout .doctor-logout-button:hover {
+    -webkit-transform: translateY(2px);
+    transform: translateY(2px);
+}
+
+.patient-info {
+    border: 1px solid black;
 }
