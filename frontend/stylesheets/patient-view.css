@@ -65,6 +65,7 @@
   margin-top: 10px;
 }
 
+
 .patient-view .symptoms-medications {
   display: flex;
   flex-direction: row-reverse;
@@ -111,6 +112,7 @@
 .patient-view .medication-list {
   overflow: auto;
   border: 1px solid lightgray;
+  border-radius: 5px;
   flex: 1 1 auto;
   padding: 5px;
 }
@@ -202,12 +204,13 @@
 }
 
 .patient-view .metrics .labels label, .patient-view .metrics .inputs input {
-  margin: 3px;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 10px;
 }
 
 .patient-view button, .patient-view input[type='submit'] {
   cursor: pointer;
-  border: 1px solid black;
   border-radius: 5px;
   padding: 5px;
 }
@@ -260,5 +263,5 @@ div.medication-list ul li button.delete-button {
 
 input[type='date'] {
   border-radius: 10px;
-  padding: 3px 0 0 3px;
+  padding: 3px 5px 0 5px;
 }
