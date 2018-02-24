@@ -1,10 +1,8 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 
-const Schema = mongoose.Schema;
 
-const LogSchema = new Schema ({ value: String }, { timestamps:true });
-const SymptomsSchema = new Schema ({ symptoms: Array }, { timestamps: true});
+const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
   email: {
@@ -34,10 +32,11 @@ const UserSchema = new Schema({
     required: [true, "Date of birth is required"]
   },
   stage: String,
-  weightLog: [LogSchema],
-  sodiumLog: [LogSchema],
-  fluidLog: [LogSchema],
-  symptomsLog: [SymptomsSchema],
+  log: [{
+    type: Schema.Types.ObjectId,
+    ref: 'LogEntry'
+  }],
+  dates: {},
   medications: [String],
   doc_email: String,
   license: String,
@@ -48,7 +47,8 @@ const UserSchema = new Schema({
   }]
 },
 {
-  timestamps: true
+  timestamps: true,
+  minimize: false
 }
 );
 
@@ -74,5 +74,3 @@ UserSchema.methods.validPassword = function (password) {
 };
 
 export const User = mongoose.model('User', UserSchema);
-export const Log = mongoose.model('Log', LogSchema);
-export const SympLog = mongoose.model('SympLog', SymptomsSchema);
