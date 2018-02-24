@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import { User, SympLog } from './user.js';
-import { LogEntry } from './log_entry.js'
+import { LogEntry } from './log_entry.js';
 
 const MONGO_CONNECTION = process.env.MONGODB_URI;
 
@@ -26,11 +26,11 @@ const formatLog = (log) => {
     obj.sodiumLog.push(sodiumEntryArr);
     obj.fluidLog.push(fluidEntryArr);
   });
-
   return obj;
 };
 
 const formatUser = (user) => {
+  console.log(user);
   user.logData = formatLog(user.log);
   user.id = user._id;
   delete user._id;
