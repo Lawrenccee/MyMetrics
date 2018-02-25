@@ -132,12 +132,16 @@ angular.
         weekAgo.setDate(weekAgo.getDate() - 7);
         weekAgo = weekAgo.setHours(0, 0, 0, 0);
 
+        console.log(this.patient.entryDate);
+        console.log(today);
+
         if (this.patient.entryDate === today) {
           this.patient.inDanger = checkVitals({
             todayFluid: this.patient.fluid,
             todaySodium: this.patient.sodium,
             todayWeight: this.patient.weight
           });
+          console.log(this.patient.inDanger);
         }
 
         if (this.patient.entryDate === yday) {
@@ -168,9 +172,13 @@ angular.
 
         this.patient.log.forEach((obj, index) => {
           if (parseInt(obj.entryDate) === today) {
-            if (!(todayWeight && todayFluid && todaySodium)) {
+            if (!todayWeight) {
               todayWeight = obj.weightEntry;
+            }
+            if (!todayFluid) {
               todayFluid = obj.fluidEntry;
+            }
+            if (!todaySodium) {
               todaySodium = obj.sodiumEntry;
             }
           }
