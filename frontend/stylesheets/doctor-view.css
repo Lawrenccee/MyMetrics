@@ -84,6 +84,14 @@
     box-shadow: 0 2px 6px 0 rgba(0,0,0,0.40);
 }
 
+.danger {
+    color: red;
+}
+
+.green {
+    color: green;
+}
+
 /* GRAPH CLASS */
 
 #patient-graph {
@@ -115,8 +123,8 @@
 }
 
 .doctor-logout-button {
-    width: 100px;
-    height: 6vh;
+    width: 7vw;
+    height: 5vh;
     cursor: pointer;
     border-radius: 2px;
     padding: 6px;
