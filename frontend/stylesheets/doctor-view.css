@@ -21,7 +21,7 @@
     width: 35vw;
 }
 
-.doctor-header {
+.doctor-view .doctor-header {
     /* border: 1px solid black; */
     display: flex;
     flex-direction: column;
@@ -30,17 +30,17 @@
     padding: 15px 0px 15px 15px;
 }
 
-.doctor-header h1 {
+.doctor-view .doctor-header h1 {
     color: #EE6C4D;
     font-size: 40px;
 }
 
-.doctor-header h2 {
+.doctor-view .doctor-header h2 {
     color: #3D5A80;
     font-size: 30px;
 }
 
-.patient-search {
+.doctor-view .patient-search {
     /* border: 1px solid black; */
     display: flex;
     padding: 20px 0px 20px 0px;
@@ -50,7 +50,7 @@
     color: white;
 }
 
-.patient-search .patient-search-box {
+.doctor-view .patient-search .patient-search-box {
     margin: 0 auto;
     font-family: FontAwesome, 'Josefin Sans';
     text-indent: 10px;
@@ -58,21 +58,21 @@
     width: 27vw;
 }
 
-.doctors-patients-container {
+.doctor-view .doctors-patients-container {
     /* border: 1px solid black; */
     flex-grow: 1;
     position: relative;
     overflow-y: scroll;
 }
 
-.doctors-patients {
+.doctor-view .doctors-patients {
     display: flex;
     position: absolute;
     width: 100%;
     flex-direction: column;
 }
 
-.patient-item {
+.doctor-view .patient-item {
     display: flex;
     width: 94%;
     flex-direction: column;
@@ -86,11 +86,11 @@
     box-shadow: 0 2px 6px 0 rgba(0,0,0,0.40);
 }
 
-.danger {
+.doctor-view .danger {
     color: red;
 }
 
-.green {
+.doctor-view .green {
     color: green;
 }
 
@@ -109,7 +109,7 @@
     flex-direction: column;
 }
 
-.doctor-logout {
+.doctor-view .doctor-logout {
     /* border: 1px solid black; */
     display: flex;
     justify-content: space-between;
@@ -119,13 +119,13 @@
     overflow: visible;
 }
 
-.doctor-logout h1 {
+.doctor-view .doctor-logout h1 {
     font-size: 40px;
     color: #3D5A80;
     margin-left: 1vw;
 }
 
-.doctor-logout-button {
+.doctor-view .doctor-logout-button {
     width: 7vw;
     height: 5vh;
     cursor: pointer;
@@ -144,21 +144,21 @@
     transition-duration: 0.3s;
 }
 
-.doctor-logout .doctor-logout-button:hover {
+.doctor-view .doctor-logout .doctor-logout-button:hover {
     -webkit-transform: translateY(2px);
     transform: translateY(2px);
 }
 
 /* BOTTOM-RIGHT-SIDE: PATIENT INFO */
 
-.patient-info {
+.doctor-view .patient-info {
     /* border: 1px solid blue; */
     display: flex;
     flex-direction: row;
     flex-grow: 1;
 }
 
-.patient-info h1 {
+.doctor-view .patient-info h1 {
     color: white;
     background-color: #98C1D9;
     font-size: 30px;
@@ -168,7 +168,7 @@
     border-bottom: none;
 }
 
-.patient-metrics {
+.doctor-view .patient-metrics {
     /* border: 1px solid black; */
     display: flex;
     flex-direction: column;
@@ -180,11 +180,11 @@
 
 }
 
-.patient-metrics label {
+.doctor-view .patient-metrics label {
     line-height: 2.5em;
 }
 
-.metrics-list {
+.doctor-view .metrics-list {
     display: flex;
     width: 93%;
     flex-direction: column;
@@ -195,7 +195,7 @@
     border: 1px solid gray;
 }
 
-.metrics-list li {
+.doctor-view .metrics-list li {
     width: 90%;
     padding-right: 2vw;
     overflow-wrap: break-word;
@@ -204,7 +204,7 @@
 }
 
 
-.patient-symptoms {
+.doctor-view .patient-symptoms {
     /* border: 1px solid black; */
     flex-grow: 1;
     display: flex;
@@ -214,11 +214,11 @@
 
 }
 
-.patient-symptoms li {
+.doctor-view .patient-symptoms li {
     font-size: 18px;
 }
 
-.patient-medications {
+.doctor-view .patient-medications {
     /* border: 1px solid black; */
     flex-grow: 1;
     display: flex;
@@ -228,7 +228,7 @@
 }
 
 
-.medication-list {
+.doctor-view .medication-list {
     display: flex;
     width: 93%;
     flex-direction: column;
@@ -238,7 +238,7 @@
     border: 1px solid gray;
 }
 
-.medication-list li {
+.doctor-view .medication-list li {
     width: 90%;
     padding-right: 1vw;
     overflow-wrap: break-word;
