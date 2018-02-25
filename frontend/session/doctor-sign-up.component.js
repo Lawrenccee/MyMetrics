@@ -3,8 +3,10 @@ angular.
   component('doctorSignUp', {
     templateUrl: 'session/doctor-sign-up.template.html',
     controller: function ($http, $window, UserService) {
+      this.loading = false;
 
       this.sendUser = () => {
+        this.loading = true;        
         this.error = null;
 
         if (this.user.password !== this.user.confirmPassword) {
@@ -19,11 +21,12 @@ angular.
           url: '/api/users',
           data: { user: this.user }
         }).then(r => {
-          console.log(r);
+          this.loading = false;
           UserService.setStore(r.data);
           $window.location.href = '#!/doctorview';
         },
           err => {
+            this.loading = false;
             this.error = err.data.message; 
             button.removeAttribute("disabled");
           }

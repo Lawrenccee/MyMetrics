@@ -3,8 +3,10 @@ angular.
   component('logIn', {
     templateUrl: 'session/log-in.template.html',
     controller: function(UserService, $http, $window) {
+      this.loading = false;
 
       this.sendUser = () => {
+        this.loading = true;        
         this.error = null;
         
         let button = document.getElementById("login-button");
@@ -15,6 +17,7 @@ angular.
           data: this.user
         }).then(
           res => {
+          this.loading = false;            
           UserService.setStore(res.data);
           if (res.data.isDoctor) {
             $window.location.href = '#!/doctorview';
@@ -23,6 +26,7 @@ angular.
           }
         },
           err => {
+            this.loading = false;            
             this.error = err.data.message;
             button.removeAttribute("disabled");
           }
