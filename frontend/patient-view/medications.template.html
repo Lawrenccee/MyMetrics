@@ -13,8 +13,10 @@
 <div class="medication-list">
   <ul>
     <li ng-repeat="medication in $ctrl.patient.medications">
-      <div>{{medication}}</div>
-      <button ng-click="$ctrl.removeMedication(medication)" class="delete-button"></button>
+      <div>
+        <button ng-click="$ctrl.removeMedication(medication)" class="delete-button"></button>
+        <div class="medication">{{medication}}</div>
+      </div> 
     </li>
   </ul>
 </div>
