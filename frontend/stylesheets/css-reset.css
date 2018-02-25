@@ -137,8 +137,6 @@ button::-moz-focus-inner {
 button:disabled {
     background-color: gray;
     color: lightgray;
-    -webkit-transform: perspective(1px) translateZ(0);
-    transform: perspective(1px) translateZ(0);
 }
 
 
