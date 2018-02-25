@@ -1,0 +1,12 @@
+<h2>Symptoms</h2>
+
+<div ng-repeat="symptom in $ctrl.symptoms">
+  <label>
+    <input type="checkbox" ng-checked="$ctrl.symptomExists(symptom)" id="checkbox-input" ng-click="$ctrl.updateSymptoms(symptom)">
+    <span>{{symptom}}</span>
+  </label>
+</div>
+
+<button ng-click="$ctrl.updatePatient()" id="submit-button">
+  <span>Submit</span>
+</button>
