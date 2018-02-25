@@ -132,16 +132,12 @@ angular.
         weekAgo.setDate(weekAgo.getDate() - 7);
         weekAgo = weekAgo.setHours(0, 0, 0, 0);
 
-        console.log(this.patient.entryDate);
-        console.log(today);
-
         if (this.patient.entryDate === today) {
           this.patient.inDanger = checkVitals({
             todayFluid: this.patient.fluid,
             todaySodium: this.patient.sodium,
             todayWeight: this.patient.weight
           });
-          console.log(this.patient.inDanger);
         }
 
         if (this.patient.entryDate === yday) {
