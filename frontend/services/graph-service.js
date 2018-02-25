@@ -2,7 +2,6 @@ function GraphService() {
   const service = {
     createChart: (graphId, { weightLog, sodiumLog, fluidLog }) => {
       this.chart = Highcharts.chart(graphId, {
-
         title: {
           text: "My Metrics"
         },
@@ -26,15 +25,14 @@ function GraphService() {
           verticalAlign: 'middle'
         },
         tooltip: {
-          xDateFormat: '%Y %b %e',
+          xDateFormat: '%b %e %Y',
         },
         xAxis: {
           type: 'datetime',
           labels: {
-            format: '{value:%Y-%b-%e}'
+            format: '{value: %b %e}'
           }
         },
-
         series: [{
           name: 'Sodium',
           data: sodiumLog,
