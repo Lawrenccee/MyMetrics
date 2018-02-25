@@ -7,8 +7,6 @@ angular.
       updatePatient: '&'
     },
     controller: function () {
-      console.log(this.patient);
-
       this.$onInit = () => {
         this.symptoms = [
           "Trouble breathing",

@@ -13,7 +13,6 @@ angular.
           method: 'GET',
           url: `/api/users/${this.patient.id}`
         }).then((res) => {
-          console.log(res.data);
           this.patient = res.data;
           if (new Date() < this.patient.nextAppt) {
             this.nextAppt = new Date(this.patient.nextAppt);

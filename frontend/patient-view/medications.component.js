@@ -9,8 +9,6 @@ angular.
       removeMedication: '&',
     },
     controller: function ($http) {
-      console.log(this.patient);
-
       this.$onInit = () => {
         this.addMedication = (medication) => {
           let index = this.patient.medications.indexOf(medication);
