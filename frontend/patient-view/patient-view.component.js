@@ -2,7 +2,7 @@ angular.
   module('patientView').
   component('patientView', {
     templateUrl: 'patient-view/patient-view.template.html',
-    controller: function ($routeParams, $http, UserService, $window) {
+    controller: function ($routeParams, $http, UserService, GraphService, $window) {
       this.warnings = [];
       this.date = new Date();
 
@@ -20,7 +20,7 @@ angular.
           }
           this.patient.symptoms = [];
 
-          createChart(this.patient.logData);
+          GraphService.createChart('graph', this.patient.logData);
 
           let today = new Date(
             new Date().setHours(0, 0, 0, 0)).
@@ -78,7 +78,7 @@ angular.
             this.patient.log = r.data.log;
 
             checkVitals({});
-            createChart(r.data.logData);
+            GraphService.createChart('graph', r.data.logData);
           },
           e => console.log(e)
         ));
@@ -208,81 +208,6 @@ angular.
         } 
 
         return false;
-      };
-
-      const createChart = ({ weightLog, sodiumLog, fluidLog }) => {
-        this.chart = Highcharts.chart('graph', {
-
-          title: {
-            text: "My Metrics"
-          },
-          yAxis: {
-            title: {
-              text: 'lbs/mg/ml'
-            },
-            plotLines: [{
-              value: 2000,
-              color: 'red',
-              dashStyle: 'shortdash',
-              width: 2,
-              label: {
-                text: 'Sodium and Fluid Thresholds'
-              }
-            }]
-          },
-          legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle'
-          },
-          tooltip: {
-            xDateFormat: '%Y %b %e',
-          },
-          xAxis: {
-            type: 'datetime',
-            labels: {
-              format: '{value:%Y-%b-%e}'
-            }
-          },
-
-          series: [{
-            name: 'Sodium',
-            data: sodiumLog,
-            tooltip: {
-              valueDecimals: 2
-            }
-          }, {
-            name: 'Fluid',
-            data: fluidLog,
-            tooltip: {
-              valueDecimals: 2
-            }
-          }, {
-            name: 'Weight',
-            data: weightLog,
-            tooltip: {
-              valueDecimals: 2
-            },
-          }],
-
-          responsive: {
-            rules: [{
-              condition: {
-                minWidth: 0,
-              },
-              chartOptions: {
-                legend: {
-                  verticalAlign: 'top',
-                  layout: 'horizontal',
-                  align: 'center',
-                  itemStyle: {
-                    fontSize: "20px",
-                  },
-                }
-              }
-            }]
-          }
-        });
       };
     }
   });
