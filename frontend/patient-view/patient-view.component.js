@@ -4,14 +4,8 @@ angular.
   component('patientView', {
     templateUrl: 'patient-view/patient-view.template.html',
     controller: function ($routeParams, $http, UserService, $window) {
-
       this.warnings = [];
       this.date = new Date();
-      this.symptoms = [
-        "Trouble breathing",
-        "Chest pain",
-        "Swelling in legs"
-      ];   
 
       this.$onInit = () => {
         this.patient = JSON.parse(UserService.getStore());
@@ -127,22 +121,6 @@ angular.
 
       this.changeNextAppt = () => {
         this.patient.nextAppt = Date.parse(this.nextAppt);
-      };
-
-      this.updateSymptoms = (symptom) => {
-        let index = this.patient.symptoms.indexOf(symptom);
-
-        if (index > -1) {
-          this.patient.symptoms.splice(index, 1);
-        } else {
-          this.patient.symptoms.push(symptom);
-        }
-      };
-
-      this.symptomExists = (symptom) => {
-        if (this.patient.symptoms) {
-          return this.patient.symptoms.indexOf(symptom) > -1;
-        }
       };
 
       this.addMedication = (medication) => {

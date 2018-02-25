@@ -61,17 +61,7 @@
     </div>
 
     <div class="symptoms-medications">
-      <div class="symptoms">
-        <h2>Symptoms</h2>
-
-        <div ng-repeat="symptom in $ctrl.symptoms">
-          <label>
-            <input type="checkbox" ng-checked="$ctrl.symptomExists(symptom)" id="checkbox-input" ng-click="$ctrl.updateSymptoms(symptom)"><span>{{symptom}}</span>
-          </label>
-        </div>
-
-        <button ng-click="$ctrl.updatePatient()" id="submit-button"><span>Submit</span></button>
-      </div>
+      <symptoms class="symptoms" patient="$ctrl.patient" update-patient="$ctrl.updatePatient()"></symptoms>
 
       <div class="medications">
         <h2>Medications</h2>
