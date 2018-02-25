@@ -45,6 +45,7 @@
 
 .main-splash-container .splash-content-container i {
     font-size: 17vh;
+    color: #3D5A80;
 }
 
 .main-splash-container .log-your-data{
@@ -83,19 +84,19 @@
     justify-content: space-evenly;
     align-items: center;
     height: 20vh;
-    width: 50vw;
+    width: 48vw;
 }
 
 
 
 .main-splash-container .splash-clickables button {
-    border-radius: 2px;
+    border-radius: 3px;
     background-color: #EE6C4D;
     cursor: pointer; 
     color: white;
-    font-size: 4vh;
-    height: 10vh;
-    width: 12vw;
+    font-size: 3.5vh;
+    height: 7vh;
+    width: 11vw;
     box-shadow: 0 2px 6px 0 rgba(0,0,0,0.40);
     -webkit-transform: perspective(1px) translateZ(0);
     transform: perspective(1px) translateZ(0);
