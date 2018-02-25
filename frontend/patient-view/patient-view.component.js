@@ -1,4 +1,3 @@
-
 angular.
   module('patientView').
   component('patientView', {
@@ -123,46 +122,6 @@ angular.
         this.patient.nextAppt = Date.parse(this.nextAppt);
       };
 
-      this.addMedication = (medication) => {
-        let index = this.patient.medications.indexOf(medication);
-
-        if (index < 0 && medication && medication.length > 0) {
-          this.patient.medications.push(medication);
-
-          $http({
-            method: "PUT",
-            url: `/api/users/${this.patient.id}`,
-            data: { userInfo: { medications: this.patient.medications } }
-          }).then(
-            r => {
-              this.patient.medications = r.data.medications;
-            },
-            e => console.log(e)
-          );
-        }
-
-        this.medication = "";
-      };
-
-      this.removeMedication = (medication) => {
-        let index = this.patient.medications.indexOf(medication);
-
-        if (index > -1) {
-          this.patient.medications.splice(index, 1);
-
-          $http({
-            method: "PUT",
-            url: `/api/users/${this.patient.id}`,
-            data: { userInfo: { medications: this.patient.medications } }
-          }).then(
-            r => {
-              this.patient.medications = r.data.medications;
-            },
-            e => console.log(e)
-          );
-        }
-      };
-
       const setInDanger = () => {
         let today = new Date().setHours(0, 0, 0, 0);
 
@@ -237,11 +196,11 @@ angular.
         }
 
         if (todayFluid && todayFluid >= 2000) {
-          this.warnings.push("Your fluids are over 2 liters for the day");
+          this.warnings.push("Your fluids >= 2000ml for the day");
         }
 
         if (todaySodium && todaySodium >= 2000) {
-          this.warnings.push("Your sodium is over 2 grams for the day");
+          this.warnings.push("Your sodium intake >= 2000mg for the day");
         }
 
         if (this.warnings.length > 0) {
