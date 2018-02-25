@@ -1,21 +1,21 @@
 .patient-view {
   display: flex;
   flex-direction: row;
-  /* font-size: 2.2vh; */
-  font-size: 18px;
+  font-size: 2.7vh;
+  /* font-size: 18px; */
   height: 100vh;
   padding: 20px;
 }
 
 .patient-view h1 {
-  /* font-size: 4vh; */
-  font-size: 40px;
+  font-size: 4.5vh;
+  /* font-size: 40px; */
   color: #ee6c4d;
 }
 
 .patient-view h2 {
-  /* font-size: 2.8vh; */
-  font-size: 28px;
+  font-size: 3.3vh;
+  /* font-size: 28px; */
 }
 
 .patient-view .left, .patient-view .right {
@@ -204,8 +204,8 @@ div.medication-list ul li .medication {
 }
 
 .patient-view .name {
-  /* font-size: 2.8vh; */
-  font-size: 28px;
+  font-size: 3.0vh;
+  /* font-size: 28px; */
 }
 
 .patient-view .metrics .labels {
@@ -233,6 +233,7 @@ div.medication-list ul li .medication {
 
 #graph {
   height: 100%;
+  border: 1px solid gray;
 }
 
 #submit-button, #logout-button {
@@ -288,14 +289,14 @@ div.medication-list ul li button.delete-button {
 }
 
 .warnings span {
-  /* font-size: 2.3vh; */
-  font-size: 22px;
+  font-size: 2.7vh;
+  /* font-size: 22px; */
   font-weight: bold;
 }
 .warnings li {
   text-indent: 37px;
-  /* font-size: 2vh; */
-  font-size: 18px;
+  font-size: 2.5vh;
+  /* font-size: 18px; */
   margin: 3px;
 }
 
