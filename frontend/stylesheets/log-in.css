@@ -128,3 +128,7 @@
     font-size: 30px;
     margin-top: 20px;
 }
+
+.loader svg path {
+   stroke: #EE6C4D;
+}
