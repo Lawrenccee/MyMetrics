@@ -106,10 +106,16 @@ export const createUser = (req, res) => {
           user.password = hash;
 
           if (user.doc_email) {
-            User.findOne({ email: user.doc_email }).then(
-              doc => {
-                user.save().then(
-                  u => {
+            User.findOne({ email: user.doc_email }, (err, doc) => {
+              if (err) {
+                res.send(err);
+              }
+              if (doc) {
+                user.save((saveError, u) => {
+                  if (saveError) {
+                    res.send(saveError);
+                    res.status(422);
+                  } else {
                     doc.patients.push(u);
                     doc.save();
                     req.logIn(user, function(error) {
@@ -118,32 +124,26 @@ export const createUser = (req, res) => {
                       if (user.license) isDoctor = true;
                       res.send( { email: user.email, id: user._id, isDoctor } );
                     });
-                  },
-                  userSaveError => {
-                    res.status(422);
-                    res.send(userSaveError);
                   }
-                );
-              },
-              noUserError => {
+                });
+              } else {
                 res.status(404);
-                res.send(noUserError);
+                res.send({message: "No doctor exists with that email"});
               }
-            );
+            });
           } else {
-            user.save().then(
-              u => {
+            user.save((saveError, u) => {
+              if (saveError) {
+                res.status(422);
+                res.send({message: "Email has already been taken"});
+              } else {
                 req.logIn(user, function(error) {
                   let isDoctor = false;
                   if (user.license) isDoctor = true;
                   res.send( { email: user.email, id: user._id, isDoctor} );
                 });
-              },
-              userSaveError => {
-                res.status(422);
-                res.send({message: "Email has already been taken"});
               }
-            );
+            });
           }
         });
       });
@@ -151,7 +151,6 @@ export const createUser = (req, res) => {
     dbConnectError => {
       res.status(503);
       res.send(dbConnectError);
-
     }
   );
 };
@@ -309,8 +308,6 @@ const updateLog = (logEntry, weight, sodium, fluid, symptoms) => {
 };
 
 const compareArray = (arr1, arr2) => {
-  arr1.sort();
   arr2.sort();
-
   return (arr1.every(function (el, idx) { return el === arr2[idx]; }));
 };
