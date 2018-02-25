@@ -7,15 +7,15 @@
         </div>
 
         <div class="patient-search">
-            <label>Patients: <input class="patient-search-box" placeholder="Search" ng-model="$ctrl.query"/></label>
+            <input class="patient-search-box" placeholder="Search Patients" ng-model="$ctrl.query"/>
         </div> 
 
         <div class="doctors-patients-container">
             <ul class="doctors-patients">
-                <li ng-repeat="patient in $ctrl.patients | filter: $ctrl.query" ng-click="$ctrl.getPatient($event)" data-patient={{patient}} class="patient-item">
-                    <span>{{patient.name}}</span>
-                    <span style="color: red" ng-if="patient.inDanger">Status: Bad</span>
-                    <span style="color: green" ng-if="!patient.inDanger">Status: Good</span>
+                <li ng-repeat="patient in $ctrl.patients | filter: $ctrl.query" class="patient-item">
+                    <span ng-click="$ctrl.getPatient($event)" data-patient={{patient}} >{{patient.name}}</span>
+                    <span ng-click="$ctrl.getPatient($event)" data-patient={{patient}}  style="color: red" ng-if="patient.inDanger">Status: Bad</span>
+                    <span ng-click="$ctrl.getPatient($event)" data-patient={{patient}}  style="color: green" ng-if="!patient.inDanger">Status: Good</span>
                 </li>
             </ul>
         </div>
@@ -32,36 +32,36 @@
 
 
         <div class="patient-info">
-            
-            <div class="patient-metrics-container">
-                <h1>Metrics:</h1>
-
+                
                 <div class="patient-metrics">
+                    <h1>Metrics:</h1>
                     <label>Stage: <span>{{$ctrl.currentPatient.stage}}</span></label>
                     <label>Weight: <span>{{$ctrl.currentWeight}} lb</span></label>
                     <label>Sodium Level: <span>{{$ctrl.currentSodium}} mg</span></label>
                     <label>Fluid Level: <span>{{$ctrl.currentFluid}} mL</span></label>
                 </div>
 
+                <div class= "patient-symptoms">
+                    <h1>Symptoms:</h1> 
+                    <ul ng-if="$ctrl.currentSymptoms" class="medication-list">
+                        <li ng-repeat="symptom in $ctrl.currentSymptoms">
+                            <span>{{symptom}}</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="patient-medications">
+                    <h1>Medications:</h1>
+                    <ul ng-if="$ctrl.currentPatient.medications" class="medication-list">
+                        <li ng-repeat="medication in $ctrl.currentPatient.medications">
+                            <span>{{medication}}</span>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
 
-            <div class= "patient-symptoms">
-                <h1>Symptoms:</h1> 
-                <ul>
-                    <li ng-repeat="symptom in $ctrl.currentSymptoms">
-                        <span>{{symptom}}</span>
-                    </li>
-                </ul>
-            </div>
 
-            <div class="patient-medications">
-                <h1>Medications:</h1>
-                <ul class="medication-list">
-                    <li ng-repeat="medication in $ctrl.currentPatient.medications">
-                        <span>{{medication}}</span>
-                    </li>
-                </ul>
-            </div>
             
         </div>
 

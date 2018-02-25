@@ -58,7 +58,7 @@ angular.
         Highcharts.chart('patient-graph', {
 
           title: {
-            text: "My Metrics"
+            text: ""
           },
           yAxis: {
             title: {
