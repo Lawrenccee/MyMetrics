@@ -26,12 +26,12 @@
     flex-direction: column;
     justify-content: space-between;
     height: 18vh;
-    padding: 15px 0px 10px 15px;
+    padding: 15px 0px 15px 15px;
 }
 
 .doctor-header h1 {
     color: #EE6C4D;
-    font-size: 50px;
+    font-size: 40px;
 }
 
 .doctor-header h2 {
@@ -151,7 +151,7 @@
     color: white;
     background-color: #98C1D9;
     font-size: 30px;
-    padding: .5em;
+    padding: .4em;
     width: 93%;
 }
 
