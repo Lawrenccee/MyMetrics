@@ -1,18 +1,21 @@
 .patient-view {
   display: flex;
   flex-direction: row;
-  font-size: 2.2vh;
+  /* font-size: 2.2vh; */
+  font-size: 18px;
   height: 100vh;
   padding: 20px;
 }
 
 .patient-view h1 {
-  font-size: 4vh;
+  /* font-size: 4vh; */
+  font-size: 40px;
   color: #ee6c4d;
 }
 
 .patient-view h2 {
-  font-size: 2.8vh;
+  /* font-size: 2.8vh; */
+  font-size: 28px;
 }
 
 .patient-view .left, .patient-view .right {
@@ -69,7 +72,7 @@
 .patient-view .metrics form {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: flex-start;
   margin-top: 10px;
 }
 
@@ -115,7 +118,7 @@
 .patient-view .medication-list {
   overflow: auto;
   border: 1px solid lightgray;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   flex: 1 1 auto;
   padding: 5px;
   background-color: white;
@@ -162,7 +165,7 @@ div.medication-list ul li .medication {
   width: 100%;
   margin-top: 3px;
   margin-right: 5px;
-  border-radius: 10px;
+  /* border-radius: 10px; */
 }
 
 .patient-view .medication-form label {
@@ -201,7 +204,8 @@ div.medication-list ul li .medication {
 }
 
 .patient-view .name {
-  font-size: 2.8vh;
+  /* font-size: 2.8vh; */
+  font-size: 28px;
 }
 
 .patient-view .metrics .labels {
@@ -218,12 +222,12 @@ div.medication-list ul li .medication {
 .patient-view .metrics .labels label, .patient-view .metrics .inputs input {
   margin: 5px;
   padding: 5px;
-  border-radius: 10px;
+  /* border-radius: 10px; */
 }
 
 .patient-view button, .patient-view input[type='submit'] {
   cursor: pointer;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   padding: 5px;
 }
 
@@ -271,7 +275,7 @@ div.medication-list ul li button.delete-button {
 }
 
 .patient-view input[type='date'] {
-  border-radius: 10px;
+  /* border-radius: 10px; */
 }
 
 .patient-view input[type='number'], .patient-view input[type='number'] {
@@ -284,12 +288,14 @@ div.medication-list ul li button.delete-button {
 }
 
 .warnings span {
-  font-size: 2.3vh;
+  /* font-size: 2.3vh; */
+  font-size: 22px;
   font-weight: bold;
 }
 .warnings li {
   text-indent: 37px;
-  font-size: 2vh;
+  /* font-size: 2vh; */
+  font-size: 18px;
   margin: 3px;
 }
 
