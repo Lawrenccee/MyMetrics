@@ -58,31 +58,38 @@ angular.
         Highcharts.chart('patient-graph', {
 
           title: {
-            text: ""
+            text: "My Metrics"
           },
-
           yAxis: {
             title: {
-              text: 'mg'
-            }
+              text: 'lbs/mg/ml'
+            },
+            plotLines: [{
+              value: 2000,
+              color: 'red',
+              dashStyle: 'shortdash',
+              width: 2,
+              label: {
+                text: 'Sodium and Fluid Thresholds'
+              }
+            }]
           },
           legend: {
             layout: 'vertical',
             align: 'right',
             verticalAlign: 'middle'
           },
-
+          tooltip: {
+            xDateFormat: '%Y %b %e',
+          },
           xAxis: {
-            type: 'datetime'
+            type: 'datetime',
+            labels: {
+              format: '{value:%Y-%b-%e}'
+            }
           },
 
           series: [{
-            name: 'Weight',
-            data: currentPatient.logData.weightLog,
-            tooltip: {
-              valueDecimals: 2
-            }
-          }, {
             name: 'Sodium',
             data: currentPatient.logData.sodiumLog,
             tooltip: {
@@ -94,18 +101,27 @@ angular.
             tooltip: {
               valueDecimals: 2
             }
+          }, {
+            name: 'Weight',
+            data: currentPatient.logData.weightLog,
+            tooltip: {
+              valueDecimals: 2
+            },
           }],
 
           responsive: {
             rules: [{
               condition: {
-                maxWidth: 500
+                minWidth: 0,
               },
               chartOptions: {
                 legend: {
+                  verticalAlign: 'top',
                   layout: 'horizontal',
                   align: 'center',
-                  verticalAlign: 'bottom'
+                  itemStyle: {
+                    fontSize: "20px",
+                  },
                 }
               }
             }]
