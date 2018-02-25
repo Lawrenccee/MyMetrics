@@ -107,8 +107,8 @@
 }
 
 .session-button:hover {
-    -webkit-transform: translateY(-3px);
-    transform: translateY(-3px);
+    -webkit-transform: translateY(2px);
+    transform: translateY(2px);
 }
 
 .session-link {
