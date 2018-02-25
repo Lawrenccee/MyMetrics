@@ -3,7 +3,7 @@ function GraphService() {
     createChart: (graphId, { weightLog, sodiumLog, fluidLog }) => {
       this.chart = Highcharts.chart(graphId, {
         title: {
-          text: "My Metrics"
+          text: "BioMetrics Log"
         },
         yAxis: {
           title: {
