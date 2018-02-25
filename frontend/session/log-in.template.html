@@ -1,4 +1,11 @@
-<div class="main-session">
+<div class='loader' ng-if="$ctrl.loading">
+  <md-progress-circular md-mode="indeterminate" md-diameter="75"></md-progress-circular>
+  <p>
+     Logging In...
+  </p>
+</div>
+
+<div ng-if="!$ctrl.loading" class="main-session">
   <h1>MyMetrics</h1>
   <div class="error-container">
     <h2>Log In</h2>
@@ -7,7 +14,6 @@
     </div>
   </div>
   
-
 
   <form ng-submit='$ctrl.sendUser()' class="session-form">
 

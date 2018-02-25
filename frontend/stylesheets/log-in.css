@@ -114,3 +114,21 @@
 .session-link {
     /* margin-top: auto; */
 }
+
+.loader {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.loader p {
+    font-size: 30px;
+    margin-top: 20px;
+}
+
+.loader svg path {
+   stroke: #EE6C4D;
+}

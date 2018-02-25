@@ -7,6 +7,7 @@
     "animate.css": "latest",
     "angular": "latest",
     "angular-route": "latest",
-    "angular-resource": "latest"
+    "angular-resource": "latest",
+    "angular-material": "^1.1.7"
   }
 }

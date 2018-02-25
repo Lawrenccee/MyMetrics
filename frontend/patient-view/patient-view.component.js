@@ -168,9 +168,13 @@ angular.
 
         this.patient.log.forEach((obj, index) => {
           if (parseInt(obj.entryDate) === today) {
-            if (!(todayWeight && todayFluid && todaySodium)) {
+            if (!todayWeight) {
               todayWeight = obj.weightEntry;
+            }
+            if (!todayFluid) {
               todayFluid = obj.fluidEntry;
+            }
+            if (!todaySodium) {
               todaySodium = obj.sodiumEntry;
             }
           }

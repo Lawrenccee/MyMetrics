@@ -1,18 +1,21 @@
 .patient-view {
   display: flex;
   flex-direction: row;
-  font-size: 2.2vh;
+  font-size: 2.7vh;
+  /* font-size: 18px; */
   height: 100vh;
   padding: 20px;
 }
 
 .patient-view h1 {
-  font-size: 4vh;
+  font-size: 4.5vh;
+  /* font-size: 40px; */
   color: #ee6c4d;
 }
 
 .patient-view h2 {
-  font-size: 2.8vh;
+  font-size: 3.3vh;
+  /* font-size: 28px; */
 }
 
 .patient-view .left, .patient-view .right {
@@ -37,8 +40,6 @@
 }
 
 .patient-view .name-date {
-  /* display: flex;
-  flex-direction: row; */
   margin: 10px 0;
 }
 
@@ -71,10 +72,9 @@
 .patient-view .metrics form {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: flex-start;
   margin-top: 10px;
 }
-
 
 .patient-view .symptoms-medications {
   display: flex;
@@ -115,14 +115,10 @@
   margin: 10px 10px 10px 0px;
 }
 
-.patient-view .medications h2 {
-  /* margin-bottom: 10px; */
-}
-
 .patient-view .medication-list {
   overflow: auto;
   border: 1px solid lightgray;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   flex: 1 1 auto;
   padding: 5px;
   background-color: white;
@@ -132,13 +128,26 @@
   display: flex;
   flex-direction: column;
   margin: 10px;
+  justify-content: space-between;
 }
 
-.patient-view .medications li {
+.patient-view .medications div {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  margin: 5px;
+  align-items: flex-start;
+}
+
+.patient-view .medication-list li {
+  line-height: 100%;
+  padding-left: 0;
+  margin: 10px;
+}
+
+div.medication-list ul li .medication {
+  height: 100%;
+  width: 90%;
+  word-break: break-word;
+  margin-left: 5px;
 }
 
 .patient-view .medication-form {
@@ -150,16 +159,13 @@
   display: flex;
   align-items: center;
   margin-top: 3px;
-  /* padding: 2px 0 2px 3px; */
-  /* padding-left: 0; */
 }
 
 .patient-view .medication-form input {
   width: 100%;
   margin-top: 3px;
   margin-right: 5px;
-  /* padding: 8px 5px 3px 5px; */
-  border-radius: 10px;
+  /* border-radius: 10px; */
 }
 
 .patient-view .medication-form label {
@@ -198,7 +204,8 @@
 }
 
 .patient-view .name {
-  font-size: 2.8vh;
+  font-size: 3.5vh;
+  /* font-size: 28px; */
 }
 
 .patient-view .metrics .labels {
@@ -215,17 +222,18 @@
 .patient-view .metrics .labels label, .patient-view .metrics .inputs input {
   margin: 5px;
   padding: 5px;
-  border-radius: 10px;
+  /* border-radius: 10px; */
 }
 
 .patient-view button, .patient-view input[type='submit'] {
   cursor: pointer;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   padding: 5px;
 }
 
 #graph {
   height: 100%;
+  border: 1px solid gray;
 }
 
 #submit-button, #logout-button {
@@ -253,17 +261,11 @@
 
 div.medication-list ul li button.delete-button {
   border: none;
+  padding: 10px;
   width: 20px;
   height: 20px;
   background-image: url('../assets/delete-button.svg');
   background-size: cover;
-}
-
-div.medication-list ul li div {
-  width: 90%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .patient-view h2 {
@@ -273,12 +275,12 @@ div.medication-list ul li div {
   background-color: #98c1d9;
 }
 
-.medications, .symptoms {
-  /* font-size: 20px; */
+.patient-view input[type='date'] {
+  /* border-radius: 10px; */
 }
 
-input[type='date'] {
-  border-radius: 10px;
+.patient-view input[type='number'], .patient-view input[type='number'] {
+  text-indent: 5px;
 }
 
 .warnings {
@@ -287,12 +289,14 @@ input[type='date'] {
 }
 
 .warnings span {
-  font-size: 2.3vh;
+  font-size: 2.7vh;
+  /* font-size: 22px; */
   font-weight: bold;
 }
 .warnings li {
   text-indent: 37px;
-  font-size: 2vh;
+  font-size: 2.5vh;
+  /* font-size: 18px; */
   margin: 3px;
 }
 
