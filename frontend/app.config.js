@@ -11,6 +11,10 @@ angular.
         $locationProvider.hashPrefix('!');
 
         $routeProvider.
+          when('/splashpage', {
+            template: '<splash-page></splash-page>',
+            auth: false
+          }).
           when('/doctorsignup', {
               template: '<doctor-sign-up></doctor-sign-up>',
               auth: false
@@ -31,7 +35,7 @@ angular.
             template: '<log-in></log-in>',
             auth: false
         }).
-        otherwise('/login');
+        otherwise('/splashpage');
       }
   ]).run(['$rootScope', '$route', '$location', 'UserService', function($rootScope, $route, $location, UserService) {
     $rootScope.$on("$locationChangeStart", function (event, next, current) {

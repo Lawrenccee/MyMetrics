@@ -1,0 +1,110 @@
+.main-splash-container {
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw; 
+    height: 100vh;
+}
+
+.main-splash-container .splash-header-container {
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+    line-height: 2.7em;
+    height: 33vh;
+    width: 99.8vw;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-splash-container .splash-header-container h1 {
+    font-size: 10vh;
+    margin: .4em 0 .4em 0;
+    color: #EE6C4D;
+}
+
+.main-splash-container .splash-header-container h2 {
+    font-size: 3.5vh;
+    color: #3D5A80;
+}
+
+.main-splash-container .splash-content-container {
+    /* border: 1px solid black; */
+    display: flex; 
+    height: 42vh;
+    width: 99.8vw;
+    color: #3D5A80;
+}
+
+.main-splash-container .splash-content-container h1 {
+    font-size: 4vh;
+    font-weight: 600;
+    color: #EE6C4D;
+}
+
+.main-splash-container .splash-content-container i {
+    font-size: 17vh;
+    color: #3D5A80;
+}
+
+.main-splash-container .log-your-data{
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 33.2vw;
+
+}
+
+.main-splash-container .see-your-data{
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 33.2vw;
+
+}
+
+.main-splash-container .notify-your-doctor{
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 33.2vw;
+
+}
+
+.main-splash-container .splash-clickables{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 20vh;
+    width: 48vw;
+}
+
+
+
+.main-splash-container .splash-clickables button {
+    border-radius: 3px;
+    background-color: #EE6C4D;
+    cursor: pointer; 
+    color: white;
+    font-size: 3.5vh;
+    height: 7vh;
+    width: 11vw;
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.40);
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+}
+
+.main-splash-container .splash-clickables button:hover {
+    -webkit-transform: translateY(3px);
+    transform: translateY(3px);
+}

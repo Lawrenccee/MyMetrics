@@ -1,2 +1,6 @@
-angular.module('myMetricsApp', ['ngRoute', 'logIn', 'patientSignUp', 'doctorSignUp', 'patientView', 'doctorView', 'ngMaterial']);
+
+angular.module('myMetricsApp', ['ngRoute', 'splashPage', 'logIn', 'patientSignUp', 'doctorSignUp', 'patientView', 'doctorView', 'ngMaterial']);
+=======
+angular.module('myMetricsApp', ['ngRoute', 'splashPage', 'logIn', 'patientSignUp', 'doctorSignUp', 'patientView', 'doctorView', 'ngMaterial']);
+
 
