@@ -35,15 +35,17 @@
                 
                 <div class="patient-metrics">
                     <h1>Metrics:</h1>
-                    <label>Stage: <span>{{$ctrl.currentPatient.stage}}</span></label>
-                    <label>Weight: <span>{{$ctrl.currentWeight}} lb</span></label>
-                    <label>Sodium Level: <span>{{$ctrl.currentSodium}} mg</span></label>
-                    <label>Fluid Level: <span>{{$ctrl.currentFluid}} mL</span></label>
+                    <ul class="metrics-list">
+                        <label>Stage: <span>{{$ctrl.currentPatient.stage}}</span></label>
+                        <label>Weight: <span>{{$ctrl.currentWeight}} lb</span></label>
+                        <label>Sodium Level: <span>{{$ctrl.currentSodium}} mg</span></label>
+                        <label>Fluid Level: <span>{{$ctrl.currentFluid}} mL</span></label>
+                    </ul> 
                 </div>
 
                 <div class= "patient-symptoms">
                     <h1>Symptoms:</h1> 
-                    <ul ng-if="$ctrl.currentSymptoms" class="medication-list">
+                    <ul ng-if="$ctrl.currentSymptoms" class="metrics-list">
                         <li ng-repeat="symptom in $ctrl.currentSymptoms">
                             <span>{{symptom}}</span>
                         </li>

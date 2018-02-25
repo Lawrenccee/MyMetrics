@@ -98,6 +98,7 @@
 
 #patient-graph {
     border: 1px solid gray;
+    border-bottom: none;
     height: 48vh;
     width: 97.8%;
 }
@@ -148,7 +149,7 @@
     transform: translateY(2px);
 }
 
-/* PATIENT INFO */
+/* BOTTOM-RIGHT-SIDE: PATIENT INFO */
 
 .patient-info {
     /* border: 1px solid blue; */
@@ -163,10 +164,8 @@
     font-size: 30px;
     padding: .4em;
     width: 93%;
-}
-
-.patient-info label {
-    padding-left: 1vw;
+    border: 1px solid gray;
+    border-bottom: none;
 }
 
 .patient-metrics {
@@ -176,11 +175,34 @@
     font-size: 18px;
     flex-grow: 1;
     width: 33%;
+    border-radius: 2px;
+    box-shadow: 1px 2px 6px 1px rgba(0,0,0,0.30);
+
 }
 
 .patient-metrics label {
     line-height: 2.5em;
 }
+
+.metrics-list {
+    display: flex;
+    width: 93%;
+    flex-direction: column;
+    font-size: 18px;
+    flex-grow: 1;
+    padding-left: 2vw;
+    background-color: white;
+    border: 1px solid gray;
+}
+
+.metrics-list li {
+    width: 90%;
+    padding-right: 2vw;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    margin: 12px 0px 10px 0px;
+}
+
 
 .patient-symptoms {
     /* border: 1px solid black; */
@@ -188,6 +210,8 @@
     display: flex;
     flex-direction: column;
     width: 33%;
+    /* box-shadow: 1px 2px 6px 1px rgba(0,0,0,0.30); */
+
 }
 
 .patient-symptoms li {
@@ -200,22 +224,26 @@
     display: flex;
     flex-direction: column;
     width: 33%;
+    /* box-shadow: 1px 2px 6px 1px rgba(0,0,0,0.30); */
 }
+
 
 .medication-list {
     display: flex;
+    width: 93%;
     flex-direction: column;
     font-size: 18px;
     flex-grow: 1;
+    background-color: white;
+    border: 1px solid gray;
 }
 
 .medication-list li {
     width: 90%;
-    padding-left: 1vw;
-    padding-right: 2vw;
+    padding-right: 1vw;
     overflow-wrap: break-word;
     word-wrap: break-word;
-    margin: 10px 0px 8px 0px;
+    margin: 12px 0px 10px 0px;
 }
 
 #patient-med-scroll {
