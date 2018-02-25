@@ -5,6 +5,14 @@ angular.
     templateUrl: 'patient-view/patient-view.template.html',
     controller: function ($routeParams, $http, UserService, $window) {
 
+      this.warnings = [];
+      this.date = new Date();
+      this.symptoms = [
+        "Trouble breathing",
+        "Chest pain",
+        "Swelling in legs"
+      ];   
+
       this.$onInit = () => {
         this.patient = JSON.parse(UserService.getStore());
 
@@ -12,9 +20,9 @@ angular.
           method: 'GET',
           url: `/api/users/${this.patient.id}`
         }).then((res) => {
+          console.log(res.data);
           this.patient = res.data;
           if (new Date() < this.patient.nextAppt) {
-            // MIGHT HAVE TO CONVERT FROM MILLISECONDS TO DATE
             this.nextAppt = new Date(this.patient.nextAppt);
           }
           this.patient.symptoms = [];
@@ -29,7 +37,7 @@ angular.
               this.date.getDate()
             );
 
-          checkVitals();
+          checkVitals({});
 
           this.patient.log.forEach((obj, index) => {
             if (parseInt(obj.entryDate) === today) {
@@ -37,17 +45,12 @@ angular.
               this.patient.sodium = obj.sodiumEntry;
               this.patient.fluid = obj.fluidEntry;
               this.patient.symptoms = obj.symptomsEntry;
-              console.log(obj);
             }
           });
         });
       };
 
-      this.warnings = [];
-      this.date = new Date();
-      // this.nextAppt = undefined;
-
-      this.updatePatient = () => {
+      this.updatePatient = () => {   
         this.patient.entryDate = new Date(
           new Date().setHours(0, 0, 0, 0)).
           setFullYear(
@@ -56,29 +59,32 @@ angular.
             this.date.getDate()
           );
 
+        this.warnings = [];     
+        setInDanger();
+
         return ($http({
           method: "PUT",
           url: `/api/users/${this.patient.id}`,
           data: { userInfo: this.patient }
         }).then(
           r => {
-            console.log(r);
-            this.warnings = [];
-            let today = new Date(
+            let inputDate = new Date(
               new Date().setHours(0, 0, 0, 0)).
               setFullYear(
                 this.date.getFullYear(),
                 this.date.getMonth(),
                 this.date.getDate()
               );
-            this.patient.log.forEach((obj, index) => {
-              if (parseInt(obj.entryDate) === today) {
+
+            r.data.log.forEach((obj, index) => {
+              if (parseInt(obj.entryDate) === inputDate) {
                 this.patient.symptoms = obj.symptomsEntry;
-                console.log(obj);
               }
             });
+
             this.patient.log = r.data.log;
-            checkVitals();
+
+            checkVitals({});
             createChart(r.data.logData);
           },
           e => console.log(e)
@@ -120,15 +126,8 @@ angular.
       };
 
       this.changeNextAppt = () => {
-        console.log(this.nextAppt);
         this.patient.nextAppt = Date.parse(this.nextAppt);
       };
-
-      this.symptoms = [
-        "Trouble breathing",
-        "Chest pain",
-        "Swelling in legs"
-      ];
 
       this.updateSymptoms = (symptom) => {
         let index = this.patient.symptoms.indexOf(symptom);
@@ -186,8 +185,7 @@ angular.
         }
       };
 
-      const checkVitals = () => {
-        // CALL THIS METHOD WHEN UPDATING PATIENT, CALL WHEN INIT
+      const setInDanger = () => {
         let today = new Date().setHours(0, 0, 0, 0);
 
         let yday = new Date();
@@ -198,23 +196,57 @@ angular.
         weekAgo.setDate(weekAgo.getDate() - 7);
         weekAgo = weekAgo.setHours(0, 0, 0, 0);
 
-        let ydayWeight = null;
-        let weekAgoWeight = null;
-        let todayWeight = null;
-        let todayFluid = null;
-        let todaySodium = null;
+        if (this.patient.entryDate === today) {
+          this.patient.inDanger = checkVitals({
+            todayFluid: this.patient.fluid,
+            todaySodium: this.patient.sodium,
+            todayWeight: this.patient.weight
+          });
+        }
+
+        if (this.patient.entryDate === yday) {
+          this.patient.inDanger = checkVitals({
+            ydayWeight: this.patient.weight
+          });
+        }
+
+        if (this.patient.entryDate === weekAgo) {
+          this.patient.inDanger = checkVitals({
+            weekAgoWeight: this.patient.weight
+          });
+        }
+      };
+
+      const checkVitals = ({todayWeight, todayFluid, todaySodium, ydayWeight, weekAgoWeight}) => {
+        this.warnings = [];
+
+        let today = new Date().setHours(0, 0, 0, 0);
+
+        let yday = new Date();
+        yday.setDate(yday.getDate() - 1);
+        yday = yday.setHours(0, 0, 0, 0);
+
+        let weekAgo = new Date();
+        weekAgo.setDate(weekAgo.getDate() - 7);
+        weekAgo = weekAgo.setHours(0, 0, 0, 0);
 
         this.patient.log.forEach((obj, index) => {
           if (parseInt(obj.entryDate) === today) {
-            todayWeight = obj.weightEntry;
-            todayFluid = obj.fluidEntry;
-            todaySodium = obj.sodiumEntry;
+            if (!(todayWeight && todayFluid && todaySodium)) {
+              todayWeight = obj.weightEntry;
+              todayFluid = obj.fluidEntry;
+              todaySodium = obj.sodiumEntry;
+            }
           }
           if (parseInt(obj.entryDate) === yday) {
+            if (!ydayWeight) {
              ydayWeight = obj.weightEntry;
+            }
           }
           if (parseInt(obj.entryDate) === weekAgo) {
+            if (!weekAgoWeight) {
             weekAgoWeight = obj.weightEntry;
+            }
           }
         });
 
@@ -234,6 +266,11 @@ angular.
           this.warnings.push("Your sodium is over 2 grams for the day");
         }
 
+        if (this.warnings.length > 0) {
+          return true;
+        } 
+
+        return false;
       };
 
       const createChart = ({ weightLog, sodiumLog, fluidLog }) => {
@@ -261,7 +298,9 @@ angular.
             align: 'right',
             verticalAlign: 'middle'
           },
-
+          tooltip: {
+            xDateFormat: '%Y %b %e',
+          },
           xAxis: {
             type: 'datetime',
             labels: {
@@ -287,7 +326,6 @@ angular.
             tooltip: {
               valueDecimals: 2
             },
-            // visible: false
           }],
 
           responsive: {
@@ -308,8 +346,6 @@ angular.
             }]
           }
         });
-        // this.chart.series[0].hide();
-        this.chart.series.forEach(chart => console.log(chart.visible));
       };
     }
   });

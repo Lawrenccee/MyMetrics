@@ -40,7 +40,6 @@ angular.
           console.log(this.currentFluid);
         });
       };
-      
 
       this.logout = () => {
         $http({

@@ -187,6 +187,10 @@ export const updateUser = (req, res) => {
               userUpdated = true;
             }
           }
+          if (userInfo.inDanger !== undefined && userInfo.inDanger != user.inDanger) {
+            user.inDanger = userInfo.inDanger;
+            userUpdated = true;
+          }
           if (logId) {
             LogEntry.findById(logId).then(
               log => {

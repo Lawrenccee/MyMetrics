@@ -52,6 +52,12 @@ angular.
         } else {
           $location.path('/patientview');
         }
+      } else if ($route.routes[$location.path()].auth === true && user && user.email) {
+        if (user.isDoctor) {
+          $location.path('/doctorview');
+        } else {
+          $location.path('/patientview');
+        }
       }
     });
   }]
