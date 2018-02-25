@@ -3,7 +3,7 @@ angular.
   component('logIn', {
     templateUrl: 'session/log-in.template.html',
     controller: function(UserService, $http, $window) {
-      this.loading = true;
+      this.loading = false;
 
       this.sendUser = () => {
         this.loading = true;        
