@@ -51,8 +51,14 @@ input {
 	box-sizing: border-box;
 	padding: 4px 5px 3px 7px;
 }
-input:focus {
-	border: 1px solid #3d5a80;
+
+input:focus, select:focus {
+    border: 1px solid #3d5a80;
+    outline: none;
+}
+
+button:focus {
+    outline: none;
 }
 
 article, aside, details, figcaption, figure,
