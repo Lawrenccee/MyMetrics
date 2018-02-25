@@ -51,6 +51,12 @@
   margin-top: 10px;
 }
 
+.patient-view .stage select {
+  background-color: white;
+  text-align-last: center;
+  width: 50px;
+}
+
 .patient-view .next-appointment-label {
   margin-top: 10px;
 }
@@ -161,8 +167,6 @@
   margin: 10px 0;
 }
 
-
-
 #round-button {
   width: 35px;
   height: 32px;
@@ -253,6 +257,13 @@ div.medication-list ul li button.delete-button {
   height: 20px;
   background-image: url('../assets/delete-button.svg');
   background-size: cover;
+}
+
+div.medication-list ul li div {
+  width: 90%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .patient-view h2 {
