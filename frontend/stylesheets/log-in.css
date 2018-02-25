@@ -12,7 +12,12 @@
 .main-session h1 {
     font-size: 70px;
     margin-bottom: 20px;
-    /* color: #EE6C4D */
+    color: #EE6C4D
+}
+
+.main-session h2 {
+    color: #3D5A80;
+
 }
 
 .error-container {
@@ -54,6 +59,9 @@
     margin-top: 30px;
 }
 
+.session-form label {
+    color: #3D5A80;
+}
 
 .email-container,
 .password-container {
@@ -88,8 +96,8 @@
     border-radius: 2px;
     padding: 7px;
     font-size: 20px;
-    /* background-color: #EE6C4D; */
-    /* color: #E0FBFC; */
+    background-color: #EE6C4D;
+    color: white;
     /* margin-top: auto; */
     box-shadow: 0 2px 6px 0 rgba(0,0,0,0.40);
     -webkit-transform: perspective(1px) translateZ(0);
@@ -99,8 +107,8 @@
 }
 
 .session-button:hover {
-    -webkit-transform: translateY(-3px);
-    transform: translateY(-3px);
+    -webkit-transform: translateY(2px);
+    transform: translateY(2px);
 }
 
 .session-link {

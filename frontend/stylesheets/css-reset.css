@@ -134,6 +134,13 @@ button::-moz-focus-inner {
     padding: 0;
 }
 
+button:disabled {
+    background-color: gray;
+    color: lightgray;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+}
+
 
 input[type=date],
 input[type=datetime-local],
