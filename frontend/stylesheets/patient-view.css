@@ -270,8 +270,12 @@ div.medication-list ul li button.delete-button {
   background-color: #98c1d9;
 }
 
-input[type='date'] {
+.patient-view input[type='date'] {
   border-radius: 10px;
+}
+
+.patient-view input[type='number'], .patient-view input[type='number'] {
+  text-indent: 5px;
 }
 
 .warnings {
