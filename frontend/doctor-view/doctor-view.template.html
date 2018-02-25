@@ -12,7 +12,7 @@
 
         <div class="doctors-patients-container">
             <ul class="doctors-patients">
-                <li ng-repeat="patient in $ctrl.patients | filter: $ctrl.query" class="patient-item">
+                <li ng-repeat="patient in $ctrl.patients | filter: $ctrl.query" ng-click="$ctrl.getPatient($event)" class="patient-item">
                     <span ng-click="$ctrl.getPatient($event)" data-patient={{patient}} >{{patient.name}}</span>
                     <span ng-click="$ctrl.getPatient($event)" data-patient={{patient}}  class="danger" ng-if="patient.inDanger">Status: Bad</span>
                     <span ng-click="$ctrl.getPatient($event)" data-patient={{patient}}  class="green" ng-if="!patient.inDanger">Status: Good</span>
