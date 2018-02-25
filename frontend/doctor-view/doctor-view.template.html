@@ -47,7 +47,11 @@
 
             <div class= "patient-symptoms">
                 <h1>Symptoms:</h1> 
-                <span>{{$ctrl.currentPatient.symptoms}}</span>
+                <ul>
+                    <li ng-repeat="symptom in $ctrl.currentSymptoms">
+                        <span>{{symptom}}</span>
+                    </li>
+                </ul>
             </div>
 
             <div class="patient-medications">

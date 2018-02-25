@@ -35,9 +35,11 @@ angular.
           fluid = this.currentPatient.logData.fluidLog;
           this.currentFluid = fluid[fluid.length-1][1];
 
-          console.log(this.currentSodium);
-          console.log(this.currentWeight);
-          console.log(this.currentFluid);
+          let symptoms;
+          symptoms = this.currentPatient.log;
+          this.currentSymptoms = symptoms[symptoms.length-1].symptomsEntry;
+
+          console.log(this.currentSymptoms);
         });
       };
 
