@@ -11,13 +11,13 @@
 }
 
 .doctor-right {
-    width: 75%;
+    width: 75vw;
 }
 
 
 .doctor-left {
     flex-direction: column;
-    width: 35%;
+    width: 35vw;
 }
 
 .doctor-header {
@@ -208,6 +208,10 @@
 }
 
 .medication-list li {
+    width: 90%;
     line-height: 2.5em;
     padding-left: 1vw;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
