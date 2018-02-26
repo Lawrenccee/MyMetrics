@@ -2,7 +2,7 @@ angular.
   module('logIn').
   component('logIn', {
     templateUrl: 'session/log-in.template.html',
-    controller: function(UserService, $http, $window) {
+    controller: function(UserService, $scope, $http, $window) {
       this.loading = false;
 
       this.sendUser = () => {
@@ -36,9 +36,18 @@ angular.
 
       this.user = {};
 
-      this.handleGuest = (e) => {
+      this.handleDoctor = (e) => {
         e.preventDefault();
         this.demoLogin('email', "EddyShinMd@ucsf.edu", (
+          () => this.demoLogin('password', 'password', (
+            () => this.sendUser()
+          ))
+        ));
+      };
+
+      this.handlePatient = (e) => {
+        e.preventDefault();
+        this.demoLogin('email', "lawrenceguintu@gmail.com", (
           () => this.demoLogin('password', 'password', (
             () => this.sendUser()
           ))
@@ -56,6 +65,7 @@ angular.
           } else {
             setTimeout(() => typing(), 100);
           }
+          $scope.$apply();
         };
         typing();
       };

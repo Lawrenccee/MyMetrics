@@ -1,7 +1,7 @@
 /* SESSION (login) FORM  */
 .main-session {
     display: flex;
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     justify-content: center;
     align-items: center;
@@ -83,12 +83,20 @@
     font-size: 16px;
 }
 
+.login-buttons {
+    /* border: 1px solid black; */
+    margin: 10px 0 10px 0;
+    display: flex;
+    justify-content: space-between;
+    width: 350px;
+}
+
 .session-button {
     width: 100px;
     cursor: pointer;
     border-radius: 2px;
     padding: 7px;
-    font-size: 20px;
+    font-size: 15px;
     background-color: #EE6C4D;
     color: white;
     /* margin-top: auto; */
