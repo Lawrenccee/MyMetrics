@@ -77,26 +77,25 @@
 
   <div class="right">
     <div class="warnings-appointment-logout-graph">
-      <div class="warnings-appointment-logout">
-
-
-        <div class="appointment">
-          <label>Next Appointment:
-            <input type="date" ng-model="$ctrl.nextAppt" ng-change="$ctrl.changeNextAppt()">
-          </label>
-        </div>
-
-        <div class="logout">
-          <button
-            ng-click="$ctrl.logout()"
-            id="logout-button"
-          ><span>Logout</span></button>
+      <div >
+        <div class="warnings-appointment-logout">
+          <div class="appointment">
+            <label>Next Appointment:
+              <input type="date" ng-model="$ctrl.nextAppt" ng-change="$ctrl.changeNextAppt()">
+            </label>
+          </div>
+          
+          <div class="logout">
+            <button ng-click="$ctrl.logout()" id="logout-button">
+              <span>Logout</span>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div id="graph">
-      <!-- PUT HIGHCHARTS STUFF IN HERE -->
+      <div id="graph">
+        <!-- PUT HIGHCHARTS STUFF IN HERE -->
+      </div>
     </div>
   </div>
 </div>
