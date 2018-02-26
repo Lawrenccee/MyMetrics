@@ -11,9 +11,14 @@
     font-size: 30px;
 }
 
+#sign-up { 
+    display: flex;
+}
+
 .main-signup-container  {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     margin-top: 20px;
     height: 45vh;
 }
