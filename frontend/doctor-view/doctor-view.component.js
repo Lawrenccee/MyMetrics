@@ -14,8 +14,6 @@ angular.
           this.doctor = res.data;
           this.patients = this.doctor.patients;
           this.currentPatient = this.patients[0];
-          console.log(this.doctor);
-          console.log(this.currentPatient);
           GraphService.createChart('patient-graph', this.currentPatient.logData);
 
           let weight;
@@ -34,7 +32,6 @@ angular.
           symptoms = this.currentPatient.log;
           this.currentSymptoms = symptoms[symptoms.length-1].symptomsEntry;
 
-          console.log(this.currentSymptoms);
         });
       };
 
@@ -51,7 +48,6 @@ angular.
 
 
       this.getPatient = (event) => {
-        console.log(JSON.parse(event.target.dataset.patient));
         this.currentPatient = JSON.parse(event.target.dataset.patient);
         GraphService.createChart('patient-graph', this.currentPatient.logData);
 
