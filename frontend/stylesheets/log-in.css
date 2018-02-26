@@ -56,7 +56,7 @@
     justify-content: space-between;
     align-items: center;
     width: 360px;
-    height: 170px;
+    height: 200px;
     margin-top: 30px;
 }
 
@@ -121,6 +121,21 @@
     flex-direction: column;
 }
 
+#github-plug {
+    margin-top: 10px;
+    font-size: 50px;
+    color: #EE6C4D;
+    display: inline-block;
+    vertical-align: middle;
+    box-shadow: 0 0 1px transparent;
+    -webkit-transition-duration: 1s;
+    transition-duration: 1s;
+}
+
+#github-plug:hover {
+  animation: color-change 1.5s infinite;
+}
+
 .loader p {
     font-size: 30px;
     margin-top: 20px;
@@ -128,4 +143,22 @@
 
 .loader svg path {
    stroke: #EE6C4D;
+}
+
+@keyframes color-change {
+  0% {
+    color: #3D5A80;
+  }
+  25% {
+    color: #98C1D9;
+  }
+  50% {
+    color: #E0FBFC;
+  }
+  75% {
+    color: #EE6C4D
+  }
+  100% {
+    color: #293241
+  }
 }
