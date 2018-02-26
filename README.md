@@ -42,10 +42,16 @@ On the backend, code was made in order to reflect this and have validations for 
 
 ```javascript
 if (user.doc_email) {
-  User.findOne({ email: user.doc_email }).then(
-    doc => {
-      user.save().then(
-        u => {
+  User.findOne({ email: user.doc_email }, (err, doc) => {
+    if (err) {
+      res.send(err);
+    }
+    if (doc) {
+      user.save((saveError, u) => {
+        if (saveError) {
+          res.send(saveError);
+          res.status(422);
+        } else {
           doc.patients.push(u);
           doc.save();
           req.logIn(user, function(error) {
@@ -54,7 +60,8 @@ if (user.doc_email) {
             if (user.license) isDoctor = true;
             res.send( { email: user.email, id: user._id, isDoctor } );
           });
-        },
+        }
+      });
   ...
 ```
 
