@@ -55,6 +55,11 @@ angular.
         let patientDemo = document.getElementById("demo-button1");
         let doctorDemo = document.getElementById("demo-button2");
 
+        let emailInput = document.getElementById("email-input");
+        let pwInput = document.getElementById("password-input");
+
+        emailInput.setAttribute("disabled", "disabled");
+        pwInput.setAttribute("disabled", "disabled");
         button.setAttribute("disabled", "disabled");
         patientDemo.setAttribute("disabled", "disabled");
         doctorDemo.setAttribute("disabled", "disabled");
