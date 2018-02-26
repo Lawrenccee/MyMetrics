@@ -63,7 +63,7 @@ angular.
           } else {
             setTimeout(() => typing(), 100);
           }
-          $scope.$apply();
+          $scope.$applyAsync();
         };
         typing();
       };
