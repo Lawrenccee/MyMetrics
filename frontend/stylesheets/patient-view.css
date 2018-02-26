@@ -30,8 +30,13 @@
   justify-content: space-between;
 }
 
+.patient-view .right {
+  justify-content: space-between;
+}
+
 .patient-view .header {
   flex: 1 1 auto;
+  height: 100%;
 }
 
 .patient-view .name-stage {
@@ -67,6 +72,7 @@
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
+  height: 100%;
   justify-content: center;
 }
 
@@ -81,6 +87,7 @@
   display: flex;
   flex-direction: row-reverse;
   flex: 1 1 auto;
+  height: 100%;
   justify-content: space-between;
 }
 
@@ -200,6 +207,8 @@ div.medication-list ul li .medication {
 .patient-view .warnings-appointment-logout-graph {
   display: flex;
   flex-direction: column;
+  /* height: 100%; */
+  flex: 1 1 auto;
 }
 
 .patient-view .warnings-appointment-logout {
@@ -207,6 +216,7 @@ div.medication-list ul li .medication {
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 10px;
+  flex: 1 1 auto;
 }
 
 .patient-view .name {
@@ -218,11 +228,13 @@ div.medication-list ul li .medication {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  margin-right: 10px;
 }
 
 .patient-view .metrics .inputs {
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
 }
 
 .patient-view .metrics .inputs > div {
@@ -231,9 +243,13 @@ div.medication-list ul li .medication {
   align-items: center;
 }
 
-.patient-view .metrics .labels label, .patient-view .metrics .inputs input {
-  margin: 5px;
-  padding: 5px;
+.patient-view .metrics .inputs p {
+  margin-left: 5px;
+}
+
+.patient-view .metrics .labels label, .patient-view .metrics .inputs div {
+  /* margin: 5px; */
+  /* padding: 5px; */
   /* border-radius: 10px; */
 }
 
@@ -246,6 +262,7 @@ div.medication-list ul li .medication {
 #graph {
   height: 100%;
   border: 1px solid gray;
+  flex: 1 1 auto;  
 }
 
 #submit-button, #logout-button {
@@ -293,6 +310,7 @@ div.medication-list ul li button.delete-button {
 
 .patient-view input[type='number'], .patient-view input[type='number'] {
   text-indent: 5px;
+  margin: 5px 0;
 }
 
 .warnings {
