@@ -83,6 +83,34 @@ passport.authenticate('local', function(err, user, info) {
 
 Passport is used to authenticate a user when logging in, in addition to Bcrypt it helps validate when loggin in a user to create a session.
 
+We've also added Demo functionality that allows users to demo both what the patient and doctor view's will look like. The `handleGuest` function utilizes callbacks to invoke the `demoLogin` twice, once for the email/username, another for the password input, and finally to login the user.
+
+```javascript
+this.handleGuest = (e) => {
+        e.preventDefault();
+        this.demoLogin('email', "lawrenceguintu@gmail.com", (
+          () => this.demoLogin('password', 'password', (
+            () => this.sendUser()
+          ))
+        ));
+      };
+
+      this.demoLogin = (field, DemoUser, cb) => {
+        let textToType = "";
+        const typing = () => {
+          textToType = DemoUser.substring(0, textToType.length + 1);
+          this.user[field] = textToType;
+          if (textToType.length === DemoUser.length) {
+            setTimeout(() => cb(), 100);
+          } else {
+            setTimeout(() => typing(), 100);
+          }
+          $scope.$applyAsync();
+        };
+        typing();
+      };
+```
+
 ### Logging Information
 Patients are able to log their daily vitals and edit previous days' information. When certain thresholds have been reached patients are shown a warning, indicating that they should see their doctor and that their doctor has also been notified.
 
