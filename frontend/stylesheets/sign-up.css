@@ -34,7 +34,7 @@
 }
 
 .main-signup-form input {
-    padding: 7px 0 7px 0;
+    padding: 7px 0 7px 7px;
     font-size: 16px;
 }
 
@@ -64,7 +64,7 @@
 .right-signup-form #signup-dob {
     margin-left: 3vw;
     height: 5.5vh;
-    width: 11.5vw;
+    width: 12vw;
     font-size: 15px;
     text-align: center;
 }
@@ -127,7 +127,7 @@
 .doctor-signup-container #doctor-dob {
     padding: 4px;
     height: 5.5vh;
-    width: 11.5vw;
+    width: 12vw;
     font-size: 13px;
     text-align: center;
 }
