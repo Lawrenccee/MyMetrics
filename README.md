@@ -2,8 +2,13 @@
 
 [Live Demo](https://mymetrics-app.herokuapp.com)
 
-
 ### MyMetrics is a project aiming to help patients log their daily intakes in order to help both the patient and their primary care doctor monitor their disease.
+
+## Team Members
+* Albert Shin
+* Eddy Shin
+* Lawrence Guintu
+* Samuel Chia
 
 ## Background and Overview
 
