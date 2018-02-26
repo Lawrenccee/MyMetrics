@@ -9,8 +9,6 @@ angular.
         this.loading = true;        
         this.error = null;
         
-        let button = document.getElementById("login-button");
-        button.setAttribute("disabled", "disabled");
         $http({
           method: 'POST',
           url: '/api/sessions',
@@ -28,7 +26,6 @@ angular.
           err => {
             this.loading = false;            
             this.error = err.data.message;
-            button.removeAttribute("disabled");
           }
         );
       };
@@ -54,6 +51,13 @@ angular.
       };
 
       this.demoLogin = (field, DemoUser, cb) => {
+        let button = document.getElementById("login-button");
+        let patientDemo = document.getElementById("demo-button1");
+        let doctorDemo = document.getElementById("demo-button2");
+
+        button.setAttribute("disabled", "disabled");
+        patientDemo.setAttribute("disabled", "disabled");
+        doctorDemo.setAttribute("disabled", "disabled");
         let textToType = "";
         const typing = () => {
           textToType = DemoUser.substring(0, textToType.length + 1);
