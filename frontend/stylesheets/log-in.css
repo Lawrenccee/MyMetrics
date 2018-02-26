@@ -12,7 +12,8 @@
 .main-session h1 {
     font-size: 70px;
     margin-bottom: 20px;
-    color: #EE6C4D
+    color: #EE6C4D;
+    
 }
 
 .main-session h2 {
@@ -82,14 +83,6 @@
     font-size: 16px;
 }
 
-#email-input {
-    /* margin-left: 35px; */
-}
-
-#password-input {
-    /* margin-left: 5px; */
-}
-
 .session-button {
     width: 100px;
     cursor: pointer;
@@ -109,10 +102,6 @@
 .session-button:hover {
     -webkit-transform: translateY(2px);
     transform: translateY(2px);
-}
-
-.session-link {
-    /* margin-top: auto; */
 }
 
 .loader {
