@@ -1,105 +1,176 @@
-# CHF Tracker
+# MyMetrics
 
-### CHF Tracker is a project aiming to help patients log their daily intakes in order to help both the patient and their primary care doctor monitor their disease.
+[Live Demo](https://mymetrics-app.herokuapp.com)
+
+
+### MyMetrics is a project aiming to help patients log their daily intakes in order to help both the patient and their primary care doctor monitor their disease.
 
 ## Background and Overview
 
 The main focus of a hospital is to prevent people from dying. One of the most preventative deaths is congestive heart failure. As of now, there is no real way for patients to monitor their biometric data in order to know when to see their primary care doctor. This app would help patients monitor their daily information and notify them when it is the appropriate time to see their doctor, rather than coming in when they are at their worst.
 
-## Functionality & MVP
+MyMetrics is a tool made in a span of a 7 days that allows:
+* Patients to log their daily metrics
+* Doctors to view all their patients and their metrics 
+* Doctors and patients to see when certain thresholds have been met, indicating the patient to see their doctor or the doctor to contact the patient.
 
-   - [ ] We will allow patients to log their daily biometrics such as sodium intake, daily weight gain, fluid intake, swelling, and etc.
-   - [ ] We will notify patients and their doctor when their biometrics reach certain thresholds
-   - [ ] We will allow doctors to see their patients' info
+## Features
 
-#### Bonus Features
-   - [ ] Expand to other diseases
-   - [ ] Implement machine learning to analyze data collected for extra symptoms
-   - [ ] Mobile friendly
+MyMetrics gives patients the following features:
+* Ability to log daily intakes
+* Ability to edit previous days intakes
+* Ability to see a graph of their intakes from day to day
+* Ability to input medications and symptoms
+* Warnings of when to contact their doctor for certain thresholds being met
 
-## Technologies & Technical Challenges
-  ##### Backend: Mongodb/Express.js
-  ##### Frontend: Angular.js
+MyMetrics gives doctors the following features: 
+* Ability to view a patient's data
+* Search through their patients
+* Indication of which patients are in bad health
 
-#### User Interface
-  + ##### Patient View
-    + Patient view includes input forms for their data, simple as possible
-    + Other co-morbidities and Ejection Fractions
-    + Quick and easy way to send email to their doctor
-    + Graphs for their weekly data
-    + Prompt for things like age, stage (ranges from hospital), how many times theyve been admitted, list of their medications, weight gain, sodium, fluids, symptoms, etc. (weight is the biggest factor)
-    + list of upcoming appointments
-    + Recommended foods to eat and not eat
-    + Exercise reminders
+### Log In and Sign Up
+Users are able to sign up as a patient or a doctor. This is done with different fields to indicate whether a user is created as a patient or a doctor.
 
-  + ##### Doctor View
-    + Doctor view includes list of their patients and notifications on patients statistics
-    + Easy way to notify patients who haven't been filling out their data
-    + Input patients' upcoming appointments
-    + Section to give notes to patient
+<img src="https://raw.githubusercontent.com/Lawrenccee/MyMetrics/master/readme/signup.gif">
 
-#### Privacy
-  + ##### Hiding patients' biometrics
-    + Only allow the patient and their primary care doctor to see their information
-    + Verifying whether or not someone is actually a doctor for account privileges
+On the backend, code was made in order to reflect this and have validations for doctors and patients:
 
-#### UX
-  + ##### Frontend Interface
-    + We have to make the views as simple and intuitive as possible as doctors don't have much time and patients are forgetful
-    + Easy for older patients to use
-    + Interactive graph for biometrics over week, month, year, etc.
-    + More visual, the better
+```javascript
+if (user.doc_email) {
+  User.findOne({ email: user.doc_email }).then(
+    doc => {
+      user.save().then(
+        u => {
+          doc.patients.push(u);
+          doc.save();
+          req.logIn(user, function(error) {
+            let isDoctor = false;
+            if (error) res.send(422);
+            if (user.license) isDoctor = true;
+            res.send( { email: user.email, id: user._id, isDoctor } );
+          });
+        },
+  ...
+```
 
-  + #### Backend
-    + Managing all of the data with Mongo
-    + Managing queries
+There was also code implemented using the bcrypt and passport packages in order to authenticate users when signing in:
 
-## Accomplished over the Weekend
- - Decided on a project
- - Look into Express Docs, watch youtube videos from Traversy Media
- - Created simple Angular application and read through documentation
- - Watch videos on Node
- - Learn differences between Mongo and Postgres
- - Reached out to a nurse for more information on how to structure the application and common pitfalls
- 
-## Group Members & Work Breakdown
+```javascript
+UserSchema.methods.validPassword = function (password) {
+  return bcrypt.compareSync(password, this.password);
+};
+```
 
-**Albert Shin**,
-**Eddy Shin**,
-**Lawrence Guintu**,
-**Sam Chia**
+Bcrypt is used to hash passwords in order to make them more secure. Comparesync checks where or not the input password is a solution to the bcrypted password to indicate whether or not the password sent is correct.
 
-### Day 1
-  - Backend
-    - Figure out schema and structure of data **SAM**
-    - Simple user auth/doctor verification **EDDY**
-  - Frontend
-    - Simple Login and wireframes **ALBERT**
-    - Find state manager, tutorials, and design state **LAWRENCE**
-  - Framework should be set up **GROUP**
+```javascript
+passport.authenticate('local', function(err, user, info) {
+      if (err) { return next(err); }
+      if (!user) { return res.status(401).json( { message: info.message }); }
+      req.logIn(user, function(error) {
+        if (error) { return next(error); }
+        let isDoctor = false;
+        if (user.license) isDoctor = true;
+        res.send( { email: user.email, id: user._id, isDoctor } );
+      });
+    })
+```
 
-### Day 2
-  - Patient View **ALBERT/LAWRENCE**
-  - Set up database **EDDY/SAM**
-  - Connecting requests and view together **GROUP**
+Passport is used to authenticate a user when logging in, in addition to Bcrypt it helps validate when loggin in a user to create a session.
 
-### Day 3
+### Logging Information
+Patients are able to log their daily vitals and edit previous days' information. When certain thresholds have been reached patients are shown a warning, indicating that they should see their doctor and that their doctor has also been notified.
 
-  - Set graphs for Patient View **ALBERT/LAWRENCE**
-  - Style Patient View/Login/Splash **ALBERT/LAWRENCE**
-  - Make routes and API requests **SAM/EDDY** 
-  - Assignments for day 4/5
+<img src="https://raw.githubusercontent.com/Lawrenccee/MyMetrics/master/readme/input_intakes.gif">
 
-### Day 4
-  - Doctor View **TBD**
-  - Separating doctor and patient auth **TBD**
-  - Set up notifcations and emailing **TBD**
+This is done through AngularJS's two-way binding:
 
-### Day 5
-  - Style Doctor View **TBD**
-  - Set Doctor's View of Patient **TBD**
-  - Get hosting set up **TBD**
+```html
+<div class="inputs">
+  <label><input type="number" ng-model="$ctrl.patient.weight">lbs</label>
+  <label><input type="number" ng-model="$ctrl.patient.sodium">mg</label>
+  <label><input type="number" ng-model="$ctrl.patient.fluid">ml</label>
+</div>
+```
 
-### Day 6
- - improve UX/UI
- - write README
+A controller for the patient view passes the patient's information into the view as input. With this two-way binding, if either the view or controller values change it is reflected in the other. When a submit is sent the user is updated with the values in the patient.
+
+### Adding Medications and Setting Next Appointment
+Patients are also able to update a list of their current medications. They are also able to input when their next appointment.
+
+<img src="https://raw.githubusercontent.com/Lawrenccee/MyMetrics/master/readme/medication_appt.gif">
+
+The patient's information is updated whenever a new medication is added or an old one is removed:
+
+```javascript
+this.addMedication = (medication) => {
+  let index = this.patient.medications.indexOf(medication);
+
+  if (index < 0 && medication && medication.length > 0) {
+    this.patient.medications.push(medication);
+
+    $http({
+      method: "PUT",
+      url: `/api/users/${this.patient.id}`,
+      data: { userInfo: { medications: this.patient.medications } }
+    }).then(
+      r => {
+        this.patient.medications = r.data.medications;
+      },
+      e => console.log(e)
+    );
+  }
+
+  this.medication = "";
+};
+```
+
+By checking the current medications in the list and making sure none of them are already match the input, a new medication can be added to the list and sent for an update.
+
+### Doctor View
+The doctor view allows for searching through the patients, viewing patient's information, and indications of their patient's status.
+
+<img src="https://raw.githubusercontent.com/Lawrenccee/MyMetrics/master/readme/doctor_view.gif">
+
+When a doctor view is loaded, a request is made on the backend to populate the doctor's patient array with information about the patients. This is then sent to the front end where the doctor can click on a patient's list item in order to get the patient and show their information.
+
+```javascript
+User.findById(id).populate({
+  path: 'patients',
+  select: '-password',
+  populate: {
+    path: 'log'
+  }
+}).populate('log').lean().then(
+  u => {
+    if (u.patients.length > 0) {
+      for (let i = 0; i < u.patients.length; i++) {
+        u.patients[i] = formatUser(u.patients[i]);
+      }
+    }
+```
+
+```javascript
+this.getPatient = (event) => {
+  this.currentPatient = JSON.parse(event.target.dataset.patient);
+  GraphService.createChart('patient-graph', this.currentPatient.logData);
+};
+```
+
+## Architecture and Technologies
+The project was implemented with the following Technologies:
+
+* Javascript for the main coding language
+* MEAN stack
+  * MongoDB for the database
+  * Express for Node conventions
+  * AngularJS for the frontend
+  * Node for the backend
+* Highcharts for the graphs of the patient data
+* BCrypt and Passport were used for validation and authentication of users
+* Angular Material was used for loaders
+* FontAwesome was used for any symbols
+
+## Bonus Features for Future Improvement
+- [ ] Modal to allow patients to add/change their doctor and password
+- [ ] Emails to allow patients and doctors to send messages to each other
