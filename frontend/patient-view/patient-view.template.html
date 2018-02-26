@@ -4,11 +4,13 @@
       <h1>MyMetrics</h1>
 
       <div class="warnings" ng-if="$ctrl.warnings.length > 0">
-        <div id="warning-icon"></div>
-        <span>Your doctor has been notified for the following reasons:</span>
-        <ul>
-          <li ng-repeat="warning in $ctrl.warnings">{{warning}}</li>
-        </ul>
+        <div class="warning-header">
+          <div id="warning-icon"> </div>
+          <span>Your doctor has been notified for the following reasons:</span>
+        </div>
+          <ul>
+            <li ng-repeat="warning in $ctrl.warnings">{{warning}}</li>
+          </ul>
       </div>
 
 
