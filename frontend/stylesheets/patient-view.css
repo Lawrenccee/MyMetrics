@@ -31,12 +31,13 @@
 }
 
 .patient-view .header {
-  flex: 1 1 0%;
+  flex: 1 1 auto;
 }
 
 .patient-view .name-stage {
   display: flex;
   flex-direction: column;
+  margin-bottom: 10px;
 }
 
 .patient-view .name-date {
@@ -65,7 +66,7 @@
 .patient-view .metrics {
   display: flex;
   flex-direction: column;
-  flex: 2 1 0%;
+  flex: 1 1 auto;
   justify-content: center;
 }
 
@@ -73,14 +74,19 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  margin-top: 10px;
+  margin: 10px 0;
 }
 
 .patient-view .symptoms-medications {
   display: flex;
   flex-direction: row-reverse;
-  flex: 3 1 0%;
+  flex: 1 1 auto;
   justify-content: space-between;
+}
+
+.patient-view .header, .patient-view .metrics {
+  margin-bottom: 10px;
+  flex: 1 1 auto;
 }
 
 .patient-view .symptoms {
@@ -88,7 +94,7 @@
   flex-direction: column;
   white-space: nowrap;
   width: 50%;
-  margin: 10px 0px 10px 10px;
+  margin: 0px 0px 0px 10px;
 }
 
 .patient-view .symptoms h2 {
@@ -104,7 +110,7 @@
 .patient-view .symptoms button {
   margin-top: auto;
   text-align: center;
-  margin-right: 10px;
+  /* margin-right: 10px; */
 }
 
 .patient-view .medications {
@@ -112,7 +118,7 @@
   flex-direction: column;
   width: 50%;
   justify-content: space-between;
-  margin: 10px 10px 10px 0px;
+  margin: 0px 10px 0px 0px;
 }
 
 .patient-view .medication-list {
@@ -200,7 +206,7 @@ div.medication-list ul li .medication {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .patient-view .name {
@@ -217,6 +223,12 @@ div.medication-list ul li .medication {
 .patient-view .metrics .inputs {
   display: flex;
   flex-direction: column;
+}
+
+.patient-view .metrics .inputs > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .patient-view .metrics .labels label, .patient-view .metrics .inputs input {
