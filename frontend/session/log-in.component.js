@@ -30,7 +30,7 @@ angular.
             this.error = err.data.message;
             button.removeAttribute("disabled");
           }
-      );
+        );
       };
 
       this.user = {};

@@ -16,19 +16,17 @@
 }
 
 .main-signup-container  {
-    /* border: 1px solid black; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin-top: 20px;
     height: 45vh;
-    width: 100%;
 }
 
 .main-signup-form {
     /* border: 1px solid blue; */
     display: flex;
-    width: 70vw;
+    width: 100%;
     height: 30vh;
     color: #3D5A80;
 }
@@ -38,7 +36,11 @@
     margin-top: auto;
 }
 
-.main-signup-form input {
+.patient-signup-dob-label {
+    padding-left: 40px;
+}
+
+.main-signup-form input[type='text'], .main-signup-form input[type='password'], .main-signup-form input[type='email'] {
     padding: 7px 0 7px 7px;
     font-size: 16px;
 }
@@ -51,11 +53,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-end;
-    width: 60%;
+    margin-right: 10px;
 }
 
 
 .right-signup-form {
+    margin-left: 10px;
     /* border: 1px solid red; */
     display: flex;
     flex-grow: 1;
@@ -63,13 +66,11 @@
     justify-content: center;
     align-items: center;   
     padding: 6px; 
-    width: 70%;
 }
 
 .right-signup-form #signup-dob {
-    margin-left: 3vw;
-    height: 5.5vh;
-    width: 12vw;
+    width: 154px;
+    /* margin-left: 40px; */
     font-size: 15px;
     text-align: center;
 }
@@ -103,7 +104,7 @@
     flex-direction: column;
     margin-top: 20px;
     height: 44vh;
-    width: 50vw;
+    width: 100%;
 }
 
 .doctor-signup-container .doctor-left-signup {
@@ -112,7 +113,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-end;
-    width: 25vw;
+    width: 50%;
 }
 
 .doctor-signup-container .doctor-left-signup input {
@@ -126,11 +127,16 @@
     justify-content: center;
     align-items: flex-end;   
     padding: 6px; 
-    width: 23vw;
 }
 
 .doctor-signup-container #doctor-dob {
-    padding: 4px;
-    font-size: 13px;
+    font-size: 15px;
+    width: 154px;
     text-align: center;
+}
+
+#sign-up {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
