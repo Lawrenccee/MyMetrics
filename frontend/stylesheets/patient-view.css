@@ -133,7 +133,7 @@
   border: 1px solid lightgray;
   /* border-radius: 5px; */
   flex: 1 1 auto;
-  padding: 5px;
+  /* padding: 5px; */
   background-color: white;
 }
 
@@ -316,6 +316,8 @@ div.medication-list ul li button.delete-button {
 .warnings {
   color: red;
   margin-top: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .warnings span {
@@ -324,18 +326,25 @@ div.medication-list ul li button.delete-button {
   font-weight: bold;
 }
 .warnings li {
-  text-indent: 37px;
+  text-indent: 2.8vh;
   font-size: 2.5vh;
   /* font-size: 18px; */
   margin: 3px;
 }
 
+.warning-header {
+  display: flex;
+  flex-direction: row;
+}
+
 #warning-icon {
   position: relative;
-  top: 6px;
+  /* top: 6px; */
   display: inline-block;
   background-image: urL('../assets/exclamation.svg');
   background-size: cover;
-  width: 30px;
-  height: 30px;
+  width: 2.7vh;
+  height: 2.7vh;
+  padding-right: 2.7vh;
+  margin-right: 5px;
 }
