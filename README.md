@@ -5,10 +5,10 @@
 ### MyMetrics is a project aiming to help patients log their daily intakes in order to help both the patient and their primary care doctor monitor their disease.
 
 ## Team Members
-* Albert Shin
-* Eddy Shin
-* Lawrence Guintu
-* Samuel Chia
+* Albert Shin [GitHub](https://github.com/BertShin)
+* Eddy Shin [GitHub](https://github.com/masag0)
+* Lawrence Guintu [GitHub](https://github.com/Lawrenccee)
+* Samuel Chia [GitHub](https://github.com/cheeeya)
 
 ## Background and Overview
 
