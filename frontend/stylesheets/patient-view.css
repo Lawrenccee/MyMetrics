@@ -68,6 +68,10 @@
   margin-top: 10px;
 }
 
+.patient-view .next-appointment {
+  display: flex;
+}
+
 .patient-view .metrics {
   display: flex;
   flex-direction: column;
@@ -207,7 +211,8 @@ div.medication-list ul li .medication {
 .patient-view .warnings-appointment-logout-graph {
   display: flex;
   flex-direction: column;
-  /* height: 100%; */
+  justify-content: space-between;
+  height: 100%;
   flex: 1 1 auto;
 }
 
@@ -216,7 +221,7 @@ div.medication-list ul li .medication {
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 10px;
-  flex: 1 1 auto;
+  /* flex: 1 1 auto; */
 }
 
 .patient-view .name {
