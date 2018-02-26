@@ -17,7 +17,8 @@ angular.
           data: this.user
         }).then(
           res => {
-          this.loading = false;            
+          this.loading = false;    
+          console.log(this.user);        
           UserService.setStore(res.data);
           if (res.data.isDoctor) {
             $window.location.href = '#!/doctorview';
@@ -32,6 +33,33 @@ angular.
           }
       );
       };
+
+      this.user = {};
+
+      this.handleGuest = (e) => {
+        e.preventDefault();
+        this.demoLogin('email', "EddyShinMd@ucsf.edu", (
+          () => this.demoLogin('password', 'password', (
+            () => this.sendUser()
+          ))
+        ));
+      };
+
+      this.demoLogin = (field, DemoUser, cb) => {
+        let textToType = "";
+        const typing = () => {
+          textToType = DemoUser.substring(0, textToType.length + 1);
+          this.user[field] = textToType;
+          console.log(this.user[field]);
+          if (textToType.length === DemoUser.length) {
+            setTimeout(() => cb(), 100);
+          } else {
+            setTimeout(() => typing(), 100);
+          }
+        };
+        typing();
+      };
+
     }
   });
 

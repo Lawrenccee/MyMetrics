@@ -28,7 +28,10 @@
       <input required id="password-input" type="password" ng-model="$ctrl.user.password">
     </div>
 
-    <button id="login-button" class="session-button" ng-model="$ctrl.user">Log In</button>
+    <div>
+      <button id="login-button" class="session-button" ng-model="$ctrl.user">Log In</button>
+      <button id="login-button" class="session-button" ng-model="$ctrl.user" ng-click="$ctrl.handleGuest($event)">Demo: Doctor</button>
+    </div>
 
     <a class="session-link" href='#!/patientsignup'>Don't have an account? Sign Up</a>
 
