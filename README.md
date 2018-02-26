@@ -174,3 +174,4 @@ The project was implemented with the following Technologies:
 ## Bonus Features for Future Improvement
 - [ ] Modal to allow patients to add/change their doctor and password
 - [ ] Emails to allow patients and doctors to send messages to each other
+- [ ] Making it Mobile friendly
