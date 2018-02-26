@@ -18,7 +18,6 @@ angular.
         }).then(
           res => {
           this.loading = false;    
-          console.log(this.user);        
           UserService.setStore(res.data);
           if (res.data.isDoctor) {
             $window.location.href = '#!/doctorview';
@@ -59,7 +58,6 @@ angular.
         const typing = () => {
           textToType = DemoUser.substring(0, textToType.length + 1);
           this.user[field] = textToType;
-          console.log(this.user[field]);
           if (textToType.length === DemoUser.length) {
             setTimeout(() => cb(), 100);
           } else {
