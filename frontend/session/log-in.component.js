@@ -68,9 +68,9 @@ angular.
           textToType = DemoUser.substring(0, textToType.length + 1);
           this.user[field] = textToType;
           if (textToType.length === DemoUser.length) {
-            setTimeout(() => cb(), 100);
+            setTimeout(() => cb(), 65);
           } else {
-            setTimeout(() => typing(), 100);
+            setTimeout(() => typing(), 65);
           }
           $scope.$applyAsync();
         };
